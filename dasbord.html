@@ -254,7 +254,7 @@
             gap: 25px;
         }
 
-        .stats-section, .schedule-section, .assignments-section, .activity-section {
+        .stats-section, .schedule-section, .assignments-section, .activity-section, .absence-alert-section {
             background: white;
             border-radius: 15px;
             padding: 25px;
@@ -265,7 +265,11 @@
             grid-column: 1 / -1;
         }
 
-        .stats-section h3, .schedule-section h3, .assignments-section h3, .activity-section h3 {
+        .absence-alert-section {
+            grid-column: 1 / -1;
+        }
+
+        .stats-section h3, .schedule-section h3, .assignments-section h3, .activity-section h3, .absence-alert-section h3 {
             margin-bottom: 20px;
             color: var(--text-dark);
             font-size: 1.3rem;
@@ -1128,6 +1132,331 @@
             margin-bottom: 10px;
         }
 
+        /* Attendance Summary */
+        .attendance-summary {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: var(--shadow);
+        }
+
+        .summary-card h4 {
+            margin-bottom: 15px;
+            color: var(--text-dark);
+        }
+
+        .summary-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .summary-item .label {
+            color: var(--text-light);
+        }
+
+        .summary-item .value {
+            font-weight: 600;
+        }
+
+        .summary-item .value.present {
+            color: var(--secondary-color);
+        }
+
+        .summary-item .value.absent {
+            color: var(--danger-color);
+        }
+
+        /* NEW: Absence Alert Styles */
+        .absence-alert-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .absence-alert-item {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: var(--shadow);
+            border-left: 4px solid var(--danger-color);
+            transition: all 0.3s;
+        }
+
+        .absence-alert-item:hover {
+            transform: translateY(-3px);
+        }
+
+        .absence-alert-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .absence-alert-student {
+            font-weight: 600;
+            color: var(--text-dark);
+            font-size: 1.1rem;
+        }
+
+        .absence-alert-count {
+            background: var(--danger-color);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .absence-alert-subjects {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .absence-alert-subject {
+            background: var(--bg-light);
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .absence-alert-subject.absent {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .absence-alert-subject.sick {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .absence-alert-subject.permission {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        /* NEW: Student Absence Report */
+        .student-absence-report {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: var(--shadow);
+            margin-bottom: 20px;
+        }
+
+        .student-absence-report h3 {
+            margin-bottom: 15px;
+            color: var(--text-dark);
+        }
+
+        .absence-report-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .absence-report-table th {
+            background: var(--bg-light);
+            padding: 12px 15px;
+            text-align: left;
+            font-weight: 600;
+            color: var(--text-dark);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .absence-report-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .absence-report-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .absence-report-table tr:hover {
+            background: var(--bg-light);
+        }
+
+        .absence-report-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        /* NEW: Absence Pattern Styles */
+        .absence-pattern-section {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: var(--shadow);
+            margin-bottom: 25px;
+        }
+
+        .pattern-filters {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .pattern-filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .pattern-filter-group label {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-light);
+        }
+
+        /* NEW: Group Spinner Styles */
+        .group-spinner-section {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: var(--shadow);
+            margin-bottom: 25px;
+        }
+
+        .group-controls {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            align-items: end;
+        }
+
+        .group-control-item {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .group-control-item label {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-light);
+        }
+
+        .groups-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .group-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+        }
+
+        .group-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .group-name {
+            font-weight: 600;
+            color: var(--primary-color);
+            font-size: 1.1rem;
+        }
+
+        .group-member-count {
+            background: var(--primary-color);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .group-members {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .group-member {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px;
+            border-radius: 6px;
+            background: var(--bg-light);
+        }
+
+        .group-member-avatar {
+            width: 30px;
+            height: 30px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .group-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        /* NEW: Spinner Animation */
+        .spinner-container {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            margin: 20px 0;
+        }
+
+        .spinner {
+            width: 60px;
+            height: 60px;
+            border: 5px solid var(--bg-light);
+            border-top: 5px solid var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .spinner-text {
+            color: var(--text-light);
+            font-weight: 500;
+        }
+
         /* Responsive Design */
         @media (max-width: 1024px) {
             .dashboard-grid {
@@ -1258,6 +1587,14 @@
                     <i class="fas fa-clipboard-check"></i>
                     <span>Absensi</span>
                 </a>
+                <a href="#absence-tracking" class="nav-item" data-tab="absence-tracking">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <span>Pelacakan Bolos</span>
+                </a>
+                <a href="#group-spinner" class="nav-item" data-tab="group-spinner">
+                    <i class="fas fa-random"></i>
+                    <span>Pembagian Kelompok</span>
+                </a>
                 <a href="#schedule" class="nav-item" data-tab="schedule">
                     <i class="fas fa-calendar-alt"></i>
                     <span>Jadwal</span>
@@ -1342,6 +1679,15 @@
                             </div>
                         </div>
                     </div>
+                    
+                    <!-- NEW: Absence Alert Section -->
+                    <div class="absence-alert-section">
+                        <h3><i class="fas fa-exclamation-triangle"></i> Peringatan Ketidakhadiran</h3>
+                        <div class="absence-alert-list" id="absenceAlertList">
+                            <!-- Alert items will be loaded here -->
+                        </div>
+                    </div>
+                    
                     <!-- Today's Schedule -->
                     <div class="schedule-section">
                         <h3>Jadwal Hari Ini</h3>
@@ -1475,6 +1821,136 @@
                                 <span class="value absent" id="absentCountSummary">36</span>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- NEW: Absence Tracking Tab -->
+            <div id="absence-tracking" class="tab-content">
+                <div class="tab-header">
+                    <h2><i class="fas fa-exclamation-triangle"></i> Pelacakan Ketidakhadiran Siswa</h2>
+                    <div>
+                        <button class="export-btn" onclick="app.exportAbsenceReport()">
+                            <i class="fas fa-file-export"></i>
+                            Ekspor Laporan
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="absence-pattern-section">
+                    <h3>Pola Ketidakhadiran</h3>
+                    <div class="pattern-filters">
+                        <div class="pattern-filter-group">
+                            <label for="absenceDateRange">Rentang Tanggal:</label>
+                            <input type="date" id="absenceStartDate">
+                            <span>s/d</span>
+                            <input type="date" id="absenceEndDate">
+                        </div>
+                        <div class="pattern-filter-group">
+                            <label for="absenceTypeFilter">Jenis Ketidakhadiran:</label>
+                            <select id="absenceTypeFilter">
+                                <option value="all">Semua</option>
+                                <option value="absent">Alpha</option>
+                                <option value="sick">Sakit</option>
+                                <option value="permission">Izin</option>
+                            </select>
+                        </div>
+                        <div class="pattern-filter-group">
+                            <label for="absenceThreshold">Ambang Batas:</label>
+                            <select id="absenceThreshold">
+                                <option value="1">1+ ketidakhadiran</option>
+                                <option value="2">2+ ketidakhadiran</option>
+                                <option value="3" selected>3+ ketidakhadiran</option>
+                                <option value="5">5+ ketidakhadiran</option>
+                            </select>
+                        </div>
+                        <button class="btn-primary" onclick="app.loadAbsencePatterns()">
+                            <i class="fas fa-filter"></i> Terapkan Filter
+                        </button>
+                    </div>
+                    
+                    <div class="student-absence-report">
+                        <h3>Laporan Ketidakhadiran per Siswa</h3>
+                        <div class="attendance-table-container">
+                            <table class="absence-report-table">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Nama Siswa</th>
+                                        <th>NIS</th>
+                                        <th>Total Ketidakhadiran</th>
+                                        <th>Mata Pelajaran yang Ditinggalkan</th>
+                                        <th>Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="absenceReportTableBody">
+                                    <!-- Absence report data will be loaded here -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="absence-alert-section">
+                    <h3><i class="fas fa-bell"></i> Siswa dengan Ketidakhadiran Tinggi</h3>
+                    <div class="absence-alert-list" id="detailedAbsenceAlertList">
+                        <!-- Detailed alert items will be loaded here -->
+                    </div>
+                </div>
+            </div>
+            
+            <!-- NEW: Group Spinner Tab -->
+            <div id="group-spinner" class="tab-content">
+                <div class="tab-header">
+                    <h2><i class="fas fa-random"></i> Pembagian Kelompok Acak</h2>
+                </div>
+                
+                <div class="group-spinner-section">
+                    <h3>Pengaturan Pembagian Kelompok</h3>
+                    <div class="group-controls">
+                        <div class="group-control-item">
+                            <label for="groupCount">Jumlah Kelompok:</label>
+                            <input type="number" id="groupCount" min="2" max="10" value="4">
+                        </div>
+                        <div class="group-control-item">
+                            <label for="groupMethod">Metode Pembagian:</label>
+                            <select id="groupMethod">
+                                <option value="random">Acak Penuh</option>
+                                <option value="balanced">Seimbang (Gender/Nilai)</option>
+                                <option value="leader">Dengan Pemimpin Kelompok</option>
+                            </select>
+                        </div>
+                        <div class="group-control-item">
+                            <label for="includeAbsent">Siswa Tidak Hadir:</label>
+                            <select id="includeAbsent">
+                                <option value="include">Termasuk</option>
+                                <option value="exclude" selected>Kecualikan</option>
+                            </select>
+                        </div>
+                        <button class="btn-primary" onclick="app.generateGroups()">
+                            <i class="fas fa-random"></i> Buat Kelompok
+                        </button>
+                        <button class="btn-secondary" onclick="app.regenerateGroups()">
+                            <i class="fas fa-redo"></i> Acak Ulang
+                        </button>
+                    </div>
+                    
+                    <div class="spinner-container" id="groupSpinner">
+                        <div class="spinner"></div>
+                        <div class="spinner-text">Membuat kelompok acak...</div>
+                    </div>
+                    
+                    <div class="groups-container" id="groupsContainer">
+                        <!-- Groups will be loaded here -->
+                    </div>
+                    
+                    <div class="group-actions">
+                        <button class="export-btn" onclick="app.exportGroups()">
+                            <i class="fas fa-print"></i> Cetak Kelompok
+                        </button>
+                        <button class="btn-secondary" onclick="app.saveGroups()">
+                            <i class="fas fa-save"></i> Simpan Kelompok
+                        </button>
                     </div>
                 </div>
             </div>
@@ -1690,6 +2166,23 @@
         </div>
     </div>
 
+    <!-- NEW: Student Absence Detail Modal -->
+    <div id="studentAbsenceModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="studentAbsenceModalTitle">Detail Ketidakhadiran Siswa</h3>
+                <button class="close-btn" onclick="app.closeModal('studentAbsenceModal')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="studentAbsenceDetails">
+                    <!-- Student absence details will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
         class ClassWebsite {
             constructor() {
@@ -1700,6 +2193,7 @@
                 this.attendance = this.loadAttendance();
                 this.assignments = this.loadAssignments();
                 this.announcement = this.loadAnnouncement();
+                this.groups = this.loadGroups();
                 this.init();
             }
 
@@ -1707,6 +2201,8 @@
                 this.bindEvents();
                 this.loadDashboard();
                 this.loadAttendanceTab();
+                this.loadAbsenceTrackingTab();
+                this.loadGroupSpinnerTab();
                 this.loadScheduleTab();
                 this.loadStudentsTab();
                 this.loadTeachersTab();
@@ -1759,46 +2255,62 @@
                         this.filterAssignments(e.target.dataset.filter);
                     });
                 });
+
+                // Update attendance students when date or subject changes
+                document.getElementById('modalDate').addEventListener('change', () => {
+                    this.loadAttendanceStudents();
+                });
+                document.getElementById('modalSubject').addEventListener('change', () => {
+                    this.loadAttendanceStudents();
+                });
+
+                // Set default dates for absence tracking
+                const today = new Date();
+                const oneWeekAgo = new Date();
+                oneWeekAgo.setDate(today.getDate() - 7);
+                
+                document.getElementById('absenceStartDate').value = oneWeekAgo.toISOString().split('T')[0];
+                document.getElementById('absenceEndDate').value = today.toISOString().split('T')[0];
             }
 
             loadStudents() {
                 return [
-                    { id: 1, name: 'Ahmad Rizki', nis: '2024001', email: 'ahmad1@email.com', phone: '081234567890' },
-                    { id: 2, name: 'Sari Dewi', nis: '2024002', email: 'sari2@email.com', phone: '081234567891' },
-                    { id: 3, name: 'Budi Santoso', nis: '2024003', email: 'budi3@email.com', phone: '081234567892' },
-                    { id: 4, name: 'Maya Sari', nis: '2024004', email: 'maya4@email.com', phone: '081234567893' },
-                    { id: 5, name: 'Rizki Pratama', nis: '2024005', email: 'rizki5@email.com', phone: '081234567894' },
-                    { id: 6, name: 'Dewi Lestari', nis: '2024006', email: 'dewi6@email.com', phone: '081234567895' },
-                    { id: 7, name: 'Andi Wijaya', nis: '2024007', email: 'andi7@email.com', phone: '081234567896' },
-                    { id: 8, name: 'Siti Nurhaliza', nis: '2024008', email: 'siti8@email.com', phone: '081234567897' },
-                    { id: 9, name: 'Eko Prasetya', nis: '2024009', email: 'eko9@email.com', phone: '081234567898' },
-                    { id: 10, name: 'Lina Kusuma', nis: '2024010', email: 'lina10@email.com', phone: '081234567899' },
-                    { id: 11, name: 'Fajar Nugroho', nis: '2024011', email: 'fajar11@email.com', phone: '081234567800' },
-                    { id: 12, name: 'Intan Permata', nis: '2024012', email: 'intan12@email.com', phone: '081234567801' },
-                    { id: 13, name: 'Guntur Prakasa', nis: '2024013', email: 'guntur13@email.com', phone: '081234567802' },
-                    { id: 14, name: 'Heni Susanti', nis: '2024014', email: 'heni14@email.com', phone: '081234567803' },
-                    { id: 15, name: 'Irfan Maulana', nis: '2024015', email: 'irfan15@email.com', phone: '081234567804' },
-                    { id: 16, name: 'Jihan Aulia', nis: '2024016', email: 'jihan16@email.com', phone: '081234567805' },
-                    { id: 17, name: 'Krisna Adi', nis: '2024017', email: 'krisna17@email.com', phone: '081234567806' },
-                    { id: 18, name: 'Lintang Sari', nis: '2024018', email: 'lintang18@email.com', phone: '081234567807' },
-                    { id: 19, name: 'Maulana Yusuf', nis: '2024019', email: 'maulana19@email.com', phone: '081234567808' },
-                    { id: 20, name: 'Nadia Putri', nis: '2024020', email: 'nadia20@email.com', phone: '081234567809' },
-                    { id: 21, name: 'Oka Pratama', nis: '2024021', email: 'oka21@email.com', phone: '081234567810' },
-                    { id: 22, name: 'Putri Lestari', nis: '2024022', email: 'putri22@email.com', phone: '081234567811' },
-                    { id: 23, name: 'Rama Kusuma', nis: '2024023', email: 'rama23@email.com', phone: '081234567812' },
-                    { id: 24, name: 'Siska Anggraini', nis: '2024024', email: 'siska24@email.com', phone: '081234567813' },
-                    { id: 25, name: 'Taufik Hidayat', nis: '2024025', email: 'taufik25@email.com', phone: '081234567814' },
-                    { id: 26, name: 'Umi Kalsum', nis: '2024026', email: 'umi26@email.com', phone: '081234567815' },
-                    { id: 27, name: 'Vicky Prasetya', nis: '2024027', email: 'vicky27@email.com', phone: '081234567816' },
-                    { id: 28, name: 'Wulan Sari', nis: '2024028', email: 'wulan28@email.com', phone: '081234567817' },
-                    { id: 29, name: 'Xavier Adi', nis: '2024029', email: 'xavier29@email.com', phone: '081234567818' },
-                    { id: 30, name: 'Yuni Astuti', nis: '2024030', email: 'yuni30@email.com', phone: '081234567819' },
-                    { id: 31, name: 'Zaki Prasetyo', nis: '2024031', email: 'zaki31@email.com', phone: '081234567820' },
-                    { id: 32, name: 'Anisa Khoirunnisa', nis: '2024032', email: 'anisa32@email.com', phone: '081234567821' },
-                    { id: 33, name: 'Bayu Setiawan', nis: '2024033', email: 'bayu33@email.com', phone: '081234567822' },
-                    { id: 34, name: 'Citra Dewi', nis: '2024034', email: 'citra34@email.com', phone: '081234567823' },
-                    { id: 35, name: 'Dian Prasetya', nis: '2024035', email: 'dian35@email.com', phone: '081234567824' },
-                    { id: 36, name: 'Eva Lestari', nis: '2024036', email: 'eva36@email.com', phone: '081234567825' }
+                    { id: 1, name: 'Ahmad Rizki', nis: '2024001', email: 'ahmad1@email.com', phone: '081234567890', gender: 'L' },
+                    { id: 2, name: 'Sari Dewi', nis: '2024002', email: 'sari2@email.com', phone: '081234567891', gender: 'P' },
+                    { id: 3, name: 'Budi Santoso', nis: '2024003', email: 'budi3@email.com', phone: '081234567892', gender: 'L' },
+                    { id: 4, name: 'Maya Sari', nis: '2024004', email: 'maya4@email.com', phone: '081234567893', gender: 'P' },
+                    { id: 5, name: 'Rizki Pratama', nis: '2024005', email: 'rizki5@email.com', phone: '081234567894', gender: 'L' },
+                    { id: 6, name: 'Dewi Lestari', nis: '2024006', email: 'dewi6@email.com', phone: '081234567895', gender: 'P' },
+                    { id: 7, name: 'Andi Wijaya', nis: '2024007', email: 'andi7@email.com', phone: '081234567896', gender: 'L' },
+                    { id: 8, name: 'Siti Nurhaliza', nis: '2024008', email: 'siti8@email.com', phone: '081234567897', gender: 'P' },
+                    { id: 9, name: 'Eko Prasetya', nis: '2024009', email: 'eko9@email.com', phone: '081234567898', gender: 'L' },
+                    { id: 10, name: 'Lina Kusuma', nis: '2024010', email: 'lina10@email.com', phone: '081234567899', gender: 'P' },
+                    { id: 11, name: 'Fajar Nugroho', nis: '2024011', email: 'fajar11@email.com', phone: '081234567800', gender: 'L' },
+                    { id: 12, name: 'Intan Permata', nis: '2024012', email: 'intan12@email.com', phone: '081234567801', gender: 'P' },
+                    { id: 13, name: 'Guntur Prakasa', nis: '2024013', email: 'guntur13@email.com', phone: '081234567802', gender: 'L' },
+                    { id: 14, name: 'Heni Susanti', nis: '2024014', email: 'heni14@email.com', phone: '081234567803', gender: 'P' },
+                    { id: 15, name: 'Irfan Maulana', nis: '2024015', email: 'irfan15@email.com', phone: '081234567804', gender: 'L' },
+                    { id: 16, name: 'Jihan Aulia', nis: '2024016', email: 'jihan16@email.com', phone: '081234567805', gender: 'P' },
+                    { id: 17, name: 'Krisna Adi', nis: '2024017', email: 'krisna17@email.com', phone: '081234567806', gender: 'L' },
+                    { id: 18, name: 'Lintang Sari', nis: '2024018', email: 'lintang18@email.com', phone: '081234567807', gender: 'P' },
+                    { id: 19, name: 'Maulana Yusuf', nis: '2024019', email: 'maulana19@email.com', phone: '081234567808', gender: 'L' },
+                    { id: 20, name: 'Nadia Putri', nis: '2024020', email: 'nadia20@email.com', phone: '081234567809', gender: 'P' },
+                    { id: 21, name: 'Oka Pratama', nis: '2024021', email: 'oka21@email.com', phone: '081234567810', gender: 'L' },
+                    { id: 22, name: 'Putri Lestari', nis: '2024022', email: 'putri22@email.com', phone: '081234567811', gender: 'P' },
+                    { id: 23, name: 'Rama Kusuma', nis: '2024023', email: 'rama23@email.com', phone: '081234567812', gender: 'L' },
+                    { id: 24, name: 'Siska Anggraini', nis: '2024024', email: 'siska24@email.com', phone: '081234567813', gender: 'P' },
+                    { id: 25, name: 'Taufik Hidayat', nis: '2024025', email: 'taufik25@email.com', phone: '081234567814', gender: 'L' },
+                    { id: 26, name: 'Umi Kalsum', nis: '2024026', email: 'umi26@email.com', phone: '081234567815', gender: 'P' },
+                    { id: 27, name: 'Vicky Prasetya', nis: '2024027', email: 'vicky27@email.com', phone: '081234567816', gender: 'L' },
+                    { id: 28, name: 'Wulan Sari', nis: '2024028', email: 'wulan28@email.com', phone: '081234567817', gender: 'P' },
+                    { id: 29, name: 'Xavier Adi', nis: '2024029', email: 'xavier29@email.com', phone: '081234567818', gender: 'L' },
+                    { id: 30, name: 'Yuni Astuti', nis: '2024030', email: 'yuni30@email.com', phone: '081234567819', gender: 'P' },
+                    { id: 31, name: 'Zaki Prasetyo', nis: '2024031', email: 'zaki31@email.com', phone: '081234567820', gender: 'L' },
+                    { id: 32, name: 'Anisa Khoirunnisa', nis: '2024032', email: 'anisa32@email.com', phone: '081234567821', gender: 'P' },
+                    { id: 33, name: 'Bayu Setiawan', nis: '2024033', email: 'bayu33@email.com', phone: '081234567822', gender: 'L' },
+                    { id: 34, name: 'Citra Dewi', nis: '2024034', email: 'citra34@email.com', phone: '081234567823', gender: 'P' },
+                    { id: 35, name: 'Dian Prasetya', nis: '2024035', email: 'dian35@email.com', phone: '081234567824', gender: 'L' },
+                    { id: 36, name: 'Eva Lestari', nis: '2024036', email: 'eva36@email.com', phone: '081234567825', gender: 'P' }
                 ];
             }
 
@@ -1922,7 +2434,85 @@
 
             loadAttendance() {
                 const saved = localStorage.getItem('attendanceData');
-                return saved ? JSON.parse(saved) : { records: [] };
+                if (saved) {
+                    return JSON.parse(saved);
+                } else {
+                    // Create sample data for demonstration
+                    const sampleData = {
+                        records: [
+                            // Sample records for demonstration
+                            {
+                                id: 1,
+                                date: new Date().toISOString().split('T')[0],
+                                subject: 'matematika',
+                                studentId: 1,
+                                studentName: 'Ahmad Rizki',
+                                nis: '2024001',
+                                status: 'present',
+                                time: '07:15',
+                                timestamp: new Date().toISOString()
+                            },
+                            {
+                                id: 2,
+                                date: new Date().toISOString().split('T')[0],
+                                subject: 'matematika',
+                                studentId: 2,
+                                studentName: 'Sari Dewi',
+                                nis: '2024002',
+                                status: 'absent',
+                                time: '07:15',
+                                timestamp: new Date().toISOString()
+                            },
+                            {
+                                id: 3,
+                                date: new Date().toISOString().split('T')[0],
+                                subject: 'fisika',
+                                studentId: 3,
+                                studentName: 'Budi Santoso',
+                                nis: '2024003',
+                                status: 'sick',
+                                time: '08:45',
+                                timestamp: new Date().toISOString()
+                            },
+                            {
+                                id: 4,
+                                date: new Date().toISOString().split('T')[0],
+                                subject: 'kimia',
+                                studentId: 4,
+                                studentName: 'Maya Sari',
+                                nis: '2024004',
+                                status: 'permission',
+                                time: '10:15',
+                                timestamp: new Date().toISOString()
+                            },
+                            // Add more sample records for different dates
+                            {
+                                id: 5,
+                                date: new Date(Date.now() - 86400000).toISOString().split('T')[0], // Yesterday
+                                subject: 'matematika',
+                                studentId: 2,
+                                studentName: 'Sari Dewi',
+                                nis: '2024002',
+                                status: 'absent',
+                                time: '07:15',
+                                timestamp: new Date(Date.now() - 86400000).toISOString()
+                            },
+                            {
+                                id: 6,
+                                date: new Date(Date.now() - 86400000).toISOString().split('T')[0], // Yesterday
+                                subject: 'fisika',
+                                studentId: 3,
+                                studentName: 'Budi Santoso',
+                                nis: '2024003',
+                                status: 'absent',
+                                time: '08:45',
+                                timestamp: new Date(Date.now() - 86400000).toISOString()
+                            }
+                        ]
+                    };
+                    localStorage.setItem('attendanceData', JSON.stringify(sampleData));
+                    return sampleData;
+                }
             }
 
             loadAssignments() {
@@ -1935,6 +2525,11 @@
                 return saved ? JSON.parse(saved) : { text: "Persiapan Ujian Tengah Semester akan dimulai minggu depan. Mari persiapkan dengan baik!" };
             }
 
+            loadGroups() {
+                const saved = localStorage.getItem('groupData');
+                return saved ? JSON.parse(saved) : { groups: [] };
+            }
+
             saveAttendance() {
                 localStorage.setItem('attendanceData', JSON.stringify(this.attendance));
             }
@@ -1945,6 +2540,10 @@
 
             saveAnnouncementData() {
                 localStorage.setItem('announcementData', JSON.stringify(this.announcement));
+            }
+
+            saveGroups() {
+                localStorage.setItem('groupData', JSON.stringify(this.groups));
             }
 
             switchTab(tabName) {
@@ -1960,6 +2559,13 @@
                 document.getElementById(tabName).classList.add('active');
                 // Activate corresponding nav item
                 document.querySelector(`[data-tab="${tabName}"]`).classList.add('active');
+                
+                // Load specific tab data if needed
+                if (tabName === 'absence-tracking') {
+                    this.loadAbsenceTrackingTab();
+                } else if (tabName === 'group-spinner') {
+                    this.loadGroupSpinnerTab();
+                }
             }
 
             loadDashboard() {
@@ -1995,9 +2601,11 @@
 
                 // Load upcoming assignments for dashboard
                 this.loadUpcomingAssignments();
+                
+                // Load absence alerts for dashboard
+                this.loadAbsenceAlerts();
             }
 
-            // NEW: Load upcoming assignments for dashboard
             loadUpcomingAssignments() {
                 const dashboardAssignmentsList = document.getElementById('dashboardAssignmentsList');
                 const today = new Date();
@@ -2032,7 +2640,81 @@
                 }
             }
 
-            // NEW: Format date for display
+            // NEW: Load absence alerts for dashboard
+            loadAbsenceAlerts() {
+                const absenceAlertList = document.getElementById('absenceAlertList');
+                
+                // Get students with multiple absences in the last 7 days
+                const oneWeekAgo = new Date();
+                oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
+                
+                const recentAbsences = this.attendance.records.filter(record => {
+                    const recordDate = new Date(record.date);
+                    return recordDate >= oneWeekAgo && 
+                          (record.status === 'absent' || record.status === 'sick' || record.status === 'permission');
+                });
+                
+                // Group by student and count absences
+                const studentAbsenceCount = {};
+                const studentAbsenceSubjects = {};
+                
+                recentAbsences.forEach(record => {
+                    if (!studentAbsenceCount[record.studentId]) {
+                        studentAbsenceCount[record.studentId] = 0;
+                        studentAbsenceSubjects[record.studentId] = [];
+                    }
+                    studentAbsenceCount[record.studentId]++;
+                    
+                    // Add subject if not already in the list
+                    if (!studentAbsenceSubjects[record.studentId].includes(record.subject)) {
+                        studentAbsenceSubjects[record.studentId].push({
+                            subject: record.subject,
+                            status: record.status
+                        });
+                    }
+                });
+                
+                // Filter students with 2 or more absences
+                const studentsWithMultipleAbsences = Object.keys(studentAbsenceCount)
+                    .filter(studentId => studentAbsenceCount[studentId] >= 2)
+                    .map(studentId => {
+                        const student = this.students.find(s => s.id == studentId);
+                        return {
+                            student,
+                            absenceCount: studentAbsenceCount[studentId],
+                            subjects: studentAbsenceSubjects[studentId]
+                        };
+                    })
+                    .sort((a, b) => b.absenceCount - a.absenceCount)
+                    .slice(0, 5); // Show top 5
+                
+                if (studentsWithMultipleAbsences.length > 0) {
+                    absenceAlertList.innerHTML = studentsWithMultipleAbsences.map(item => `
+                        <div class="absence-alert-item">
+                            <div class="absence-alert-header">
+                                <div class="absence-alert-student">${item.student.name} (${item.student.nis})</div>
+                                <div class="absence-alert-count">${item.absenceCount} ketidakhadiran</div>
+                            </div>
+                            <div class="absence-alert-subjects">
+                                ${item.subjects.map(subject => `
+                                    <div class="absence-alert-subject ${subject.status}">
+                                        <i class="fas fa-book"></i>
+                                        ${this.getSubjectDisplayName(subject.subject)} (${this.getStatusText(subject.status)})
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    `).join('');
+                } else {
+                    absenceAlertList.innerHTML = `
+                        <div class="empty-placeholder">
+                            <i class="fas fa-check-circle"></i>
+                            <p>Tidak ada peringatan ketidakhadiran.</p>
+                        </div>
+                    `;
+                }
+            }
+
             formatDateForDisplay(dateString) {
                 const date = new Date(dateString);
                 const today = new Date();
@@ -2145,6 +2827,610 @@
                 }).join('');
 
                 tableBody.innerHTML = tableRows;
+            }
+
+            // NEW: Load absence tracking tab
+            loadAbsenceTrackingTab() {
+                this.loadAbsencePatterns();
+            }
+
+            // NEW: Load absence patterns based on filters
+            loadAbsencePatterns() {
+                const startDate = document.getElementById('absenceStartDate').value;
+                const endDate = document.getElementById('absenceEndDate').value;
+                const absenceType = document.getElementById('absenceTypeFilter').value;
+                const threshold = parseInt(document.getElementById('absenceThreshold').value);
+                
+                // Filter records based on date range and type
+                const filteredRecords = this.attendance.records.filter(record => {
+                    const recordDate = new Date(record.date);
+                    const start = new Date(startDate);
+                    const end = new Date(endDate);
+                    
+                    const dateInRange = recordDate >= start && recordDate <= end;
+                    const typeMatches = absenceType === 'all' || record.status === absenceType;
+                    
+                    return dateInRange && typeMatches && 
+                          (record.status === 'absent' || record.status === 'sick' || record.status === 'permission');
+                });
+                
+                // Group by student
+                const studentAbsences = {};
+                
+                filteredRecords.forEach(record => {
+                    if (!studentAbsences[record.studentId]) {
+                        studentAbsences[record.studentId] = {
+                            student: this.students.find(s => s.id == record.studentId),
+                            absences: [],
+                            subjects: new Set(),
+                            total: 0
+                        };
+                    }
+                    
+                    studentAbsences[record.studentId].absences.push(record);
+                    studentAbsences[record.studentId].subjects.add(record.subject);
+                    studentAbsences[record.studentId].total++;
+                });
+                
+                // Convert to array and filter by threshold
+                const studentsWithAbsences = Object.values(studentAbsences)
+                    .filter(item => item.total >= threshold)
+                    .sort((a, b) => b.total - a.total);
+                
+                // Update the absence report table
+                this.updateAbsenceReportTable(studentsWithAbsences);
+                
+                // Update the detailed absence alert list
+                this.updateDetailedAbsenceAlerts(studentsWithAbsences);
+            }
+
+            // NEW: Update absence report table
+            updateAbsenceReportTable(studentsWithAbsences) {
+                const tableBody = document.getElementById('absenceReportTableBody');
+                
+                if (studentsWithAbsences.length > 0) {
+                    tableBody.innerHTML = studentsWithAbsences.map((item, index) => `
+                        <tr>
+                            <td>${index + 1}</td>
+                            <td>${item.student.name}</td>
+                            <td>${item.student.nis}</td>
+                            <td>
+                                <span class="absence-alert-count">${item.total}</span>
+                            </td>
+                            <td>
+                                <div class="absence-alert-subjects">
+                                    ${Array.from(item.subjects).map(subject => `
+                                        <div class="absence-alert-subject">
+                                            <i class="fas fa-book"></i>
+                                            ${this.getSubjectDisplayName(subject)}
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </td>
+                            <td>
+                                <div class="absence-report-actions">
+                                    <button class="btn-small" onclick="app.viewStudentAbsenceDetails(${item.student.id})">
+                                        <i class="fas fa-eye"></i> Detail
+                                    </button>
+                                    <button class="btn-small" onclick="app.contactStudent(${item.student.id})">
+                                        <i class="fas fa-phone"></i> Hubungi
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    `).join('');
+                } else {
+                    tableBody.innerHTML = `
+                        <tr>
+                            <td colspan="6" style="text-align: center; padding: 40px;">
+                                <div class="empty-placeholder">
+                                    <i class="fas fa-check-circle"></i>
+                                    <p>Tidak ada siswa dengan ketidakhadiran yang memenuhi kriteria.</p>
+                                </div>
+                            </td>
+                        </tr>
+                    `;
+                }
+            }
+
+            // NEW: Update detailed absence alerts
+            updateDetailedAbsenceAlerts(studentsWithAbsences) {
+                const detailedAlertList = document.getElementById('detailedAbsenceAlertList');
+                
+                if (studentsWithAbsences.length > 0) {
+                    detailedAlertList.innerHTML = studentsWithAbsences.map(item => {
+                        // Group absences by subject and status
+                        const subjectStatusCount = {};
+                        
+                        item.absences.forEach(absence => {
+                            const key = `${absence.subject}-${absence.status}`;
+                            if (!subjectStatusCount[key]) {
+                                subjectStatusCount[key] = {
+                                    subject: absence.subject,
+                                    status: absence.status,
+                                    count: 0,
+                                    dates: []
+                                };
+                            }
+                            subjectStatusCount[key].count++;
+                            subjectStatusCount[key].dates.push(absence.date);
+                        });
+                        
+                        const subjectDetails = Object.values(subjectStatusCount);
+                        
+                        return `
+                            <div class="absence-alert-item">
+                                <div class="absence-alert-header">
+                                    <div class="absence-alert-student">${item.student.name} (${item.student.nis})</div>
+                                    <div class="absence-alert-count">${item.total} total ketidakhadiran</div>
+                                </div>
+                                <div class="absence-alert-subjects">
+                                    ${subjectDetails.map(detail => `
+                                        <div class="absence-alert-subject ${detail.status}">
+                                            <i class="fas fa-book"></i>
+                                            ${this.getSubjectDisplayName(detail.subject)} 
+                                            (${this.getStatusText(detail.status)}): ${detail.count}x
+                                        </div>
+                                    `).join('')}
+                                </div>
+                                <div class="absence-report-actions" style="margin-top: 10px;">
+                                    <button class="btn-small" onclick="app.viewStudentAbsenceDetails(${item.student.id})">
+                                        <i class="fas fa-eye"></i> Lihat Detail Lengkap
+                                    </button>
+                                    <button class="btn-small" onclick="app.contactParent(${item.student.id})">
+                                        <i class="fas fa-user-friends"></i> Hubungi Orang Tua
+                                    </button>
+                                </div>
+                            </div>
+                        `;
+                    }).join('');
+                } else {
+                    detailedAlertList.innerHTML = `
+                        <div class="empty-placeholder">
+                            <i class="fas fa-check-circle"></i>
+                            <p>Tidak ada siswa dengan ketidakhadiran tinggi.</p>
+                        </div>
+                    `;
+                }
+            }
+
+            // NEW: View student absence details
+            viewStudentAbsenceDetails(studentId) {
+                const student = this.students.find(s => s.id === studentId);
+                const studentAbsences = this.attendance.records.filter(record => 
+                    record.studentId == studentId && 
+                    (record.status === 'absent' || record.status === 'sick' || record.status === 'permission')
+                );
+                
+                // Group by subject
+                const absencesBySubject = {};
+                studentAbsences.forEach(absence => {
+                    if (!absencesBySubject[absence.subject]) {
+                        absencesBySubject[absence.subject] = [];
+                    }
+                    absencesBySubject[absence.subject].push(absence);
+                });
+                
+                const modal = document.getElementById('studentAbsenceModal');
+                const title = document.getElementById('studentAbsenceModalTitle');
+                const content = document.getElementById('studentAbsenceDetails');
+                
+                title.textContent = `Detail Ketidakhadiran - ${student.name}`;
+                
+                content.innerHTML = `
+                    <div class="form-group">
+                        <label>Nama Siswa:</label>
+                        <p><strong>${student.name}</strong></p>
+                    </div>
+                    <div class="form-group">
+                        <label>NIS:</label>
+                        <p>${student.nis}</p>
+                    </div>
+                    <div class="form-group">
+                        <label>Kontak:</label>
+                        <p>${student.phone} | ${student.email}</p>
+                    </div>
+                    <div class="form-group">
+                        <label>Total Ketidakhadiran:</label>
+                        <p><strong>${studentAbsences.length} kali</strong></p>
+                    </div>
+                    <div class="form-group">
+                        <label>Detail per Mata Pelajaran:</label>
+                        ${Object.keys(absencesBySubject).map(subject => {
+                            const subjectAbsences = absencesBySubject[subject];
+                            const statusCount = {
+                                absent: 0,
+                                sick: 0,
+                                permission: 0
+                            };
+                            
+                            subjectAbsences.forEach(absence => {
+                                statusCount[absence.status]++;
+                            });
+                            
+                            return `
+                                <div style="margin-bottom: 15px; padding: 10px; border: 1px solid var(--border-color); border-radius: 8px;">
+                                    <h4 style="margin-bottom: 8px;">${this.getSubjectDisplayName(subject)}</h4>
+                                    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                                        ${statusCount.absent > 0 ? `
+                                            <span class="status-badge status-absent">Alpha: ${statusCount.absent}</span>
+                                        ` : ''}
+                                        ${statusCount.sick > 0 ? `
+                                            <span class="status-badge status-sick">Sakit: ${statusCount.sick}</span>
+                                        ` : ''}
+                                        ${statusCount.permission > 0 ? `
+                                            <span class="status-badge status-permission">Izin: ${statusCount.permission}</span>
+                                        ` : ''}
+                                    </div>
+                                    <div style="margin-top: 8px; font-size: 0.8rem;">
+                                        <strong>Tanggal:</strong> ${subjectAbsences.map(a => new Date(a.date).toLocaleDateString('id-ID')).join(', ')}
+                                    </div>
+                                </div>
+                            `;
+                        }).join('')}
+                    </div>
+                    <div class="form-group">
+                        <button class="btn-primary" onclick="app.contactParent(${studentId})">
+                            <i class="fas fa-user-friends"></i> Hubungi Orang Tua
+                        </button>
+                        <button class="btn-secondary" onclick="app.closeModal('studentAbsenceModal')">
+                            <i class="fas fa-times"></i> Tutup
+                        </button>
+                    </div>
+                `;
+                
+                modal.style.display = 'block';
+            }
+
+            // NEW: Contact student/parent
+            contactStudent(studentId) {
+                const student = this.students.find(s => s.id === studentId);
+                if (student && confirm(`Hubungi ${student.name} di ${student.phone}?`)) {
+                    window.open(`tel:${student.phone}`);
+                }
+            }
+
+            contactParent(studentId) {
+                const student = this.students.find(s => s.id === studentId);
+                if (student) {
+                    const message = `Halo, saya dari SMA Negeri 1. Kami ingin memberitahukan bahwa ${student.name} memiliki beberapa ketidakhadiran di sekolah. Apakah Bapak/Ibu dapat memberikan konfirmasi?`;
+                    
+                    if (confirm(`Hubungi orang tua ${student.name} di ${student.phone}?\n\nPesan: ${message}`)) {
+                        window.open(`https://wa.me/${student.phone.replace(/^0/, '62')}?text=${encodeURIComponent(message)}`);
+                    }
+                }
+            }
+
+            // NEW: Export absence report
+            exportAbsenceReport() {
+                const startDate = document.getElementById('absenceStartDate').value;
+                const endDate = document.getElementById('absenceEndDate').value;
+                const absenceType = document.getElementById('absenceTypeFilter').value;
+                const threshold = parseInt(document.getElementById('absenceThreshold').value);
+                
+                // Filter records based on date range and type (same as loadAbsencePatterns)
+                const filteredRecords = this.attendance.records.filter(record => {
+                    const recordDate = new Date(record.date);
+                    const start = new Date(startDate);
+                    const end = new Date(endDate);
+                    
+                    const dateInRange = recordDate >= start && recordDate <= end;
+                    const typeMatches = absenceType === 'all' || record.status === absenceType;
+                    
+                    return dateInRange && typeMatches && 
+                          (record.status === 'absent' || record.status === 'sick' || record.status === 'permission');
+                });
+                
+                // Group by student
+                const studentAbsences = {};
+                
+                filteredRecords.forEach(record => {
+                    if (!studentAbsences[record.studentId]) {
+                        studentAbsences[record.studentId] = {
+                            student: this.students.find(s => s.id == record.studentId),
+                            absences: [],
+                            subjects: new Set(),
+                            total: 0
+                        };
+                    }
+                    
+                    studentAbsences[record.studentId].absences.push(record);
+                    studentAbsences[record.studentId].subjects.add(record.subject);
+                    studentAbsences[record.studentId].total++;
+                });
+                
+                // Convert to array and filter by threshold
+                const studentsWithAbsences = Object.values(studentAbsences)
+                    .filter(item => item.total >= threshold)
+                    .sort((a, b) => b.total - a.total);
+                
+                // Create CSV content
+                let csvContent = "data:text/csv;charset=utf-8,";
+                csvContent += "LAPORAN KETIDAKHADIRAN SISWA\n";
+                csvContent += `Periode: ${new Date(startDate).toLocaleDateString('id-ID')} - ${new Date(endDate).toLocaleDateString('id-ID')}\n`;
+                csvContent += `Jenis: ${absenceType === 'all' ? 'Semua' : this.getStatusText(absenceType)}\n`;
+                csvContent += `Ambang Batas: ${threshold}+ ketidakhadiran\n\n`;
+                
+                csvContent += "No,Nama Siswa,NIS,Total Ketidakhadiran,Mata Pelajaran\n";
+                
+                studentsWithAbsences.forEach((item, index) => {
+                    const subjects = Array.from(item.subjects).map(subject => 
+                        this.getSubjectDisplayName(subject)
+                    ).join('; ');
+                    
+                    csvContent += `${index + 1},${item.student.name},${item.student.nis},${item.total},"${subjects}"\n`;
+                });
+                
+                const encodedUri = encodeURI(csvContent);
+                const link = document.createElement("a");
+                link.setAttribute("href", encodedUri);
+                link.setAttribute("download", `laporan_ketidakhadiran_${startDate}_${endDate}.csv`);
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                
+                this.showToast('Laporan ketidakhadiran berhasil diekspor!');
+            }
+
+            // NEW: Get subject display name
+            getSubjectDisplayName(subjectKey) {
+                const subjectMap = {
+                    'matematika': 'Matematika',
+                    'fisika': 'Fisika',
+                    'kimia': 'Kimia',
+                    'biologi': 'Biologi',
+                    'bindo': 'Bahasa Indonesia',
+                    'bing': 'Bahasa Inggris',
+                    'tik': 'TIK Lanjut',
+                    'sosiologi': 'Sosiologi Lanjut',
+                    'ekonomi': 'Ekonomi Lanjut',
+                    'bahasa_jepang': 'Bahasa Jepang Lanjut'
+                };
+                return subjectMap[subjectKey] || subjectKey;
+            }
+
+            // NEW: Load group spinner tab
+            loadGroupSpinnerTab() {
+                // Display saved groups if available
+                if (this.groups.groups && this.groups.groups.length > 0) {
+                    this.displayGroups(this.groups.groups);
+                }
+            }
+
+            // NEW: Generate random groups
+            generateGroups() {
+                const groupCount = parseInt(document.getElementById('groupCount').value);
+                const method = document.getElementById('groupMethod').value;
+                const includeAbsent = document.getElementById('includeAbsent').value;
+                
+                // Show spinner
+                const spinner = document.getElementById('groupSpinner');
+                spinner.style.display = 'flex';
+                
+                // Get students to include in groups
+                let studentsToInclude = [...this.students];
+                
+                // Exclude absent students if selected
+                if (includeAbsent === 'exclude') {
+                    const today = new Date().toISOString().split('T')[0];
+                    const todayAttendance = this.attendance.records.filter(record => record.date === today);
+                    
+                    studentsToInclude = studentsToInclude.filter(student => {
+                        const record = todayAttendance.find(r => r.studentId == student.id);
+                        return record && record.status === 'present';
+                    });
+                }
+                
+                // Simulate processing time
+                setTimeout(() => {
+                    let groups;
+                    
+                    switch(method) {
+                        case 'balanced':
+                            groups = this.createBalancedGroups(studentsToInclude, groupCount);
+                            break;
+                        case 'leader':
+                            groups = this.createGroupsWithLeaders(studentsToInclude, groupCount);
+                            break;
+                        default:
+                            groups = this.createRandomGroups(studentsToInclude, groupCount);
+                    }
+                    
+                    // Hide spinner
+                    spinner.style.display = 'none';
+                    
+                    // Display groups
+                    this.displayGroups(groups);
+                    
+                    // Save groups
+                    this.groups.groups = groups;
+                    this.saveGroups();
+                    
+                    this.showToast('Kelompok berhasil dibuat!');
+                }, 1500);
+            }
+
+            // NEW: Create random groups
+            createRandomGroups(students, groupCount) {
+                // Shuffle students array
+                const shuffled = [...students].sort(() => 0.5 - Math.random());
+                
+                // Calculate group sizes
+                const baseSize = Math.floor(shuffled.length / groupCount);
+                const remainder = shuffled.length % groupCount;
+                
+                const groups = [];
+                let startIndex = 0;
+                
+                for (let i = 0; i < groupCount; i++) {
+                    const groupSize = baseSize + (i < remainder ? 1 : 0);
+                    const groupMembers = shuffled.slice(startIndex, startIndex + groupSize);
+                    startIndex += groupSize;
+                    
+                    groups.push({
+                        name: `Kelompok ${i + 1}`,
+                        members: groupMembers
+                    });
+                }
+                
+                return groups;
+            }
+
+            // NEW: Create balanced groups (by gender)
+            createBalancedGroups(students, groupCount) {
+                // Separate by gender
+                const maleStudents = students.filter(s => s.gender === 'L');
+                const femaleStudents = students.filter(s => s.gender === 'P');
+                
+                // Shuffle each group
+                const shuffledMale = [...maleStudents].sort(() => 0.5 - Math.random());
+                const shuffledFemale = [...femaleStudents].sort(() => 0.5 - Math.random());
+                
+                const groups = Array.from({ length: groupCount }, (_, i) => ({
+                    name: `Kelompok ${i + 1}`,
+                    members: []
+                }));
+                
+                // Distribute male students
+                shuffledMale.forEach((student, index) => {
+                    groups[index % groupCount].members.push(student);
+                });
+                
+                // Distribute female students
+                shuffledFemale.forEach((student, index) => {
+                    groups[index % groupCount].members.push(student);
+                });
+                
+                return groups;
+            }
+
+            // NEW: Create groups with leaders
+            createGroupsWithLeaders(students, groupCount) {
+                // Get potential leaders (students with good attendance)
+                const today = new Date().toISOString().split('T')[0];
+                const oneWeekAgo = new Date();
+                oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
+                
+                const studentAttendanceCount = {};
+                this.attendance.records.forEach(record => {
+                    const recordDate = new Date(record.date);
+                    if (recordDate >= oneWeekAgo && record.status === 'present') {
+                        if (!studentAttendanceCount[record.studentId]) {
+                            studentAttendanceCount[record.studentId] = 0;
+                        }
+                        studentAttendanceCount[record.studentId]++;
+                    }
+                });
+                
+                // Sort students by attendance (potential leaders first)
+                const sortedStudents = [...students].sort((a, b) => {
+                    const aCount = studentAttendanceCount[a.id] || 0;
+                    const bCount = studentAttendanceCount[b.id] || 0;
+                    return bCount - aCount;
+                });
+                
+                const groups = Array.from({ length: groupCount }, (_, i) => ({
+                    name: `Kelompok ${i + 1}`,
+                    members: []
+                }));
+                
+                // Assign leaders
+                sortedStudents.slice(0, groupCount).forEach((student, index) => {
+                    groups[index].members.push({
+                        ...student,
+                        isLeader: true
+                    });
+                });
+                
+                // Distribute remaining students
+                const remainingStudents = sortedStudents.slice(groupCount);
+                const shuffledRemaining = [...remainingStudents].sort(() => 0.5 - Math.random());
+                
+                shuffledRemaining.forEach((student, index) => {
+                    groups[index % groupCount].members.push(student);
+                });
+                
+                return groups;
+            }
+
+            // NEW: Display groups
+            displayGroups(groups) {
+                const container = document.getElementById('groupsContainer');
+                
+                if (groups.length > 0) {
+                    container.innerHTML = groups.map(group => `
+                        <div class="group-card">
+                            <div class="group-header">
+                                <div class="group-name">${group.name}</div>
+                                <div class="group-member-count">${group.members.length} anggota</div>
+                            </div>
+                            <div class="group-members">
+                                ${group.members.map((member, index) => `
+                                    <div class="group-member">
+                                        <div class="group-member-avatar">
+                                            ${member.name.split(' ').map(n => n[0]).join('')}
+                                        </div>
+                                        <div>
+                                            <div>${member.name}</div>
+                                            <div style="font-size: 0.7rem; color: var(--text-light);">${member.nis}</div>
+                                        </div>
+                                        ${member.isLeader ? `
+                                            <div style="margin-left: auto;">
+                                                <span class="status-badge status-present" style="font-size: 0.6rem;">Ketua</span>
+                                            </div>
+                                        ` : ''}
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    `).join('');
+                } else {
+                    container.innerHTML = `
+                        <div class="empty-placeholder">
+                            <i class="fas fa-users"></i>
+                            <p>Belum ada kelompok yang dibuat.</p>
+                        </div>
+                    `;
+                }
+            }
+
+            // NEW: Regenerate groups
+            regenerateGroups() {
+                this.generateGroups();
+            }
+
+            // NEW: Export groups
+            exportGroups() {
+                if (!this.groups.groups || this.groups.groups.length === 0) {
+                    this.showToast('Tidak ada kelompok untuk diekspor!', 'error');
+                    return;
+                }
+                
+                let csvContent = "data:text/csv;charset=utf-8,";
+                csvContent += "PEMBAGIAN KELOMPOK SISWA\n";
+                csvContent += `Tanggal: ${new Date().toLocaleDateString('id-ID')}\n\n`;
+                
+                this.groups.groups.forEach(group => {
+                    csvContent += `${group.name}\n`;
+                    csvContent += "No,Nama Siswa,NIS,Peran\n";
+                    
+                    group.members.forEach((member, index) => {
+                        const role = member.isLeader ? 'Ketua Kelompok' : 'Anggota';
+                        csvContent += `${index + 1},${member.name},${member.nis},${role}\n`;
+                    });
+                    
+                    csvContent += "\n";
+                });
+                
+                const encodedUri = encodeURI(csvContent);
+                const link = document.createElement("a");
+                link.setAttribute("href", encodedUri);
+                link.setAttribute("download", `pembagian_kelompok_${new Date().toISOString().split('T')[0]}.csv`);
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                
+                this.showToast('Kelompok berhasil diekspor!');
             }
 
             loadScheduleTab() {
@@ -2563,7 +3849,6 @@
                 `).join('');
             }
 
-            // FIXED: Announcement methods
             editAnnouncement() {
                 const modal = document.getElementById('announcementModal');
                 document.getElementById('announcementTextInput').value = this.announcement.text;
