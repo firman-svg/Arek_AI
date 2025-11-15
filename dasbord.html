@@ -2489,26 +2489,12 @@
         }
 
         /* NEW: Animated Background Elements */
-        .bg-elements {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: -1;
-            overflow: hidden;
-        }
-
-        .bg-element {
+        .animated-bg-element {
             position: absolute;
             border-radius: 50%;
-            background: rgba(255, 255, 255, 0.05);
-            animation: float 20s infinite ease-in-out;
-        }
-
-        .dark-theme .bg-element {
-            background: rgba(255, 255, 255, 0.03);
+            background: rgba(255, 255, 255, 0.1);
+            animation: float 15s infinite ease-in-out;
+            z-index: 0;
         }
 
         @keyframes float {
@@ -2866,326 +2852,6 @@
             background: linear-gradient(135deg, rgba(31, 41, 55, 0.9), rgba(17, 24, 39, 0.9));
         }
 
-        /* NEW: Improved Icon Colors for Dark Mode */
-        .dark-theme .nav-item i,
-        .dark-theme .mobile-nav-item i {
-            color: var(--primary-light);
-        }
-        
-        .dark-theme .stat-icon,
-        .dark-theme .activity-icon {
-            color: white !important;
-        }
-        
-        .dark-theme .schedule-status,
-        .dark-theme .teacher-status {
-            color: white !important;
-        }
-
-        /* NEW: About Us Page Styles */
-        .about-hero {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(240, 249, 255, 0.9));
-            border-radius: var(--radius-lg);
-            padding: 40px;
-            margin-bottom: 30px;
-            box-shadow: var(--shadow);
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-            backdrop-filter: blur(10px);
-        }
-        
-        .dark-theme .about-hero {
-            background: linear-gradient(135deg, rgba(31, 41, 55, 0.9), rgba(30, 41, 59, 0.9));
-        }
-        
-        .about-hero h2 {
-            font-size: 2.5rem;
-            margin-bottom: 15px;
-            background: linear-gradient(45deg, var(--primary-color), var(--purple-color));
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            color: transparent;
-        }
-        
-        .class-motto {
-            font-size: 1.2rem;
-            font-style: italic;
-            color: var(--text-light);
-            margin-bottom: 20px;
-            padding: 15px;
-            border-left: 4px solid var(--primary-color);
-            background: rgba(79, 70, 229, 0.05);
-            border-radius: 0 var(--radius-md) var(--radius-md) 0;
-        }
-        
-        .dark-theme .class-motto {
-            background: rgba(79, 70, 229, 0.1);
-        }
-        
-        .about-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-            margin-bottom: 30px;
-        }
-        
-        .class-structure {
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: var(--radius-lg);
-            padding: 25px;
-            box-shadow: var(--shadow);
-            backdrop-filter: blur(10px);
-        }
-        
-        .dark-theme .class-structure {
-            background: rgba(31, 41, 55, 0.9);
-        }
-        
-        .structure-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
-        }
-        
-        .structure-card {
-            background: var(--bg-light);
-            border-radius: var(--radius-md);
-            padding: 20px;
-            text-align: center;
-            transition: var(--transition);
-            border: 1px solid var(--border-color);
-        }
-        
-        .dark-theme .structure-card {
-            background: var(--bg-light);
-        }
-        
-        .structure-card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow);
-        }
-        
-        .structure-avatar {
-            width: 80px;
-            height: 80px;
-            background: var(--primary-color);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 1.5rem;
-            margin: 0 auto 15px;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .structure-avatar img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 50%;
-        }
-        
-        .structure-role {
-            font-size: 0.8rem;
-            color: var(--primary-color);
-            font-weight: 600;
-            margin-bottom: 5px;
-        }
-        
-        .structure-name {
-            font-weight: 600;
-            margin-bottom: 5px;
-        }
-        
-        .structure-nis {
-            font-size: 0.8rem;
-            color: var(--text-light);
-        }
-        
-        .memories-section {
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: var(--radius-lg);
-            padding: 25px;
-            box-shadow: var(--shadow);
-            backdrop-filter: blur(10px);
-        }
-        
-        .dark-theme .memories-section {
-            background: rgba(31, 41, 55, 0.9);
-        }
-        
-        .memories-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
-        }
-        
-        .memory-card {
-            border-radius: var(--radius-md);
-            overflow: hidden;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-            cursor: pointer;
-            position: relative;
-        }
-        
-        .memory-card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-lg);
-        }
-        
-        .memory-img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            display: block;
-        }
-        
-        .memory-overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
-            color: white;
-            padding: 15px;
-            transform: translateY(100%);
-            transition: var(--transition);
-        }
-        
-        .memory-card:hover .memory-overlay {
-            transform: translateY(0);
-        }
-        
-        .memory-title {
-            font-weight: 600;
-            margin-bottom: 5px;
-        }
-        
-        .memory-date {
-            font-size: 0.8rem;
-            opacity: 0.8;
-        }
-        
-        .duty-schedule {
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: var(--radius-lg);
-            padding: 25px;
-            box-shadow: var(--shadow);
-            grid-column: 1 / -1;
-            backdrop-filter: blur(10px);
-        }
-        
-        .dark-theme .duty-schedule {
-            background: rgba(31, 41, 55, 0.9);
-        }
-        
-        .duty-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-        
-        .duty-table th {
-            background: var(--primary-color);
-            color: white;
-            padding: 12px 15px;
-            text-align: left;
-        }
-        
-        .duty-table td {
-            padding: 12px 15px;
-            border-bottom: 1px solid var(--border-color);
-        }
-        
-        .duty-table tr:last-child td {
-            border-bottom: none;
-        }
-        
-        .duty-table tr:hover {
-            background: var(--bg-light);
-        }
-        
-        .dark-theme .duty-table tr:hover {
-            background: var(--bg-light);
-        }
-
-        /* NEW: Windows-Specific Enhancements */
-        @media (min-width: 1024px) {
-            .windows-glass-effect {
-                backdrop-filter: blur(10px);
-                background: rgba(255, 255, 255, 0.8);
-                border: 1px solid rgba(255, 255, 255, 0.2);
-            }
-            
-            .dark-theme .windows-glass-effect {
-                background: rgba(31, 41, 55, 0.8);
-                border: 1px solid rgba(255, 255, 255, 0.1);
-            }
-            
-            .windows-shadow {
-                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-            }
-            
-            .dark-theme .windows-shadow {
-                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-            }
-        }
-
-        /* NEW: Mobile-Specific Enhancements */
-        .mobile-swipe-indicator {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(0, 0, 0, 0.7);
-            color: white;
-            padding: 8px 15px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            z-index: 100;
-            display: none;
-        }
-        
-        .mobile-swipe-indicator.show {
-            display: block;
-            animation: fadeInOut 3s ease-in-out;
-        }
-        
-        @keyframes fadeInOut {
-            0%, 100% { opacity: 0; }
-            50% { opacity: 1; }
-        }
-
-        /* NEW: Enhanced Animations */
-        @keyframes slideInFromBottom {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        .animate-on-scroll {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
-        }
-        
-        .animate-on-scroll.animated {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
         /* Responsive Design */
         @media (max-width: 1024px) {
             .dashboard-grid {
@@ -3197,10 +2863,6 @@
             }
             
             .welcome-banner {
-                grid-template-columns: 1fr;
-            }
-            
-            .about-grid {
                 grid-template-columns: 1fr;
             }
         }
@@ -3325,19 +2987,6 @@
                 padding: 10px 14px;
                 font-size: 0.9rem;
             }
-            
-            .mobile-optimized-card {
-                padding: 15px;
-                margin-bottom: 15px;
-            }
-            
-            .mobile-touch-button {
-                min-height: 44px;
-                min-width: 44px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            }
         }
 
         @media (max-width: 480px) {
@@ -3420,9 +3069,6 @@
     </style>
 </head>
 <body>
-    <!-- Background Elements -->
-    <div class="bg-elements" id="bgElements"></div>
-    
     <!-- Loading Screen -->
     <div class="loading-screen" id="loadingScreen">
         <div class="loading-logo">
@@ -3440,6 +3086,7 @@
             <div class="header-content">
                 <div class="class-info">
                     <div class="class-avatar">
+                        <!-- Logo kelas akan dimuat di sini -->
                         <i class="fas fa-graduation-cap"></i>
                     </div>
                     <div class="class-details">
@@ -3524,11 +3171,6 @@
                         <i class="fas fa-tasks"></i>
                         <span>Tugas</span>
                     </a>
-                    <!-- NEW: About Us Tab -->
-                    <a href="#about" class="mobile-nav-item" data-tab="about" onclick="app.switchTab('about'); app.closeMobileNav()">
-                        <i class="fas fa-info-circle"></i>
-                        <span>Tentang Kami</span>
-                    </a>
                 </div>
                 <div class="mobile-header-actions">
                     <div class="notification-bell" onclick="app.toggleNotificationPanel()">
@@ -3576,11 +3218,6 @@
                 <a href="#assignments" class="nav-item" data-tab="assignments">
                     <i class="fas fa-tasks"></i>
                     <span>Tugas</span>
-                </a>
-                <!-- NEW: About Us Tab -->
-                <a href="#about" class="nav-item" data-tab="about">
-                    <i class="fas fa-info-circle"></i>
-                    <span>Tentang Kami</span>
                 </a>
             </div>
         </nav>
@@ -3955,183 +3592,7 @@
                     </div>
                 </div>
             </div>
-            
-            <!-- NEW: About Us Tab -->
-            <div id="about" class="tab-content">
-                <div class="about-hero windows-glass-effect windows-shadow">
-                    <h2>Tentang Kelas XI-7 VALLORIX</h2>
-                    <p>Kami adalah keluarga besar kelas XI-7 SMA Negeri 4 Bojonegoro yang bersatu dalam semangat belajar dan persahabatan</p>
-                    <div class="class-motto">
-                        "Bersatu dalam Perbedaan, Berkarya untuk Prestasi, Berjuang untuk Masa Depan"
-                    </div>
-                </div>
-                
-                <div class="about-grid">
-                    <div class="class-structure windows-glass-effect windows-shadow">
-                        <h3><i class="fas fa-users"></i> Struktur Kelas</h3>
-                        <div class="structure-grid">
-                            <div class="structure-card">
-                                <div class="structure-avatar">
-                                    <i class="fas fa-user-tie"></i>
-                                </div>
-                                <div class="structure-role">Wali Kelas</div>
-                                <div class="structure-name">Bu Sari, S.Pd</div>
-                                <div class="structure-nis">Guru Matematika</div>
-                            </div>
-                            <div class="structure-card">
-                                <div class="structure-avatar">
-                                    <i class="fas fa-crown"></i>
-                                </div>
-                                <div class="structure-role">Ketua Kelas</div>
-                                <div class="structure-name">Ahmad Rizki</div>
-                                <div class="structure-nis">NIS: 2024001</div>
-                            </div>
-                            <div class="structure-card">
-                                <div class="structure-avatar">
-                                    <i class="fas fa-user-friends"></i>
-                                </div>
-                                <div class="structure-role">Wakil Ketua</div>
-                                <div class="structure-name">Sari Dewi</div>
-                                <div class="structure-nis">NIS: 2024002</div>
-                            </div>
-                            <div class="structure-card">
-                                <div class="structure-avatar">
-                                    <i class="fas fa-file-invoice-dollar"></i>
-                                </div>
-                                <div class="structure-role">Bendahara 1</div>
-                                <div class="structure-name">Budi Santoso</div>
-                                <div class="structure-nis">NIS: 2024003</div>
-                            </div>
-                            <div class="structure-card">
-                                <div class="structure-avatar">
-                                    <i class="fas fa-coins"></i>
-                                </div>
-                                <div class="structure-role">Bendahara 2</div>
-                                <div class="structure-name">Maya Sari</div>
-                                <div class="structure-nis">NIS: 2024004</div>
-                            </div>
-                            <div class="structure-card">
-                                <div class="structure-avatar">
-                                    <i class="fas fa-pen-fancy"></i>
-                                </div>
-                                <div class="structure-role">Sekretaris 1</div>
-                                <div class="structure-name">Rizki Pratama</div>
-                                <div class="structure-nis">NIS: 2024005</div>
-                            </div>
-                            <div class="structure-card">
-                                <div class="structure-avatar">
-                                    <i class="fas fa-pen-alt"></i>
-                                </div>
-                                <div class="structure-role">Sekretaris 2</div>
-                                <div class="structure-name">Dewi Lestari</div>
-                                <div class="structure-nis">NIS: 2024006</div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="memories-section windows-glass-effect windows-shadow">
-                        <h3><i class="fas fa-images"></i> Galeri Kenangan</h3>
-                        <div class="memories-grid">
-                            <div class="memory-card">
-                                <div class="memory-img" style="background: linear-gradient(135deg, #667eea, #764ba2); display: flex; align-items: center; justify-content: center; color: white; font-size: 3rem;">
-                                    <i class="fas fa-graduation-cap"></i>
-                                </div>
-                                <div class="memory-overlay">
-                                    <div class="memory-title">Perkenalan Kelas</div>
-                                    <div class="memory-date">Agustus 2024</div>
-                                </div>
-                            </div>
-                            <div class="memory-card">
-                                <div class="memory-img" style="background: linear-gradient(135deg, #f093fb, #f5576c); display: flex; align-items: center; justify-content: center; color: white; font-size: 3rem;">
-                                    <i class="fas fa-trophy"></i>
-                                </div>
-                                <div class="memory-overlay">
-                                    <div class="memory-title">Lomba Kelas Terbaik</div>
-                                    <div class="memory-date">September 2024</div>
-                                </div>
-                            </div>
-                            <div class="memory-card">
-                                <div class="memory-img" style="background: linear-gradient(135deg, #4facfe, #00f2fe); display: flex; align-items: center; justify-content: center; color: white; font-size: 3rem;">
-                                    <i class="fas fa-microscope"></i>
-                                </div>
-                                <div class="memory-overlay">
-                                    <div class="memory-title">Praktikum Kimia</div>
-                                    <div class="memory-date">Oktober 2024</div>
-                                </div>
-                            </div>
-                            <div class="memory-card">
-                                <div class="memory-img" style="background: linear-gradient(135deg, #43e97b, #38f9d7); display: flex; align-items: center; justify-content: center; color: white; font-size: 3rem;">
-                                    <i class="fas fa-tree"></i>
-                                </div>
-                                <div class="memory-overlay">
-                                    <div class="memory-title">Kegiatan Outdoor</div>
-                                    <div class="memory-date">November 2024</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="duty-schedule windows-glass-effect windows-shadow">
-                        <h3><i class="fas fa-calendar-week"></i> Jadwal Piket Kelas</h3>
-                        <div class="attendance-table-container">
-                            <table class="duty-table">
-                                <thead>
-                                    <tr>
-                                        <th>Hari</th>
-                                        <th>Kelompok 1</th>
-                                        <th>Kelompok 2</th>
-                                        <th>Kelompok 3</th>
-                                        <th>Kelompok 4</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Senin</td>
-                                        <td>Ahmad, Sari, Budi</td>
-                                        <td>Maya, Rizki, Dewi</td>
-                                        <td>Andi, Siti, Eko</td>
-                                        <td>Lina, Fajar, Intan</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Selasa</td>
-                                        <td>Guntur, Heni, Irfan</td>
-                                        <td>Jihan, Krisna, Lintang</td>
-                                        <td>Maulana, Nadia, Oka</td>
-                                        <td>Putri, Rama, Siska</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Rabu</td>
-                                        <td>Taufik, Umi, Vicky</td>
-                                        <td>Wulan, Xavier, Yuni</td>
-                                        <td>Zaki, Anisa, Bayu</td>
-                                        <td>Citra, Dian, Eva</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Kamis</td>
-                                        <td>Ahmad, Sari, Budi</td>
-                                        <td>Maya, Rizki, Dewi</td>
-                                        <td>Andi, Siti, Eko</td>
-                                        <td>Lina, Fajar, Intan</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Jumat</td>
-                                        <td>Guntur, Heni, Irfan</td>
-                                        <td>Jihan, Krisna, Lintang</td>
-                                        <td>Maulana, Nadia, Oka</td>
-                                        <td>Putri, Rama, Siska</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </main>
-    </div>
-    
-    <!-- Mobile Swipe Indicator -->
-    <div class="mobile-swipe-indicator" id="mobileSwipeIndicator">
-        <i class="fas fa-arrow-left"></i> Geser untuk navigasi <i class="fas fa-arrow-right"></i>
     </div>
     
     <!-- NEW: Notification Panel -->
@@ -4457,10 +3918,6 @@
                 this.loadNotificationsPanel();
                 this.updateAnnouncement();
                 this.applySavedTheme();
-                this.initBackgroundElements();
-                this.initScrollAnimations();
-                this.initMobileSwipe();
-                this.initWindowsEffects();
             }
 
             bindEvents() {
@@ -4568,97 +4025,6 @@
                         this.hideGlobalSearch();
                     }
                 });
-            }
-
-            initBackgroundElements() {
-                const bgContainer = document.getElementById('bgElements');
-                const elementCount = window.innerWidth < 768 ? 10 : 20;
-                
-                for (let i = 0; i < elementCount; i++) {
-                    const element = document.createElement('div');
-                    element.className = 'bg-element';
-                    
-                    // Random size and position
-                    const size = Math.random() * 100 + 50;
-                    const left = Math.random() * 100;
-                    const top = Math.random() * 100;
-                    const delay = Math.random() * 20;
-                    const duration = Math.random() * 10 + 20;
-                    
-                    element.style.width = `${size}px`;
-                    element.style.height = `${size}px`;
-                    element.style.left = `${left}%`;
-                    element.style.top = `${top}%`;
-                    element.style.animationDelay = `${delay}s`;
-                    element.style.animationDuration = `${duration}s`;
-                    
-                    bgContainer.appendChild(element);
-                }
-            }
-            
-            initScrollAnimations() {
-                const observer = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            entry.target.classList.add('animated');
-                        }
-                    });
-                }, { threshold: 0.1 });
-                
-                document.querySelectorAll('.animate-on-scroll').forEach(el => {
-                    observer.observe(el);
-                });
-            }
-            
-            initMobileSwipe() {
-                let touchStartX = 0;
-                let touchEndX = 0;
-                const swipeThreshold = 50;
-                
-                document.addEventListener('touchstart', e => {
-                    touchStartX = e.changedTouches[0].screenX;
-                });
-                
-                document.addEventListener('touchend', e => {
-                    touchEndX = e.changedTouches[0].screenX;
-                    this.handleSwipe(touchStartX, touchEndX);
-                });
-            }
-            
-            handleSwipe(startX, endX) {
-                const diff = endX - startX;
-                
-                if (Math.abs(diff) > 50) {
-                    // Show swipe indicator
-                    const indicator = document.getElementById('mobileSwipeIndicator');
-                    indicator.classList.add('show');
-                    
-                    setTimeout(() => {
-                        indicator.classList.remove('show');
-                    }, 3000);
-                    
-                    // Navigate based on swipe direction
-                    const tabs = ['dashboard', 'attendance', 'absence-tracking', 'group-spinner', 'schedule', 'students', 'teachers', 'assignments', 'about'];
-                    const currentTab = document.querySelector('.tab-content.active').id;
-                    const currentIndex = tabs.indexOf(currentTab);
-                    
-                    if (diff > 0 && currentIndex > 0) {
-                        // Swipe right - go to previous tab
-                        this.switchTab(tabs[currentIndex - 1]);
-                    } else if (diff < 0 && currentIndex < tabs.length - 1) {
-                        // Swipe left - go to next tab
-                        this.switchTab(tabs[currentIndex + 1]);
-                    }
-                }
-            }
-            
-            initWindowsEffects() {
-                // Add glass effect to cards on desktop
-                if (window.innerWidth >= 1024) {
-                    document.querySelectorAll('.premium-card').forEach(card => {
-                        card.classList.add('windows-glass-effect', 'windows-shadow');
-                    });
-                }
             }
 
             loadStudents() {
@@ -5907,7 +5273,7 @@
             contactParent(studentId) {
                 const student = this.students.find(s => s.id === studentId);
                 if (student) {
-                    const message = `Halo, saya dari SMA Negeri 4 Bojonegoro. Kami ingin memberitahukan bahwa ${student.name} memiliki beberapa ketidakhadiran di sekolah. Apakah Bapak/Ibu dapat memberikan konfirmasi?`;
+                    const message = `Halo, saya dari SMA Negeri 1. Kami ingin memberitahukan bahwa ${student.name} memiliki beberapa ketidakhadiran di sekolah. Apakah Bapak/Ibu dapat memberikan konfirmasi?`;
                     
                     if (confirm(`Hubungi orang tua ${student.name} di ${student.phone}?\n\nPesan: ${message}`)) {
                         window.open(`https://wa.me/${student.phone.replace(/^0/, '62')}?text=${encodeURIComponent(message)}`);
