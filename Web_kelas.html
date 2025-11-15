@@ -6,7 +6,7 @@
     <title>Kelas XI-7 VALLORIX - SMA Negeri 4 Bojonegoro</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <style>
+   <style>
         * {
             margin: 0;
             padding: 0;
@@ -15,75 +15,150 @@
         }
 
         :root {
-            --primary-color: #8b5cf6;
-            --primary-light: #a78bfa;
-            --primary-dark: #7c3aed;
-            --secondary-color: #06d6a0;
-            --secondary-light: #34e3b9;
-            --secondary-dark: #05b888;
-            --accent-color: #ff9e00;
-            --accent-light: #ffb143;
-            --accent-dark: #e68a00;
-            --danger-color: #ef476f;
-            --danger-light: #f56c8d;
-            --danger-dark: #e63946;
-            --warning-color: #ffd166;
-            --info-color: #118ab2;
-            --info-light: #3da0c9;
-            --info-dark: #0a6a8a;
-            --purple-color: #8b5cf6;
-            --pink-color: #f72585;
-            --teal-color: #06d6a0;
-            --cyan-color: #06b6d4;
-            --indigo-color: #5a67d8;
-            --rose-color: #f43f5e;
-            --amber-color: #f59e0b;
-            --emerald-color: #10b981;
-            --violet-color: #8b5cf6;
-            --text-dark: #1f2937;
-            --text-medium: #374151;
-            --text-light: #6b7280;
-            --bg-light: #f8fafc;
-            --bg-white: #ffffff;
-            --border-color: #e5e7eb;
-            --border-light: #f3f4f6;
-            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-            --shadow-md: 0 6px 10px -1px rgba(0, 0, 0, 0.1);
-            --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.1);
-            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            /* Primary Colors - Purple Theme */
+            --primary-color: #7c3aed;
+            --primary-light: #8b5cf6;
+            --primary-dark: #6d28d9;
+            --primary-gradient: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+            
+            /* Secondary Colors - Teal Theme */
+            --secondary-color: #0d9488;
+            --secondary-light: #14b8a6;
+            --secondary-dark: #0f766e;
+            --secondary-gradient: linear-gradient(135deg, var(--secondary-color), var(--secondary-light));
+            
+            /* Accent Colors */
+            --accent-color: #f59e0b;
+            --accent-light: #fbbf24;
+            --accent-dark: #d97706;
+            --accent-gradient: linear-gradient(135deg, var(--accent-color), var(--accent-light));
+            
+            /* Status Colors */
+            --success-color: #10b981;
+            --success-light: #34d399;
+            --success-dark: #059669;
+            
+            --warning-color: #f59e0b;
+            --warning-light: #fbbf24;
+            --warning-dark: #d97706;
+            
+            --info-color: #3b82f6;
+            --info-light: #60a5fa;
+            --info-dark: #2563eb;
+            
+            --danger-color: #ef4444;
+            --danger-light: #f87171;
+            --danger-dark: #dc2626;
+            
+            /* Text Colors */
+            --text-primary: #1f2937;
+            --text-secondary: #374151;
+            --text-tertiary: #6b7280;
+            --text-inverse: #ffffff;
+            
+            /* Background Colors */
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --bg-tertiary: #f1f5f9;
+            --bg-card: #ffffff;
+            
+            /* Border Colors */
+            --border-primary: #e5e7eb;
+            --border-secondary: #d1d5db;
+            --border-accent: var(--primary-color);
+            
+            /* Shadow Colors */
+            --shadow-light: 0 1px 3px rgba(0, 0, 0, 0.1);
+            --shadow-medium: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-large: 0 10px 25px rgba(0, 0, 0, 0.1);
+            --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.1);
+            
+            /* Overlay Colors */
+            --overlay-light: rgba(255, 255, 255, 0.8);
+            --overlay-dark: rgba(0, 0, 0, 0.1);
+            
+            /* Radius */
             --radius-sm: 8px;
             --radius-md: 12px;
             --radius-lg: 16px;
             --radius-xl: 20px;
+            
+            /* Transition */
             --transition: all 0.3s ease;
             --transition-slow: all 0.5s ease;
         }
 
         /* DARK MODE VARIABLES */
         .dark-mode {
-            --text-dark: #f9fafb;
-            --text-medium: #e5e7eb;
-            --text-light: #9ca3af;
-            --bg-light: #111827;
-            --bg-white: #1f2937;
-            --border-color: #374151;
-            --border-light: #4b5563;
-            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
-            --shadow-md: 0 6px 10px -1px rgba(0, 0, 0, 0.3);
-            --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.3);
-            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+            /* Primary Colors - Purple Theme */
+            --primary-color: #8b5cf6;
+            --primary-light: #a78bfa;
+            --primary-dark: #7c3aed;
+            --primary-gradient: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+            
+            /* Secondary Colors - Teal Theme */
+            --secondary-color: #14b8a6;
+            --secondary-light: #2dd4bf;
+            --secondary-dark: #0d9488;
+            --secondary-gradient: linear-gradient(135deg, var(--secondary-color), var(--secondary-light));
+            
+            /* Accent Colors */
+            --accent-color: #f59e0b;
+            --accent-light: #fbbf24;
+            --accent-dark: #d97706;
+            --accent-gradient: linear-gradient(135deg, var(--accent-color), var(--accent-light));
+            
+            /* Status Colors */
+            --success-color: #10b981;
+            --success-light: #34d399;
+            --success-dark: #059669;
+            
+            --warning-color: #f59e0b;
+            --warning-light: #fbbf24;
+            --warning-dark: #d97706;
+            
+            --info-color: #3b82f6;
+            --info-light: #60a5fa;
+            --info-dark: #2563eb;
+            
+            --danger-color: #ef4444;
+            --danger-light: #f87171;
+            --danger-dark: #dc2626;
+            
+            /* Text Colors */
+            --text-primary: #f9fafb;
+            --text-secondary: #e5e7eb;
+            --text-tertiary: #9ca3af;
+            --text-inverse: #1f2937;
+            
+            /* Background Colors */
+            --bg-primary: #111827;
+            --bg-secondary: #1f2937;
+            --bg-tertiary: #374151;
+            --bg-card: #1f2937;
+            
+            /* Border Colors */
+            --border-primary: #374151;
+            --border-secondary: #4b5563;
+            --border-accent: var(--primary-color);
+            
+            /* Shadow Colors */
+            --shadow-light: 0 1px 3px rgba(0, 0, 0, 0.3);
+            --shadow-medium: 0 4px 6px rgba(0, 0, 0, 0.3);
+            --shadow-large: 0 10px 25px rgba(0, 0, 0, 0.3);
+            --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.3);
+            
+            /* Overlay Colors */
+            --overlay-light: rgba(17, 24, 39, 0.8);
+            --overlay-dark: rgba(0, 0, 0, 0.3);
         }
 
         body {
-            background: linear-gradient(135deg, #f0f4ff, #e6f7ff);
-            color: var(--text-dark);
+            background: linear-gradient(135deg, var(--bg-secondary), var(--bg-tertiary));
+            color: var(--text-primary);
             line-height: 1.6;
             overflow-x: hidden;
             transition: var(--transition-slow);
-        }
-
-        .dark-mode body {
-            background: linear-gradient(135deg, #0f172a, #1e293b);
         }
 
         /* Loading Screen */
@@ -93,7 +168,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, var(--primary-color), var(--purple-color));
+            background: var(--primary-gradient);
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -120,7 +195,7 @@
             margin-bottom: 20px;
             backdrop-filter: blur(10px);
             border: 3px solid rgba(255, 255, 255, 0.3);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            box-shadow: var(--shadow-large);
             position: relative;
             overflow: hidden;
         }
@@ -132,7 +207,7 @@
             left: -5px;
             right: -5px;
             bottom: -5px;
-            background: linear-gradient(45deg, var(--primary-light), var(--pink-color), var(--accent-light));
+            background: linear-gradient(45deg, var(--primary-light), var(--accent-light), var(--secondary-light));
             border-radius: 50%;
             z-index: -1;
             animation: rotate 10s linear infinite;
@@ -176,10 +251,10 @@
 
         /* Header Styles */
         .class-header {
-            background: linear-gradient(135deg, var(--primary-color), var(--purple-color));
-            color: white;
+            background: var(--primary-gradient);
+            color: var(--text-inverse);
             padding: 30px 0;
-            box-shadow: var(--shadow-lg);
+            box-shadow: var(--shadow-large);
             position: relative;
             overflow: hidden;
         }
@@ -260,7 +335,7 @@
             font-size: 2.5rem;
             backdrop-filter: blur(10px);
             border: 3px solid rgba(255, 255, 255, 0.3);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            box-shadow: var(--shadow-large);
             overflow: hidden;
             position: relative;
         }
@@ -279,7 +354,7 @@
             left: -5px;
             right: -5px;
             bottom: -5px;
-            background: linear-gradient(45deg, var(--primary-light), var(--pink-color), var(--accent-light));
+            background: linear-gradient(45deg, var(--primary-light), var(--accent-light), var(--secondary-light));
             border-radius: 50%;
             z-index: -1;
             animation: rotate 10s linear infinite;
@@ -307,58 +382,81 @@
             font-size: 1.1rem;
         }
 
-        /* Enhanced Header Stats */
-        .header-stats {
-            display: flex;
-            gap: 30px;
-        }
-
-        .stat {
-            text-align: center;
+        /* Header Search Box */
+        .header-search {
             position: relative;
-            padding: 15px 20px;
             background: rgba(255, 255, 255, 0.15);
             border-radius: var(--radius-lg);
+            padding: 10px 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            min-width: 300px;
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.2);
             transition: var(--transition);
-            min-width: 120px;
         }
 
-        .stat:hover {
-            transform: translateY(-5px);
-            background: rgba(255, 255, 255, 0.2);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        .header-search:focus-within {
+            background: rgba(255, 255, 255, 0.25);
+            border-color: rgba(255, 255, 255, 0.3);
         }
 
-        .stat::after {
-            content: '';
+        .header-search i {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .header-search input {
+            border: none;
+            outline: none;
+            flex: 1;
+            font-size: 1rem;
+            background: transparent;
+            color: white;
+        }
+
+        .header-search input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* Search Suggestions */
+        .search-suggestions {
             position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 30px;
-            height: 3px;
-            background: rgba(255, 255, 255, 0.5);
-            border-radius: 3px;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: var(--bg-card);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-large);
+            z-index: 1000;
+            margin-top: 5px;
+            overflow: hidden;
+            display: none;
         }
 
-        .stat-icon {
-            font-size: 1.5rem;
-            margin-bottom: 8px;
+        .search-suggestions.active {
             display: block;
         }
 
-        .stat-number {
-            display: block;
-            font-size: 2rem;
-            font-weight: 700;
-            margin-bottom: 5px;
+        .suggestion-item {
+            padding: 12px 15px;
+            cursor: pointer;
+            transition: var(--transition);
+            border-bottom: 1px solid var(--border-primary);
+            color: var(--text-primary);
         }
 
-        .stat-label {
-            font-size: 0.9rem;
-            opacity: 0.9;
+        .suggestion-item:hover {
+            background: var(--bg-secondary);
+        }
+
+        .suggestion-item:last-child {
+            border-bottom: none;
+        }
+
+        .suggestion-item i {
+            margin-right: 10px;
+            color: var(--primary-color);
         }
 
         /* Theme Toggle Button */
@@ -389,12 +487,12 @@
 
         /* Navigation */
         .class-nav {
-            background: var(--bg-white);
-            border-bottom: 1px solid var(--border-color);
+            background: var(--bg-card);
+            border-bottom: 1px solid var(--border-primary);
             position: sticky;
             top: 0;
             z-index: 100;
-            box-shadow: var(--shadow);
+            box-shadow: var(--shadow-medium);
             transition: var(--transition-slow);
         }
 
@@ -414,7 +512,7 @@
         .nav-item {
             padding: 20px 25px;
             text-decoration: none;
-            color: var(--text-light);
+            color: var(--text-secondary);
             display: flex;
             align-items: center;
             gap: 10px;
@@ -428,7 +526,7 @@
 
         .nav-item:hover {
             color: var(--primary-color);
-            background: var(--bg-light);
+            background: var(--bg-secondary);
         }
 
         .nav-item.active {
@@ -471,18 +569,18 @@
 
         /* Halaman Utama Styles */
         .welcome-banner {
-            background: linear-gradient(135deg, var(--bg-white), var(--bg-light));
+            background: linear-gradient(135deg, var(--bg-card), var(--bg-secondary));
             border-radius: var(--radius-lg);
             padding: 30px;
             margin-bottom: 30px;
-            box-shadow: var(--shadow);
+            box-shadow: var(--shadow-medium);
             display: grid;
             grid-template-columns: 2fr 1fr;
             gap: 30px;
             align-items: start;
             position: relative;
             overflow: hidden;
-            border: 1px solid var(--border-light);
+            border: 1px solid var(--border-primary);
             transition: var(--transition-slow);
         }
 
@@ -501,8 +599,8 @@
         .welcome-text h2 {
             font-size: 2rem;
             margin-bottom: 10px;
-            color: var(--text-dark);
-            background: linear-gradient(45deg, var(--primary-color), var(--purple-color));
+            color: var(--text-primary);
+            background: linear-gradient(45deg, var(--primary-color), var(--primary-light));
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -510,17 +608,17 @@
         }
 
         .welcome-text p {
-            color: var(--text-light);
+            color: var(--text-secondary);
             font-size: 1.1rem;
         }
 
         .class-announcement {
-            background: linear-gradient(135deg, var(--warning-color), var(--amber-color));
+            background: linear-gradient(135deg, var(--warning-color), var(--accent-color));
             border: 1px solid var(--warning-color);
             border-radius: var(--radius-md);
             padding: 20px;
             position: relative;
-            box-shadow: var(--shadow);
+            box-shadow: var(--shadow-medium);
             color: white;
         }
 
@@ -569,7 +667,7 @@
 
         /* Moto Kelas */
         .class-motto {
-            background: linear-gradient(135deg, var(--primary-color), var(--purple-color));
+            background: var(--primary-gradient);
             color: white;
             padding: 30px;
             border-radius: var(--radius-lg);
@@ -577,7 +675,7 @@
             margin-bottom: 30px;
             font-style: italic;
             font-size: 1.5rem;
-            box-shadow: var(--shadow-lg);
+            box-shadow: var(--shadow-large);
             position: relative;
             overflow: hidden;
         }
@@ -601,16 +699,23 @@
 
         /* Struktur Kelas */
         .class-structure {
-            background: var(--bg-white);
+            background: var(--bg-card);
             border-radius: var(--radius-lg);
             padding: 30px;
-            box-shadow: var(--shadow);
+            box-shadow: var(--shadow-medium);
             margin-bottom: 30px;
+            border: 1px solid var(--border-primary);
+            transition: var(--transition);
+        }
+
+        .class-structure:hover {
+            box-shadow: var(--shadow-large);
+            transform: translateY(-2px);
         }
 
         .class-structure h3 {
             margin-bottom: 25px;
-            color: var(--text-dark);
+            color: var(--text-primary);
             font-size: 1.8rem;
             display: flex;
             align-items: center;
@@ -624,12 +729,12 @@
         }
 
         .structure-card {
-            background: var(--bg-light);
+            background: var(--bg-secondary);
             border-radius: var(--radius-md);
             padding: 25px;
             text-align: center;
             transition: var(--transition);
-            border: 1px solid var(--border-color);
+            border: 1px solid var(--border-primary);
             position: relative;
             overflow: hidden;
         }
@@ -641,12 +746,12 @@
             left: 0;
             width: 100%;
             height: 5px;
-            background: linear-gradient(135deg, var(--primary-color), var(--purple-color));
+            background: var(--primary-gradient);
         }
 
         .structure-card:hover {
             transform: translateY(-5px);
-            box-shadow: var(--shadow-lg);
+            box-shadow: var(--shadow-large);
         }
 
         .structure-avatar {
@@ -660,13 +765,13 @@
             color: white;
             font-size: 1.5rem;
             margin: 0 auto 15px;
-            box-shadow: var(--shadow);
+            box-shadow: var(--shadow-medium);
         }
 
         .structure-name {
             font-weight: 600;
             margin-bottom: 5px;
-            color: var(--text-dark);
+            color: var(--text-primary);
         }
 
         .structure-role {
@@ -678,21 +783,28 @@
 
         .structure-contact {
             font-size: 0.9rem;
-            color: var(--text-light);
+            color: var(--text-secondary);
         }
 
         /* Galeri Kenangan */
         .class-gallery {
-            background: var(--bg-white);
+            background: var(--bg-card);
             border-radius: var(--radius-lg);
             padding: 30px;
-            box-shadow: var(--shadow);
+            box-shadow: var(--shadow-medium);
             margin-bottom: 30px;
+            border: 1px solid var(--border-primary);
+            transition: var(--transition);
+        }
+
+        .class-gallery:hover {
+            box-shadow: var(--shadow-large);
+            transform: translateY(-2px);
         }
 
         .class-gallery h3 {
             margin-bottom: 25px;
-            color: var(--text-dark);
+            color: var(--text-primary);
             font-size: 1.8rem;
             display: flex;
             align-items: center;
@@ -708,15 +820,15 @@
         .gallery-item {
             border-radius: var(--radius-md);
             overflow: hidden;
-            box-shadow: var(--shadow);
+            box-shadow: var(--shadow-medium);
             transition: var(--transition);
             cursor: pointer;
             aspect-ratio: 1;
-            background: var(--bg-light);
+            background: var(--bg-secondary);
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--text-light);
+            color: var(--text-secondary);
             position: relative;
             overflow: hidden;
         }
@@ -739,7 +851,7 @@
 
         .gallery-item:hover {
             transform: scale(1.05);
-            box-shadow: var(--shadow-lg);
+            box-shadow: var(--shadow-large);
         }
 
         .gallery-item i {
@@ -767,23 +879,23 @@
 
         /* Stats Section */
         .stats-section {
-            background: var(--bg-white);
+            background: var(--bg-card);
             border-radius: var(--radius-lg);
             padding: 25px;
-            box-shadow: var(--shadow);
+            box-shadow: var(--shadow-medium);
             transition: var(--transition);
-            border: 1px solid var(--border-light);
+            border: 1px solid var(--border-primary);
             margin-bottom: 30px;
         }
 
         .stats-section:hover {
-            box-shadow: var(--shadow-lg);
-            transform: translateY(-5px);
+            box-shadow: var(--shadow-large);
+            transform: translateY(-2px);
         }
 
         .stats-section h3 {
             margin-bottom: 20px;
-            color: var(--text-dark);
+            color: var(--text-primary);
             font-size: 1.3rem;
             display: flex;
             align-items: center;
@@ -802,7 +914,7 @@
             gap: 15px;
             padding: 20px;
             border-radius: var(--radius-md);
-            background: var(--bg-light);
+            background: var(--bg-secondary);
             transition: var(--transition);
             cursor: pointer;
             position: relative;
@@ -827,13 +939,25 @@
 
         .enhanced-stat-card:hover {
             transform: translateY(-5px);
-            box-shadow: var(--shadow-md);
+            box-shadow: var(--shadow-medium);
         }
 
-        .enhanced-stat-card.present { border-left: 4px solid var(--secondary-color); }
-        .enhanced-stat-card.sick { border-left: 4px solid var(--warning-color); }
-        .enhanced-stat-card.permission { border-left: 4px solid var(--info-color); }
-        .enhanced-stat-card.absent { border-left: 4px solid var(--danger-color); }
+        .enhanced-stat-card.present { 
+            border-left: 4px solid var(--success-color);
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.05), transparent);
+        }
+        .enhanced-stat-card.sick { 
+            border-left: 4px solid var(--warning-color);
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.05), transparent);
+        }
+        .enhanced-stat-card.permission { 
+            border-left: 4px solid var(--info-color);
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.05), transparent);
+        }
+        .enhanced-stat-card.absent { 
+            border-left: 4px solid var(--danger-color);
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.05), transparent);
+        }
 
         .stat-icon {
             width: 50px;
@@ -846,7 +970,7 @@
             color: white;
         }
 
-        .enhanced-stat-card.present .stat-icon { background: var(--secondary-color); }
+        .enhanced-stat-card.present .stat-icon { background: var(--success-color); }
         .enhanced-stat-card.sick .stat-icon { background: var(--warning-color); }
         .enhanced-stat-card.permission .stat-icon { background: var(--info-color); }
         .enhanced-stat-card.absent .stat-icon { background: var(--danger-color); }
@@ -855,32 +979,33 @@
             font-size: 1.8rem;
             font-weight: 700;
             margin-bottom: 5px;
+            color: var(--text-primary);
         }
 
         .stat-info span {
-            color: var(--text-light);
+            color: var(--text-secondary);
             font-size: 0.9rem;
         }
 
         /* Today's Schedule */
         .schedule-section {
-            background: var(--bg-white);
+            background: var(--bg-card);
             border-radius: var(--radius-lg);
             padding: 25px;
-            box-shadow: var(--shadow);
+            box-shadow: var(--shadow-medium);
             transition: var(--transition);
-            border: 1px solid var(--border-light);
+            border: 1px solid var(--border-primary);
             margin-bottom: 30px;
         }
 
         .schedule-section:hover {
-            box-shadow: var(--shadow-lg);
-            transform: translateY(-5px);
+            box-shadow: var(--shadow-large);
+            transform: translateY(-2px);
         }
 
         .schedule-section h3 {
             margin-bottom: 20px;
-            color: var(--text-dark);
+            color: var(--text-primary);
             font-size: 1.3rem;
             display: flex;
             align-items: center;
@@ -898,12 +1023,13 @@
             align-items: center;
             gap: 15px;
             padding: 15px;
-            border: 1px solid var(--border-color);
+            border: 1px solid var(--border-primary);
             border-radius: var(--radius-md);
             transition: var(--transition);
             cursor: pointer;
             position: relative;
             overflow: hidden;
+            background: var(--bg-secondary);
         }
 
         .enhanced-schedule-item::before {
@@ -924,7 +1050,7 @@
 
         .enhanced-schedule-item:hover {
             transform: translateX(5px);
-            box-shadow: var(--shadow);
+            box-shadow: var(--shadow-medium);
         }
 
         .enhanced-schedule-item.current {
@@ -939,7 +1065,7 @@
 
         .schedule-time {
             font-weight: 600;
-            color: var(--text-dark);
+            color: var(--text-primary);
             min-width: 100px;
         }
 
@@ -949,11 +1075,11 @@
 
         .schedule-details h4 {
             margin-bottom: 5px;
-            color: var(--text-dark);
+            color: var(--text-primary);
         }
 
         .schedule-details p {
-            color: var(--text-light);
+            color: var(--text-secondary);
             font-size: 0.9rem;
         }
 
@@ -962,8 +1088,8 @@
             border-radius: 20px;
             font-size: 0.8rem;
             font-weight: 600;
-            background: var(--bg-light);
-            color: var(--text-light);
+            background: var(--bg-secondary);
+            color: var(--text-secondary);
         }
 
         .enhanced-schedule-item.current .schedule-status {
@@ -983,7 +1109,7 @@
         }
 
         .teacher-present {
-            background: var(--secondary-color);
+            background: var(--success-color);
             color: white;
         }
 
@@ -998,7 +1124,7 @@
             right: 10px;
             background: none;
             border: none;
-            color: var(--text-light);
+            color: var(--text-secondary);
             cursor: pointer;
             font-size: 0.8rem;
             display: flex;
@@ -1016,23 +1142,23 @@
 
         /* Upcoming Assignments */
         .assignments-section {
-            background: var(--bg-white);
+            background: var(--bg-card);
             border-radius: var(--radius-lg);
             padding: 25px;
-            box-shadow: var(--shadow);
+            box-shadow: var(--shadow-medium);
             transition: var(--transition);
-            border: 1px solid var(--border-light);
+            border: 1px solid var(--border-primary);
             margin-bottom: 30px;
         }
 
         .assignments-section:hover {
-            box-shadow: var(--shadow-lg);
-            transform: translateY(-5px);
+            box-shadow: var(--shadow-large);
+            transform: translateY(-2px);
         }
 
         .assignments-section h3 {
             margin-bottom: 20px;
-            color: var(--text-dark);
+            color: var(--text-primary);
             font-size: 1.3rem;
             display: flex;
             align-items: center;
@@ -1046,11 +1172,11 @@
         }
 
         .enhanced-assignment-item {
-            background: var(--bg-white);
+            background: var(--bg-card);
             border-radius: var(--radius-md);
             padding: 20px;
             margin-bottom: 15px;
-            box-shadow: var(--shadow);
+            box-shadow: var(--shadow-medium);
             border-left: 4px solid var(--info-color);
             transition: var(--transition);
             position: relative;
@@ -1076,15 +1202,17 @@
 
         .enhanced-assignment-item:hover {
             transform: translateY(-3px);
-            box-shadow: var(--shadow-lg);
+            box-shadow: var(--shadow-large);
         }
 
         .enhanced-assignment-item.urgent {
             border-left-color: var(--danger-color);
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.05), transparent);
         }
 
         .enhanced-assignment-item.completed {
-            border-left-color: var(--secondary-color);
+            border-left-color: var(--success-color);
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.05), transparent);
         }
 
         .assignment-subject {
@@ -1096,13 +1224,14 @@
         .assignment-title {
             font-weight: 500;
             margin-bottom: 8px;
+            color: var(--text-primary);
         }
 
         .assignment-deadline {
             display: flex;
             align-items: center;
             gap: 5px;
-            color: var(--text-light);
+            color: var(--text-secondary);
             font-size: 0.9rem;
         }
 
@@ -1112,23 +1241,23 @@
 
         /* Recent Activity */
         .activity-section {
-            background: var(--bg-white);
+            background: var(--bg-card);
             border-radius: var(--radius-lg);
             padding: 25px;
-            box-shadow: var(--shadow);
+            box-shadow: var(--shadow-medium);
             transition: var(--transition);
-            border: 1px solid var(--border-light);
+            border: 1px solid var(--border-primary);
             margin-bottom: 30px;
         }
 
         .activity-section:hover {
-            box-shadow: var(--shadow-lg);
-            transform: translateY(-5px);
+            box-shadow: var(--shadow-large);
+            transform: translateY(-2px);
         }
 
         .activity-section h3 {
             margin-bottom: 20px;
-            color: var(--text-dark);
+            color: var(--text-primary);
             font-size: 1.3rem;
             display: flex;
             align-items: center;
@@ -1146,7 +1275,7 @@
             align-items: center;
             gap: 15px;
             padding: 15px;
-            background: var(--bg-light);
+            background: var(--bg-secondary);
             border-radius: var(--radius-md);
             transition: var(--transition);
             cursor: pointer;
@@ -1154,8 +1283,8 @@
 
         .activity-item:hover {
             transform: translateX(5px);
-            background: var(--bg-white);
-            box-shadow: var(--shadow);
+            background: var(--bg-card);
+            box-shadow: var(--shadow-medium);
         }
 
         .activity-icon {
@@ -1176,32 +1305,33 @@
         .activity-content p {
             font-weight: 500;
             margin-bottom: 4px;
+            color: var(--text-primary);
         }
 
         .activity-time {
             font-size: 0.8rem;
-            color: var(--text-light);
+            color: var(--text-secondary);
         }
 
         /* Today's Duty */
         .duty-section {
-            background: var(--bg-white);
+            background: var(--bg-card);
             border-radius: var(--radius-lg);
             padding: 25px;
-            box-shadow: var(--shadow);
+            box-shadow: var(--shadow-medium);
             transition: var(--transition);
-            border: 1px solid var(--border-light);
+            border: 1px solid var(--border-primary);
             margin-bottom: 30px;
         }
 
         .duty-section:hover {
-            box-shadow: var(--shadow-lg);
-            transform: translateY(-5px);
+            box-shadow: var(--shadow-large);
+            transform: translateY(-2px);
         }
 
         .duty-section h3 {
             margin-bottom: 20px;
-            color: var(--text-dark);
+            color: var(--text-primary);
             font-size: 1.3rem;
             display: flex;
             align-items: center;
@@ -1219,7 +1349,7 @@
         }
 
         .tab-header h2 {
-            color: var(--text-dark);
+            color: var(--text-primary);
             font-size: 1.8rem;
             display: flex;
             align-items: center;
@@ -1228,7 +1358,7 @@
 
         /* Buttons */
         .btn-primary {
-            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            background: var(--primary-gradient);
             color: white;
             border: none;
             padding: 12px 24px;
@@ -1239,19 +1369,19 @@
             gap: 8px;
             font-weight: 500;
             transition: var(--transition);
-            box-shadow: var(--shadow);
+            box-shadow: var(--shadow-medium);
         }
 
         .btn-primary:hover {
             background: linear-gradient(135deg, var(--primary-dark), var(--primary-color));
             transform: translateY(-2px);
-            box-shadow: var(--shadow-lg);
+            box-shadow: var(--shadow-large);
         }
 
         .btn-secondary {
-            background: var(--bg-white);
-            color: var(--text-dark);
-            border: 1px solid var(--border-color);
+            background: var(--bg-card);
+            color: var(--text-primary);
+            border: 1px solid var(--border-primary);
             padding: 10px 20px;
             border-radius: var(--radius-sm);
             cursor: pointer;
@@ -1266,7 +1396,7 @@
             color: white;
             border-color: var(--primary-color);
             transform: translateY(-1px);
-            box-shadow: var(--shadow);
+            box-shadow: var(--shadow-medium);
         }
 
         .full-width {
@@ -1292,15 +1422,16 @@
 
         .date-selector label {
             font-weight: 500;
+            color: var(--text-primary);
         }
 
         .date-selector input {
             padding: 8px 12px;
-            border: 1px solid var(--border-color);
+            border: 1px solid var(--border-primary);
             border-radius: var(--radius-sm);
             transition: var(--transition);
-            background: var(--bg-white);
-            color: var(--text-dark);
+            background: var(--bg-card);
+            color: var(--text-primary);
         }
 
         .date-selector input:focus {
@@ -1315,10 +1446,10 @@
         }
 
         .attendance-table-container {
-            background: var(--bg-white);
+            background: var(--bg-card);
             border-radius: var(--radius-md);
             overflow: hidden;
-            box-shadow: var(--shadow);
+            box-shadow: var(--shadow-medium);
             margin-bottom: 20px;
             overflow-x: auto;
         }
@@ -1330,17 +1461,18 @@
         }
 
         .attendance-table th {
-            background: var(--bg-light);
+            background: var(--bg-secondary);
             padding: 15px;
             text-align: left;
             font-weight: 600;
-            color: var(--text-dark);
-            border-bottom: 1px solid var(--border-color);
+            color: var(--text-primary);
+            border-bottom: 1px solid var(--border-primary);
         }
 
         .attendance-table td {
             padding: 15px;
-            border-bottom: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-primary);
+            color: var(--text-secondary);
         }
 
         .attendance-table tr:last-child td {
@@ -1348,7 +1480,7 @@
         }
 
         .attendance-table tr:hover {
-            background: var(--bg-light);
+            background: var(--bg-secondary);
         }
 
         /* Status Badges */
@@ -1359,11 +1491,31 @@
             font-weight: 600;
         }
 
-        .status-present { background: #d1fae5; color: #065f46; }
-        .status-sick { background: #fef3c7; color: #92400e; }
-        .status-permission { background: #dbeafe; color: #1e40af; }
-        .status-absent { background: #fee2e2; color: #991b1b; }
-        .status-not-filled { background: #f3f4f6; color: #6b7280; }
+        .status-present { 
+            background: rgba(16, 185, 129, 0.1); 
+            color: var(--success-color);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+        .status-sick { 
+            background: rgba(245, 158, 11, 0.1); 
+            color: var(--warning-color);
+            border: 1px solid rgba(245, 158, 11, 0.2);
+        }
+        .status-permission { 
+            background: rgba(59, 130, 246, 0.1); 
+            color: var(--info-color);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+        }
+        .status-absent { 
+            background: rgba(239, 68, 68, 0.1); 
+            color: var(--danger-color);
+            border: 1px solid rgba(239, 68, 68, 0.2);
+        }
+        .status-not-filled { 
+            background: rgba(107, 114, 128, 0.1); 
+            color: var(--text-tertiary);
+            border: 1px solid rgba(107, 114, 128, 0.2);
+        }
 
         /* Modal Styles */
         .modal {
@@ -1383,7 +1535,7 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background: var(--bg-white);
+            background: var(--bg-card);
             border-radius: var(--radius-lg);
             box-shadow: var(--shadow-xl);
             width: 90%;
@@ -1394,14 +1546,14 @@
 
         .modal-header {
             padding: 25px;
-            border-bottom: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-primary);
             display: flex;
             align-items: center;
             justify-content: space-between;
         }
 
         .modal-header h3 {
-            color: var(--text-dark);
+            color: var(--text-primary);
             font-size: 1.5rem;
         }
 
@@ -1409,7 +1561,7 @@
             background: none;
             border: none;
             font-size: 1.2rem;
-            color: var(--text-light);
+            color: var(--text-secondary);
             cursor: pointer;
             padding: 5px;
             border-radius: 4px;
@@ -1417,7 +1569,7 @@
         }
 
         .close-btn:hover {
-            background: var(--bg-light);
+            background: var(--bg-secondary);
             color: var(--danger-color);
         }
 
@@ -1434,7 +1586,7 @@
             display: block;
             margin-bottom: 8px;
             font-weight: 500;
-            color: var(--text-dark);
+            color: var(--text-primary);
         }
 
         .form-group input,
@@ -1442,12 +1594,12 @@
         .form-group textarea {
             width: 100%;
             padding: 12px 15px;
-            border: 1px solid var(--border-color);
+            border: 1px solid var(--border-primary);
             border-radius: var(--radius-sm);
             font-size: 1rem;
             transition: var(--transition);
-            background: var(--bg-white);
-            color: var(--text-dark);
+            background: var(--bg-card);
+            color: var(--text-primary);
         }
 
         .form-group input:focus,
@@ -1461,7 +1613,7 @@
         /* Students Attendance List */
         .students-attendance-list h4 {
             margin-bottom: 15px;
-            color: var(--text-dark);
+            color: var(--text-primary);
         }
 
         .attendance-student-item {
@@ -1469,14 +1621,15 @@
             align-items: center;
             justify-content: space-between;
             padding: 12px;
-            border: 1px solid var(--border-color);
+            border: 1px solid var(--border-primary);
             border-radius: var(--radius-sm);
             margin-bottom: 10px;
             transition: var(--transition);
+            background: var(--bg-secondary);
         }
 
         .attendance-student-item:hover {
-            background: var(--bg-light);
+            background: var(--bg-card);
         }
 
         .student-attendance-info {
@@ -1505,19 +1658,20 @@
 
         .attendance-btn-small {
             padding: 6px 12px;
-            border: 1px solid var(--border-color);
+            border: 1px solid var(--border-primary);
             border-radius: var(--radius-sm);
-            background: var(--bg-white);
+            background: var(--bg-card);
             cursor: pointer;
             font-size: 0.8rem;
             transition: var(--transition);
+            color: var(--text-secondary);
         }
 
         .attendance-btn-small.active {
             color: white;
         }
 
-        .attendance-btn-small.present.active { background: var(--secondary-color); border-color: var(--secondary-color); }
+        .attendance-btn-small.present.active { background: var(--success-color); border-color: var(--success-color); }
         .attendance-btn-small.sick.active { background: var(--warning-color); border-color: var(--warning-color); }
         .attendance-btn-small.permission.active { background: var(--info-color); border-color: var(--info-color); }
         .attendance-btn-small.absent.active { background: var(--danger-color); border-color: var(--danger-color); }
@@ -1530,18 +1684,19 @@
         }
 
         .student-card {
-            background: var(--bg-white);
+            background: var(--bg-card);
             border-radius: var(--radius-md);
             padding: 20px;
-            box-shadow: var(--shadow);
+            box-shadow: var(--shadow-medium);
             text-align: center;
             transition: var(--transition);
             cursor: pointer;
+            border: 1px solid var(--border-primary);
         }
 
         .student-card:hover {
             transform: translateY(-5px);
-            box-shadow: var(--shadow-lg);
+            box-shadow: var(--shadow-large);
         }
 
         .student-avatar-large {
@@ -1560,18 +1715,18 @@
 
         .student-card h4 {
             margin-bottom: 5px;
-            color: var(--text-dark);
+            color: var(--text-primary);
         }
 
         .student-nis {
-            color: var(--text-light);
+            color: var(--text-secondary);
             margin-bottom: 10px;
             font-size: 0.9rem;
         }
 
         .student-contact {
             font-size: 0.9rem;
-            color: var(--text-light);
+            color: var(--text-secondary);
         }
 
         /* Teachers Grid */
@@ -1582,20 +1737,21 @@
         }
 
         .teacher-card {
-            background: var(--bg-white);
+            background: var(--bg-card);
             border-radius: var(--radius-md);
             padding: 25px;
-            box-shadow: var(--shadow);
+            box-shadow: var(--shadow-medium);
             display: flex;
             align-items: center;
             gap: 20px;
             transition: var(--transition);
             cursor: pointer;
+            border: 1px solid var(--border-primary);
         }
 
         .teacher-card:hover {
             transform: translateY(-5px);
-            box-shadow: var(--shadow-lg);
+            box-shadow: var(--shadow-large);
         }
 
         .teacher-avatar {
@@ -1612,7 +1768,7 @@
 
         .teacher-info h4 {
             margin-bottom: 5px;
-            color: var(--text-dark);
+            color: var(--text-primary);
         }
 
         .teacher-subject {
@@ -1622,16 +1778,16 @@
         }
 
         .teacher-qualification {
-            color: var(--text-light);
+            color: var(--text-secondary);
             font-size: 0.9rem;
         }
 
         /* Weekly Schedule */
         .weekly-schedule {
-            background: var(--bg-white);
+            background: var(--bg-card);
             border-radius: var(--radius-md);
             overflow: hidden;
-            box-shadow: var(--shadow);
+            box-shadow: var(--shadow-medium);
             overflow-x: auto;
         }
 
@@ -1661,17 +1817,19 @@
 
         .schedule-cell {
             padding: 15px;
-            border: 1px solid var(--border-color);
+            border: 1px solid var(--border-primary);
             min-height: 80px;
+            background: var(--bg-card);
         }
 
         .schedule-cell.time {
-            background: var(--bg-light);
+            background: var(--bg-secondary);
             font-weight: 600;
             text-align: center;
             display: flex;
             align-items: center;
             justify-content: center;
+            color: var(--text-primary);
         }
 
         .schedule-lesson {
@@ -1692,12 +1850,12 @@
 
         .schedule-lesson h5 {
             margin-bottom: 5px;
-            color: var(--text-dark);
+            color: var(--text-primary);
         }
 
         .schedule-lesson p {
             font-size: 0.8rem;
-            color: var(--text-light);
+            color: var(--text-secondary);
         }
 
         .schedule-lesson-actions {
@@ -1711,7 +1869,7 @@
         .schedule-edit-btn {
             background: none;
             border: none;
-            color: var(--text-light);
+            color: var(--text-secondary);
             cursor: pointer;
             font-size: 0.7rem;
             padding: 2px 5px;
@@ -1727,8 +1885,8 @@
         /* Search Box */
         .search-box {
             position: relative;
-            background: var(--bg-white);
-            border: 1px solid var(--border-color);
+            background: var(--bg-card);
+            border: 1px solid var(--border-primary);
             border-radius: var(--radius-sm);
             padding: 10px 15px;
             display: flex;
@@ -1744,7 +1902,7 @@
         }
 
         .search-box i {
-            color: var(--text-light);
+            color: var(--text-secondary);
         }
 
         .search-box input {
@@ -1753,32 +1911,35 @@
             flex: 1;
             font-size: 1rem;
             background: transparent;
-            color: var(--text-dark);
+            color: var(--text-primary);
         }
 
         /* Assignment Detailed */
         .assignment-item-detailed {
-            background: var(--bg-white);
+            background: var(--bg-card);
             border-radius: var(--radius-md);
             padding: 20px;
             margin-bottom: 15px;
-            box-shadow: var(--shadow);
+            box-shadow: var(--shadow-medium);
             border-left: 4px solid var(--info-color);
             transition: var(--transition);
             position: relative;
+            border: 1px solid var(--border-primary);
         }
 
         .assignment-item-detailed:hover {
             transform: translateY(-3px);
-            box-shadow: var(--shadow-lg);
+            box-shadow: var(--shadow-large);
         }
 
         .assignment-item-detailed.urgent {
             border-left-color: var(--danger-color);
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.05), transparent);
         }
 
         .assignment-item-detailed.completed {
-            border-left-color: var(--secondary-color);
+            border-left-color: var(--success-color);
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.05), transparent);
         }
 
         .assignment-header {
@@ -1796,18 +1957,21 @@
         }
 
         .assignment-status.urgent {
-            background: #fee2e2;
-            color: #991b1b;
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--danger-color);
+            border: 1px solid rgba(239, 68, 68, 0.2);
         }
 
         .assignment-status.active {
-            background: #dbeafe;
-            color: #1e40af;
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--info-color);
+            border: 1px solid rgba(59, 130, 246, 0.2);
         }
 
         .assignment-status.completed {
-            background: #d1fae5;
-            color: #065f46;
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success-color);
+            border: 1px solid rgba(16, 185, 129, 0.2);
         }
 
         .assignment-footer {
@@ -1824,15 +1988,16 @@
 
         .btn-small {
             padding: 6px 12px;
-            border: 1px solid var(--border-color);
+            border: 1px solid var(--border-primary);
             border-radius: var(--radius-sm);
-            background: var(--bg-white);
+            background: var(--bg-card);
             cursor: pointer;
             font-size: 0.8rem;
             transition: var(--transition);
             display: inline-flex;
             align-items: center;
             gap: 5px;
+            color: var(--text-secondary);
         }
 
         .btn-small:hover {
@@ -1850,14 +2015,15 @@
 
         .filter-btn {
             padding: 8px 16px;
-            border: 1px solid var(--border-color);
+            border: 1px solid var(--border-primary);
             border-radius: var(--radius-sm);
-            background: var(--bg-white);
+            background: var(--bg-card);
             cursor: pointer;
             transition: var(--transition);
             display: inline-flex;
             align-items: center;
             gap: 5px;
+            color: var(--text-secondary);
         }
 
         .filter-btn.active, .filter-btn:hover {
@@ -1865,12 +2031,12 @@
             color: white;
             border-color: var(--primary-color);
             transform: translateY(-1px);
-            box-shadow: var(--shadow);
+            box-shadow: var(--shadow-medium);
         }
 
         /* Export Button */
         .export-btn {
-            background: linear-gradient(135deg, var(--secondary-color), var(--secondary-dark));
+            background: var(--secondary-gradient);
             color: white;
             border: none;
             padding: 10px 20px;
@@ -1881,13 +2047,13 @@
             gap: 8px;
             font-weight: 500;
             transition: var(--transition);
-            box-shadow: var(--shadow);
+            box-shadow: var(--shadow-medium);
         }
 
         .export-btn:hover {
             background: linear-gradient(135deg, var(--secondary-dark), var(--secondary-color));
             transform: translateY(-2px);
-            box-shadow: var(--shadow-lg);
+            box-shadow: var(--shadow-large);
         }
 
         /* Toast Notification */
@@ -1895,11 +2061,11 @@
             position: fixed;
             bottom: 20px;
             right: 20px;
-            background: var(--secondary-color);
+            background: var(--success-color);
             color: white;
             padding: 15px 25px;
             border-radius: var(--radius-sm);
-            box-shadow: var(--shadow-lg);
+            box-shadow: var(--shadow-large);
             z-index: 2000;
             opacity: 0;
             transform: translateX(100px);
@@ -1919,10 +2085,11 @@
         .empty-placeholder {
             text-align: center;
             padding: 40px;
-            color: var(--text-light);
-            border: 1px dashed var(--border-color);
+            color: var(--text-secondary);
+            border: 1px dashed var(--border-primary);
             border-radius: var(--radius-md);
             margin: 20px 0;
+            background: var(--bg-secondary);
         }
 
         .empty-placeholder i {
@@ -1933,15 +2100,16 @@
 
         /* Attendance Summary */
         .attendance-summary {
-            background: var(--bg-white);
+            background: var(--bg-card);
             border-radius: var(--radius-md);
             padding: 20px;
-            box-shadow: var(--shadow);
+            box-shadow: var(--shadow-medium);
+            border: 1px solid var(--border-primary);
         }
 
         .summary-card h4 {
             margin-bottom: 15px;
-            color: var(--text-dark);
+            color: var(--text-primary);
         }
 
         .summary-stats {
@@ -1954,19 +2122,20 @@
             display: flex;
             justify-content: space-between;
             padding: 10px;
-            border-bottom: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-primary);
         }
 
         .summary-item .label {
-            color: var(--text-light);
+            color: var(--text-secondary);
         }
 
         .summary-item .value {
             font-weight: 600;
+            color: var(--text-primary);
         }
 
         .summary-item .value.present {
-            color: var(--secondary-color);
+            color: var(--success-color);
         }
 
         .summary-item .value.absent {
@@ -1975,11 +2144,18 @@
 
         /* Group Spinner Styles */
         .group-spinner-section {
-            background: var(--bg-white);
+            background: var(--bg-card);
             border-radius: var(--radius-lg);
             padding: 25px;
-            box-shadow: var(--shadow);
+            box-shadow: var(--shadow-medium);
             margin-bottom: 25px;
+            border: 1px solid var(--border-primary);
+            transition: var(--transition);
+        }
+
+        .group-spinner-section:hover {
+            box-shadow: var(--shadow-large);
+            transform: translateY(-2px);
         }
 
         .group-controls {
@@ -1999,16 +2175,16 @@
         .group-control-item label {
             font-size: 0.8rem;
             font-weight: 600;
-            color: var(--text-light);
+            color: var(--text-secondary);
         }
 
         .group-control-item input, .group-control-item select {
             padding: 8px 12px;
-            border: 1px solid var(--border-color);
+            border: 1px solid var(--border-primary);
             border-radius: var(--radius-sm);
             transition: var(--transition);
-            background: var(--bg-white);
-            color: var(--text-dark);
+            background: var(--bg-card);
+            color: var(--text-primary);
         }
 
         .group-control-item input:focus, .group-control-item select:focus {
@@ -2025,17 +2201,17 @@
         }
 
         .group-card {
-            background: var(--bg-white);
+            background: var(--bg-card);
             border-radius: var(--radius-md);
             padding: 20px;
-            box-shadow: var(--shadow);
-            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-medium);
+            border: 1px solid var(--border-primary);
             transition: var(--transition);
         }
 
         .group-card:hover {
             transform: translateY(-5px);
-            box-shadow: var(--shadow-lg);
+            box-shadow: var(--shadow-large);
         }
 
         .group-header {
@@ -2044,7 +2220,7 @@
             align-items: center;
             margin-bottom: 15px;
             padding-bottom: 10px;
-            border-bottom: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-primary);
         }
 
         .group-name {
@@ -2074,12 +2250,12 @@
             gap: 10px;
             padding: 8px;
             border-radius: var(--radius-sm);
-            background: var(--bg-light);
+            background: var(--bg-secondary);
             transition: var(--transition);
         }
 
         .group-member:hover {
-            background: var(--border-light);
+            background: var(--bg-card);
         }
 
         .group-member-avatar {
@@ -2108,16 +2284,17 @@
             align-items: center;
             justify-content: center;
             padding: 40px;
-            background: var(--bg-white);
+            background: var(--bg-card);
             border-radius: var(--radius-md);
-            box-shadow: var(--shadow);
+            box-shadow: var(--shadow-medium);
             margin: 20px 0;
+            border: 1px solid var(--border-primary);
         }
 
         .spinner {
             width: 60px;
             height: 60px;
-            border: 5px solid var(--bg-light);
+            border: 5px solid var(--bg-secondary);
             border-top: 5px solid var(--primary-color);
             border-radius: 50%;
             animation: spin 1s linear infinite;
@@ -2130,7 +2307,7 @@
         }
 
         .spinner-text {
-            color: var(--text-light);
+            color: var(--text-secondary);
             font-weight: 500;
         }
 
@@ -2141,14 +2318,14 @@
             right: 30px;
             width: 60px;
             height: 60px;
-            background: linear-gradient(135deg, var(--primary-color), var(--purple-color));
+            background: var(--primary-gradient);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
             font-size: 1.5rem;
-            box-shadow: var(--shadow-lg);
+            box-shadow: var(--shadow-large);
             cursor: pointer;
             z-index: 99;
             transition: var(--transition);
@@ -2162,10 +2339,10 @@
         /* Quick Actions Menu */
         .quick-action-item {
             position: fixed;
-            background: var(--bg-white);
+            background: var(--bg-card);
             padding: 12px 16px;
             border-radius: var(--radius-md);
-            box-shadow: var(--shadow-lg);
+            box-shadow: var(--shadow-large);
             display: flex;
             align-items: center;
             gap: 10px;
@@ -2173,6 +2350,8 @@
             z-index: 98;
             animation: slideInRight 0.3s ease-out both;
             transition: var(--transition);
+            color: var(--text-primary);
+            border: 1px solid var(--border-primary);
         }
 
         .quick-action-item:hover {
@@ -2208,12 +2387,19 @@
 
         /* NEW: Classroom Layout Styles */
         .classroom-layout {
-            background: var(--bg-white);
+            background: var(--bg-card);
             border-radius: var(--radius-lg);
             padding: 25px;
-            box-shadow: var(--shadow);
+            box-shadow: var(--shadow-medium);
             margin-bottom: 25px;
             overflow-x: auto;
+            border: 1px solid var(--border-primary);
+            transition: var(--transition);
+        }
+
+        .classroom-layout:hover {
+            box-shadow: var(--shadow-large);
+            transform: translateY(-2px);
         }
 
         .classroom-grid {
@@ -2225,11 +2411,11 @@
         }
 
         .classroom-desk {
-            background: var(--bg-light);
+            background: var(--bg-secondary);
             border-radius: var(--radius-md);
             padding: 15px;
             text-align: center;
-            box-shadow: var(--shadow);
+            box-shadow: var(--shadow-medium);
             transition: var(--transition);
             cursor: pointer;
             border: 2px solid transparent;
@@ -2237,16 +2423,17 @@
 
         .classroom-desk:hover {
             transform: translateY(-3px);
-            box-shadow: var(--shadow-md);
+            box-shadow: var(--shadow-medium);
+            border-color: var(--primary-color);
         }
 
         .classroom-desk.empty {
-            background: var(--border-light);
-            color: var(--text-light);
+            background: var(--bg-tertiary);
+            color: var(--text-tertiary);
         }
 
         .classroom-desk.teacher {
-            background: linear-gradient(135deg, var(--primary-color), var(--purple-color));
+            background: var(--primary-gradient);
             color: white;
             grid-column: 3 / 5;
         }
@@ -2255,7 +2442,7 @@
             font-size: 0.8rem;
             font-weight: 600;
             margin-bottom: 5px;
-            color: var(--text-light);
+            color: var(--text-secondary);
         }
 
         .classroom-desk.teacher .desk-number {
@@ -2265,6 +2452,7 @@
         .desk-student {
             font-size: 0.9rem;
             font-weight: 500;
+            color: var(--text-primary);
         }
 
         .classroom-controls {
@@ -2276,11 +2464,18 @@
 
         /* NEW: Duty Schedule Styles */
         .duty-schedule {
-            background: var(--bg-white);
+            background: var(--bg-card);
             border-radius: var(--radius-lg);
             padding: 25px;
-            box-shadow: var(--shadow);
+            box-shadow: var(--shadow-medium);
             margin-bottom: 25px;
+            border: 1px solid var(--border-primary);
+            transition: var(--transition);
+        }
+
+        .duty-schedule:hover {
+            box-shadow: var(--shadow-large);
+            transform: translateY(-2px);
         }
 
         .duty-controls {
@@ -2296,17 +2491,18 @@
         }
 
         .duty-table th {
-            background: var(--bg-light);
+            background: var(--bg-secondary);
             padding: 12px 15px;
             text-align: left;
             font-weight: 600;
-            color: var(--text-dark);
-            border-bottom: 1px solid var(--border-color);
+            color: var(--text-primary);
+            border-bottom: 1px solid var(--border-primary);
         }
 
         .duty-table td {
             padding: 12px 15px;
-            border-bottom: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-primary);
+            color: var(--text-secondary);
         }
 
         .duty-table tr:last-child td {
@@ -2314,7 +2510,86 @@
         }
 
         .duty-table tr:hover {
-            background: var(--bg-light);
+            background: var(--bg-secondary);
+        }
+
+        /* NEW: Subject Attendance Styles */
+        .subject-attendance-section {
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            padding: 25px;
+            box-shadow: var(--shadow-medium);
+            margin-bottom: 25px;
+            border: 1px solid var(--border-primary);
+            transition: var(--transition);
+        }
+
+        .subject-attendance-section:hover {
+            box-shadow: var(--shadow-large);
+            transform: translateY(-2px);
+        }
+
+        .subject-attendance-controls {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .subject-attendance-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .subject-attendance-card {
+            background: var(--bg-card);
+            border-radius: var(--radius-md);
+            padding: 20px;
+            box-shadow: var(--shadow-medium);
+            border-left: 4px solid var(--primary-color);
+            transition: var(--transition);
+            cursor: pointer;
+            border: 1px solid var(--border-primary);
+        }
+
+        .subject-attendance-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-large);
+        }
+
+        .subject-attendance-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .subject-name {
+            font-weight: 600;
+            color: var(--primary-color);
+            font-size: 1.1rem;
+        }
+
+        .subject-attendance-stats {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+        }
+
+        .subject-stat {
+            text-align: center;
+        }
+
+        .subject-stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .subject-stat-label {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
         }
 
         /* Responsive Design */
@@ -2339,14 +2614,9 @@
                 text-align: center;
             }
             
-            .header-stats {
-                justify-content: center;
-                width: 100%;
-            }
-            
-            .stat {
-                flex: 1;
-                min-width: 120px;
+            .header-search {
+                min-width: 100%;
+                margin-top: 15px;
             }
             
             .nav-container {
@@ -2446,14 +2716,6 @@
                 flex-direction: column;
             }
             
-            .stat-number {
-                font-size: 1.5rem;
-            }
-            
-            .stat {
-                padding: 8px 10px;
-            }
-            
             .nav-item {
                 padding: 15px 20px;
             }
@@ -2513,22 +2775,13 @@
                         <p>SMA Negeri 4 Bojonegoro • Tahun Ajaran 2024/2025</p>
                     </div>
                 </div>
-                <div class="header-stats">
-                    <!-- Enhanced Stats with Icons -->
-                    <div class="stat">
-                        <i class="fas fa-user-graduate stat-icon"></i>
-                        <span class="stat-number">36</span>
-                        <span class="stat-label">Siswa Aktif</span>
-                    </div>
-                    <div class="stat">
-                        <i class="fas fa-book-open stat-icon"></i>
-                        <span class="stat-number">12</span>
-                        <span class="stat-label">Mata Pelajaran</span>
-                    </div>
-                    <div class="stat">
-                        <i class="fas fa-chalkboard-teacher stat-icon"></i>
-                        <span class="stat-number">10</span>
-                        <span class="stat-label">Guru Pengajar</span>
+                
+                <!-- Header Search Box -->
+                <div class="header-search">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Cari halaman atau fitur..." id="headerSearch">
+                    <div class="search-suggestions" id="searchSuggestions">
+                        <!-- Search suggestions will be loaded here -->
                     </div>
                 </div>
             </div>
@@ -2543,7 +2796,11 @@
                 </a>
                 <a href="#attendance" class="nav-item" data-tab="attendance">
                     <i class="fas fa-clipboard-check"></i>
-                    <span>Absensi</span>
+                    <span>Absensi Harian</span>
+                </a>
+                <a href="#subject-attendance" class="nav-item" data-tab="subject-attendance">
+                    <i class="fas fa-book"></i>
+                    <span>Absensi Mata Pelajaran</span>
                 </a>
                 <a href="#group-spinner" class="nav-item" data-tab="group-spinner">
                     <i class="fas fa-random"></i>
@@ -2622,7 +2879,7 @@
                 
                 <!-- Statistik Hari Ini -->
                 <div class="stats-section">
-                    <h3><i class="fas fa-chart-bar"></i> Statistik Hari Ini</h3>
+                    <h3><i class="fas fa-chart-bar"></i> Statistik Absensi Harian</h3>
                     <div class="stats-grid">
                         <div class="enhanced-stat-card present" onclick="app.showAttendanceDetails('present')">
                             <div class="stat-icon">
@@ -2699,15 +2956,15 @@
             <!-- Attendance Tab -->
             <div id="attendance" class="tab-content">
                 <div class="tab-header">
-                    <h2>Absensi Kelas XI-7 VALLORIX</h2>
+                    <h2>Absensi Harian Kelas XI-7 VALLORIX</h2>
                     <div>
                         <button class="export-btn" onclick="app.exportAttendance()">
                             <i class="fas fa-file-export"></i>
                             Ekspor Data
                         </button>
-                        <button class="btn-primary" onclick="app.showAttendanceModal()">
+                        <button class="btn-primary" onclick="app.showAttendanceModal('daily')">
                             <i class="fas fa-plus"></i>
-                            Input Absensi
+                            Input Absensi Harian
                         </button>
                     </div>
                 </div>
@@ -2757,6 +3014,56 @@
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+            
+            <!-- Subject Attendance Tab -->
+            <div id="subject-attendance" class="tab-content">
+                <div class="tab-header">
+                    <h2><i class="fas fa-book"></i> Absensi Mata Pelajaran</h2>
+                    <div>
+                        <button class="btn-primary" onclick="app.showAttendanceModal('subject')">
+                            <i class="fas fa-plus"></i>
+                            Input Absensi Mata Pelajaran
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="subject-attendance-section">
+                    <h3>Ringkasan Absensi Mata Pelajaran</h3>
+                    <div class="subject-attendance-controls">
+                        <div class="group-control-item">
+                            <label for="subjectAttendanceDate">Pilih Tanggal:</label>
+                            <input type="date" id="subjectAttendanceDate">
+                        </div>
+                        <button class="btn-secondary" onclick="app.loadSubjectAttendance()">
+                            <i class="fas fa-search"></i> Muat Data
+                        </button>
+                    </div>
+                    
+                    <div class="subject-attendance-grid" id="subjectAttendanceGrid">
+                        <!-- Subject attendance cards will be loaded here -->
+                    </div>
+                </div>
+                
+                <div class="attendance-table-container">
+                    <table class="attendance-table">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Mata Pelajaran</th>
+                                <th>Guru</th>
+                                <th>Hadir</th>
+                                <th>Sakit</th>
+                                <th>Izin</th>
+                                <th>Alpha</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="subjectAttendanceTableBody">
+                            <!-- Subject attendance table will be loaded here -->
+                        </tbody>
+                    </table>
                 </div>
             </div>
             
@@ -2979,20 +3286,21 @@
     <div id="attendanceModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h3>Input Absensi Harian</h3>
+                <h3 id="attendanceModalTitle">Input Absensi Harian</h3>
                 <button class="close-btn" onclick="app.closeModal('attendanceModal')">
                     <i class="fas fa-times"></i>
                 </button>
             </div>
             <div class="modal-body">
                 <form id="attendanceForm">
+                    <input type="hidden" id="attendanceType" value="daily">
                     <div class="form-group">
                         <label for="modalDate">Tanggal</label>
                         <input type="date" id="modalDate" required>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" id="subjectField" style="display: none;">
                         <label for="modalSubject">Mata Pelajaran</label>
-                        <select id="modalSubject" required>
+                        <select id="modalSubject">
                             <option value="">Pilih Mapel</option>
                             <option value="matematika">Matematika</option>
                             <option value="fisika">Fisika</option>
@@ -3255,6 +3563,7 @@
                 this.classroom = this.loadClassroom();
                 this.duty = this.loadDuty();
                 this.structure = this.loadStructure();
+                this.searchPages = this.loadSearchPages();
                 this.init();
             }
 
@@ -3262,6 +3571,7 @@
                 this.bindEvents();
                 this.loadHomePage();
                 this.loadAttendanceTab();
+                this.loadSubjectAttendanceTab();
                 this.loadGroupSpinnerTab();
                 this.loadClassroomTab();
                 this.loadDutyTab();
@@ -3309,6 +3619,22 @@
                 }
             }
 
+            // Load search pages data
+            loadSearchPages() {
+                return [
+                    { name: 'Halaman Utama', tab: 'home', icon: 'home', keywords: ['beranda', 'utama', 'dashboard'] },
+                    { name: 'Absensi Harian', tab: 'attendance', icon: 'clipboard-check', keywords: ['absensi', 'kehadiran', 'hadir', 'absen'] },
+                    { name: 'Absensi Mata Pelajaran', tab: 'subject-attendance', icon: 'book', keywords: ['absensi mapel', 'mata pelajaran', 'mapel'] },
+                    { name: 'Pembagian Kelompok', tab: 'group-spinner', icon: 'random', keywords: ['kelompok', 'pembagian', 'acak'] },
+                    { name: 'Tata Letak Kelas', tab: 'classroom', icon: 'chair', keywords: ['tata letak', 'kelas', 'tempat duduk'] },
+                    { name: 'Jadwal Piket', tab: 'duty', icon: 'broom', keywords: ['piket', 'kebersihan', 'tugas piket'] },
+                    { name: 'Jadwal Pelajaran', tab: 'schedule', icon: 'calendar-alt', keywords: ['jadwal', 'pelajaran', 'mata pelajaran'] },
+                    { name: 'Data Siswa', tab: 'students', icon: 'user-graduate', keywords: ['siswa', 'data siswa', 'murid'] },
+                    { name: 'Data Guru', tab: 'teachers', icon: 'chalkboard-teacher', keywords: ['guru', 'pengajar', 'data guru'] },
+                    { name: 'Tugas', tab: 'assignments', icon: 'tasks', keywords: ['tugas', 'pekerjaan rumah', 'pr', 'ulangan'] }
+                ];
+            }
+
             bindEvents() {
                 // Navigation
                 document.querySelectorAll('.nav-item').forEach(item => {
@@ -3353,9 +3679,19 @@
                     this.loadAttendanceData(e.target.value);
                 });
 
+                // Date change for subject attendance
+                document.getElementById('subjectAttendanceDate').addEventListener('change', (e) => {
+                    this.loadSubjectAttendance();
+                });
+
                 // Student search
                 document.getElementById('studentSearch').addEventListener('input', (e) => {
                     this.filterStudents(e.target.value);
+                });
+
+                // Header search
+                document.getElementById('headerSearch').addEventListener('input', (e) => {
+                    this.searchPagesAndFeatures(e.target.value);
                 });
 
                 // Assignment filters
@@ -3379,6 +3715,41 @@
                 const today = new Date();
                 const currentWeek = this.getWeekNumber(today);
                 document.getElementById('dutyWeek').value = `${today.getFullYear()}-W${currentWeek.toString().padStart(2, '0')}`;
+            }
+
+            // Search pages and features
+            searchPagesAndFeatures(query) {
+                const suggestionsContainer = document.getElementById('searchSuggestions');
+                
+                if (query.length < 2) {
+                    suggestionsContainer.classList.remove('active');
+                    return;
+                }
+                
+                const lowerQuery = query.toLowerCase();
+                const matchedPages = this.searchPages.filter(page => 
+                    page.name.toLowerCase().includes(lowerQuery) || 
+                    page.keywords.some(keyword => keyword.includes(lowerQuery))
+                );
+                
+                if (matchedPages.length > 0) {
+                    suggestionsContainer.innerHTML = matchedPages.map(page => `
+                        <div class="suggestion-item" onclick="app.switchTab('${page.tab}')">
+                            <i class="fas fa-${page.icon}"></i>
+                            ${page.name}
+                        </div>
+                    `).join('');
+                    
+                    suggestionsContainer.classList.add('active');
+                } else {
+                    suggestionsContainer.innerHTML = `
+                        <div class="suggestion-item">
+                            <i class="fas fa-search"></i>
+                            Tidak ditemukan. Coba kata kunci lain.
+                        </div>
+                    `;
+                    suggestionsContainer.classList.add('active');
+                }
             }
 
             loadStudents() {
@@ -3559,7 +3930,7 @@
                             {
                                 id: 1,
                                 date: new Date().toISOString().split('T')[0],
-                                subject: 'matematika',
+                                type: 'daily',
                                 studentId: 1,
                                 studentName: 'Ahmad Rizki',
                                 nis: '2024001',
@@ -3570,7 +3941,7 @@
                             {
                                 id: 2,
                                 date: new Date().toISOString().split('T')[0],
-                                subject: 'matematika',
+                                type: 'daily',
                                 studentId: 2,
                                 studentName: 'Sari Dewi',
                                 nis: '2024002',
@@ -3581,7 +3952,8 @@
                             {
                                 id: 3,
                                 date: new Date().toISOString().split('T')[0],
-                                subject: 'fisika',
+                                type: 'subject',
+                                subject: 'matematika',
                                 studentId: 3,
                                 studentName: 'Budi Santoso',
                                 nis: '2024003',
@@ -3592,6 +3964,7 @@
                             {
                                 id: 4,
                                 date: new Date().toISOString().split('T')[0],
+                                type: 'subject',
                                 subject: 'kimia',
                                 studentId: 4,
                                 studentName: 'Maya Sari',
@@ -3604,7 +3977,7 @@
                             {
                                 id: 5,
                                 date: new Date(Date.now() - 86400000).toISOString().split('T')[0], // Yesterday
-                                subject: 'matematika',
+                                type: 'daily',
                                 studentId: 2,
                                 studentName: 'Sari Dewi',
                                 nis: '2024002',
@@ -3615,6 +3988,7 @@
                             {
                                 id: 6,
                                 date: new Date(Date.now() - 86400000).toISOString().split('T')[0], // Yesterday
+                                type: 'subject',
                                 subject: 'fisika',
                                 studentId: 3,
                                 studentName: 'Budi Santoso',
@@ -3847,6 +4221,9 @@
                 // Activate corresponding nav item
                 document.querySelector(`[data-tab="${tabName}"]`).classList.add('active');
                 
+                // Hide search suggestions
+                document.getElementById('searchSuggestions').classList.remove('active');
+                
                 // Load specific tab data if needed
                 if (tabName === 'group-spinner') {
                     this.loadGroupSpinnerTab();
@@ -3856,13 +4233,17 @@
                     this.loadDutyTab();
                 } else if (tabName === 'schedule') {
                     this.loadScheduleTab();
+                } else if (tabName === 'subject-attendance') {
+                    this.loadSubjectAttendanceTab();
                 }
             }
 
             loadHomePage() {
                 // Update stats based on today's attendance
                 const today = new Date().toISOString().split('T')[0];
-                const todayAttendance = this.attendance.records.filter(record => record.date === today);
+                const todayAttendance = this.attendance.records.filter(record => 
+                    record.date === today && record.type === 'daily'
+                );
                 
                 let presentCount = 0;
                 let sickCount = 0;
@@ -4161,7 +4542,7 @@
                 
                 const today = new Date().toISOString().split('T')[0];
                 const studentsWithStatus = this.attendance.records
-                    .filter(record => record.date === today && record.status === status)
+                    .filter(record => record.date === today && record.type === 'daily' && record.status === status)
                     .map(record => record.studentName);
                 
                 if (studentsWithStatus.length > 0) {
@@ -4179,7 +4560,9 @@
 
             loadAttendanceData(date) {
                 const tableBody = document.getElementById('attendanceTableBody');
-                const dayRecords = this.attendance.records.filter(record => record.date === date);
+                const dayRecords = this.attendance.records.filter(record => 
+                    record.date === date && record.type === 'daily'
+                );
 
                 // Hitung jumlah kehadiran untuk ringkasan
                 let presentCount = 0;
@@ -4248,6 +4631,181 @@
                 tableBody.innerHTML = tableRows;
             }
 
+            // Load subject attendance tab
+            loadSubjectAttendanceTab() {
+                const today = new Date().toISOString().split('T')[0];
+                document.getElementById('subjectAttendanceDate').value = today;
+                this.loadSubjectAttendance();
+            }
+
+            // Load subject attendance data
+            loadSubjectAttendance() {
+                const date = document.getElementById('subjectAttendanceDate').value;
+                const subjectAttendanceGrid = document.getElementById('subjectAttendanceGrid');
+                const subjectAttendanceTableBody = document.getElementById('subjectAttendanceTableBody');
+                
+                // Get subject attendance records for the selected date
+                const subjectRecords = this.attendance.records.filter(record => 
+                    record.date === date && record.type === 'subject'
+                );
+                
+                // Group by subject
+                const subjectGroups = {};
+                subjectRecords.forEach(record => {
+                    if (!subjectGroups[record.subject]) {
+                        subjectGroups[record.subject] = [];
+                    }
+                    subjectGroups[record.subject].push(record);
+                });
+                
+                // Calculate statistics for each subject
+                const subjectStats = {};
+                Object.keys(subjectGroups).forEach(subject => {
+                    const records = subjectGroups[subject];
+                    const totalStudents = this.students.length;
+                    
+                    subjectStats[subject] = {
+                        present: records.filter(r => r.status === 'present').length,
+                        sick: records.filter(r => r.status === 'sick').length,
+                        permission: records.filter(r => r.status === 'permission').length,
+                        absent: totalStudents - (records.filter(r => r.status === 'present').length + 
+                                records.filter(r => r.status === 'sick').length + 
+                                records.filter(r => r.status === 'permission').length)
+                    };
+                });
+                
+                // Display subject attendance cards
+                if (Object.keys(subjectStats).length > 0) {
+                    subjectAttendanceGrid.innerHTML = Object.keys(subjectStats).map(subject => {
+                        const stats = subjectStats[subject];
+                        const total = stats.present + stats.sick + stats.permission + stats.absent;
+                        
+                        return `
+                            <div class="subject-attendance-card" onclick="app.showSubjectAttendanceDetails('${subject}', '${date}')">
+                                <div class="subject-attendance-header">
+                                    <div class="subject-name">${this.getSubjectDisplayName(subject)}</div>
+                                    <div class="assignment-status active">${total} Siswa</div>
+                                </div>
+                                <div class="subject-attendance-stats">
+                                    <div class="subject-stat">
+                                        <div class="subject-stat-value" style="color: var(--secondary-color);">${stats.present}</div>
+                                        <div class="subject-stat-label">Hadir</div>
+                                    </div>
+                                    <div class="subject-stat">
+                                        <div class="subject-stat-value" style="color: var(--warning-color);">${stats.sick}</div>
+                                        <div class="subject-stat-label">Sakit</div>
+                                    </div>
+                                    <div class="subject-stat">
+                                        <div class="subject-stat-value" style="color: var(--info-color);">${stats.permission}</div>
+                                        <div class="subject-stat-label">Izin</div>
+                                    </div>
+                                    <div class="subject-stat">
+                                        <div class="subject-stat-value" style="color: var(--danger-color);">${stats.absent}</div>
+                                        <div class="subject-stat-label">Alpha</div>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                    }).join('');
+                } else {
+                    subjectAttendanceGrid.innerHTML = `
+                        <div class="empty-placeholder">
+                            <i class="fas fa-book"></i>
+                            <p>Tidak ada data absensi mata pelajaran untuk tanggal ini.</p>
+                        </div>
+                    `;
+                }
+                
+                // Display subject attendance table
+                if (Object.keys(subjectStats).length > 0) {
+                    subjectAttendanceTableBody.innerHTML = Object.keys(subjectStats).map((subject, index) => {
+                        const stats = subjectStats[subject];
+                        const teacher = this.getTeacherBySubject(subject);
+                        
+                        return `
+                            <tr>
+                                <td>${index + 1}</td>
+                                <td>${this.getSubjectDisplayName(subject)}</td>
+                                <td>${teacher ? teacher.name : 'Tidak diketahui'}</td>
+                                <td>${stats.present}</td>
+                                <td>${stats.sick}</td>
+                                <td>${stats.permission}</td>
+                                <td>${stats.absent}</td>
+                                <td>
+                                    <div class="assignment-actions">
+                                        <button class="btn-small" onclick="app.showSubjectAttendanceDetails('${subject}', '${date}')">
+                                            <i class="fas fa-eye"></i> Detail
+                                        </button>
+                                        <button class="btn-small" onclick="app.editSubjectAttendance('${subject}', '${date}')">
+                                            <i class="fas fa-edit"></i> Edit
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        `;
+                    }).join('');
+                } else {
+                    subjectAttendanceTableBody.innerHTML = `
+                        <tr>
+                            <td colspan="8" style="text-align: center; padding: 40px;">
+                                <div class="empty-placeholder">
+                                    <i class="fas fa-book"></i>
+                                    <p>Tidak ada data absensi mata pelajaran untuk tanggal ini.</p>
+                                </div>
+                            </td>
+                        </tr>
+                    `;
+                }
+            }
+
+            // Get teacher by subject
+            getTeacherBySubject(subject) {
+                return this.teachers.find(teacher => 
+                    teacher.subject.toLowerCase().includes(subject.toLowerCase()) ||
+                    subject.toLowerCase().includes(teacher.subject.toLowerCase())
+                );
+            }
+
+            // Show subject attendance details
+            showSubjectAttendanceDetails(subject, date) {
+                const subjectRecords = this.attendance.records.filter(record => 
+                    record.date === date && record.type === 'subject' && record.subject === subject
+                );
+                
+                const presentStudents = subjectRecords.filter(r => r.status === 'present').map(r => r.studentName);
+                const sickStudents = subjectRecords.filter(r => r.status === 'sick').map(r => r.studentName);
+                const permissionStudents = subjectRecords.filter(r => r.status === 'permission').map(r => r.studentName);
+                
+                const absentStudents = this.students
+                    .filter(student => !subjectRecords.find(r => r.studentId === student.id))
+                    .map(student => student.name);
+                
+                let message = `Detail Absensi ${this.getSubjectDisplayName(subject)} - ${date}\n\n`;
+                
+                if (presentStudents.length > 0) {
+                    message += `Hadir (${presentStudents.length}):\n${presentStudents.join('\n')}\n\n`;
+                }
+                
+                if (sickStudents.length > 0) {
+                    message += `Sakit (${sickStudents.length}):\n${sickStudents.join('\n')}\n\n`;
+                }
+                
+                if (permissionStudents.length > 0) {
+                    message += `Izin (${permissionStudents.length}):\n${permissionStudents.join('\n')}\n\n`;
+                }
+                
+                if (absentStudents.length > 0) {
+                    message += `Alpha (${absentStudents.length}):\n${absentStudents.join('\n')}`;
+                }
+                
+                alert(message);
+            }
+
+            // Edit subject attendance
+            editSubjectAttendance(subject, date) {
+                this.showAttendanceModal('subject', subject, date);
+            }
+
             // Load group spinner tab
             loadGroupSpinnerTab() {
                 // Display saved groups if available
@@ -4272,7 +4830,7 @@
                 // Exclude absent students if selected
                 if (includeAbsent === 'exclude') {
                     const today = new Date().toISOString().split('T')[0];
-                    const todayAttendance = this.attendance.records.filter(record => record.date === today);
+                    const todayAttendance = this.attendance.records.filter(record => record.date === today && record.type === 'daily');
                     
                     studentsToInclude = studentsToInclude.filter(student => {
                         const record = todayAttendance.find(r => r.studentId == student.id);
@@ -5183,12 +5741,33 @@
                 }
             }
 
-            showAttendanceModal() {
+            showAttendanceModal(type = 'daily', subject = null, date = null) {
                 const modal = document.getElementById('attendanceModal');
-                modal.style.display = 'block';
+                const title = document.getElementById('attendanceModalTitle');
+                const form = document.getElementById('attendanceForm');
+                const subjectField = document.getElementById('subjectField');
+                
+                // Set attendance type
+                document.getElementById('attendanceType').value = type;
+                
+                if (type === 'daily') {
+                    title.textContent = 'Input Absensi Harian';
+                    subjectField.style.display = 'none';
+                } else {
+                    title.textContent = 'Input Absensi Mata Pelajaran';
+                    subjectField.style.display = 'block';
+                    
+                    if (subject) {
+                        document.getElementById('modalSubject').value = subject;
+                    }
+                }
+                
                 // Set today's date
                 const today = new Date().toISOString().split('T')[0];
-                document.getElementById('modalDate').value = today;
+                document.getElementById('modalDate').value = date || today;
+                
+                modal.style.display = 'block';
+                
                 // Load students for attendance - menampilkan semua siswa
                 this.loadAttendanceStudents();
             }
@@ -5200,11 +5779,14 @@
             loadAttendanceStudents() {
                 const modalDate = document.getElementById('modalDate').value;
                 const modalSubject = document.getElementById('modalSubject').value;
+                const attendanceType = document.getElementById('attendanceType').value;
                 const container = document.getElementById('attendanceStudentsList');
 
                 // Ambil data absensi sebelumnya untuk tanggal dan mata pelajaran ini
                 const previousAttendance = this.attendance.records.filter(record => 
-                    record.date === modalDate && record.subject === modalSubject
+                    record.date === modalDate && 
+                    record.type === attendanceType &&
+                    (attendanceType === 'daily' || record.subject === modalSubject)
                 );
 
                 container.innerHTML = this.students.map(student => {
@@ -5253,6 +5835,7 @@
             submitAttendance() {
                 const date = document.getElementById('modalDate').value;
                 const subject = document.getElementById('modalSubject').value;
+                const attendanceType = document.getElementById('attendanceType').value;
                 const studentItems = document.querySelectorAll('.attendance-student-item');
 
                 if (studentItems.length === 0) {
@@ -5262,7 +5845,9 @@
 
                 // Hapus data absensi sebelumnya untuk tanggal dan mata pelajaran yang sama
                 this.attendance.records = this.attendance.records.filter(record => 
-                    !(record.date === date && record.subject === subject)
+                    !(record.date === date && 
+                      record.type === attendanceType &&
+                      (attendanceType === 'daily' || record.subject === subject))
                 );
 
                 // Loop semua siswa untuk menyimpan statusnya
@@ -5272,26 +5857,44 @@
                     const student = this.students.find(s => s.id == studentId);
 
                     // Tambahkan record baru
-                    this.attendance.records.push({
+                    const newRecord = {
                         id: Date.now() + studentId,
                         date: date,
-                        subject: subject,
+                        type: attendanceType,
                         studentId: studentId,
                         studentName: student.name,
                         nis: student.nis,
                         status: selectedStatus,
                         time: new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }),
                         timestamp: new Date().toISOString()
-                    });
+                    };
+
+                    // Jika absensi mata pelajaran, tambahkan subject
+                    if (attendanceType === 'subject') {
+                        newRecord.subject = subject;
+                    }
+
+                    this.attendance.records.push(newRecord);
                 });
 
                 // Add activity
-                this.addActivity('attendance', 'Absensi harian diinput', `${this.getSubjectDisplayName(subject)} - ${date}`);
+                if (attendanceType === 'daily') {
+                    this.addActivity('attendance', 'Absensi harian diinput', `${date}`);
+                } else {
+                    this.addActivity('attendance', 'Absensi mata pelajaran diinput', `${this.getSubjectDisplayName(subject)} - ${date}`);
+                }
 
                 this.saveAttendance();
                 this.closeModal('attendanceModal');
-                this.loadAttendanceData(date);
-                this.loadHomePage(); // Update dashboard stats
+                
+                // Update data berdasarkan jenis absensi
+                if (attendanceType === 'daily') {
+                    this.loadAttendanceData(date);
+                    this.loadHomePage(); // Update dashboard stats
+                } else {
+                    this.loadSubjectAttendance();
+                }
+                
                 this.showToast('Absensi berhasil disimpan!');
             }
 
@@ -5463,7 +6066,9 @@
 
             exportAttendance() {
                 const date = document.getElementById('attendanceDate').value;
-                const dayRecords = this.attendance.records.filter(record => record.date === date);
+                const dayRecords = this.attendance.records.filter(record => 
+                    record.date === date && record.type === 'daily'
+                );
                 
                 let csvContent = "data:text/csv;charset=utf-8,";
                 csvContent += "No,Nama Siswa,NIS,Status,Waktu,Keterangan\n";
@@ -5603,12 +6208,21 @@
                     modal.style.display = 'none';
                 }
             }
+            
+            // Hide search suggestions when clicking outside
+            const searchSuggestions = document.getElementById('searchSuggestions');
+            const headerSearch = document.getElementById('headerSearch');
+            
+            if (!headerSearch.contains(event.target) && !searchSuggestions.contains(event.target)) {
+                searchSuggestions.classList.remove('active');
+            }
         }
 
         // Set default date to today
         window.addEventListener('DOMContentLoaded', function() {
             const today = new Date().toISOString().split('T')[0];
             document.getElementById('attendanceDate').value = today;
+            document.getElementById('subjectAttendanceDate').value = today;
         });
     </script>
 </body>
