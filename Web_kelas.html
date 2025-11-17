@@ -159,6 +159,7 @@
             line-height: 1.6;
             overflow-x: hidden;
             transition: var(--transition-slow);
+            -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
         }
 
         /* Loading Screen */
@@ -728,6 +729,8 @@
             overflow-x: auto;
             scrollbar-width: none; /* Firefox */
             padding: 0 10px;
+            position: relative;
+            -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
         }
 
         .nav-container::-webkit-scrollbar {
@@ -762,6 +765,44 @@
 
         .nav-item i {
             font-size: 1.1rem;
+        }
+
+        /* Navigation Scroll Buttons */
+        .nav-scroll-btn {
+            position: absolute;
+            top: 0;
+            height: 100%;
+            width: 40px;
+            background: var(--bg-card);
+            border: none;
+            color: var(--primary-color);
+            font-size: 1.2rem;
+            cursor: pointer;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            opacity: 0.8;
+        }
+
+        .nav-scroll-btn:hover {
+            opacity: 1;
+            background: var(--bg-secondary);
+        }
+
+        .nav-scroll-btn.left {
+            left: 0;
+            box-shadow: 5px 0 10px rgba(0,0,0,0.1);
+        }
+
+        .nav-scroll-btn.right {
+            right: 0;
+            box-shadow: -5px 0 10px rgba(0,0,0,0.1);
+        }
+
+        .nav-scroll-btn.hidden {
+            display: none;
         }
 
         /* Main Content */
@@ -3014,7 +3055,10 @@
         
         <!-- Navigation -->
         <nav class="class-nav">
-            <div class="nav-container">
+            <button class="nav-scroll-btn left hidden" id="navScrollLeft">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <div class="nav-container" id="navContainer">
                 <a href="#home" class="nav-item active" data-tab="home">
                     <i class="fas fa-home"></i>
                     <span>Halaman Utama</span>
@@ -3056,6 +3100,9 @@
                     <span>Tugas</span>
                 </a>
             </div>
+            <button class="nav-scroll-btn right" id="navScrollRight">
+                <i class="fas fa-chevron-right"></i>
+            </button>
         </nav>
         
         <!-- Main Content -->
@@ -3759,6 +3806,7 @@
                         <select id="dutyStudents" multiple required>
                             <!-- Students will be loaded here -->
                         </select>
+                        <small class="form-text">Gunakan Ctrl/Cmd + klik untuk memilih beberapa siswa</small>
                     </div>
                     <div class="form-group">
                         <label for="dutyTasks">Tugas</label>
@@ -3773,22 +3821,415 @@
         </div>
     </div>
 
+    <!-- Group Edit Modal -->
+    <div id="groupEditModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="groupEditModalTitle">Edit Kelompok</h3>
+                <button class="close-btn" onclick="app.closeModal('groupEditModal')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="groupEditForm">
+                    <input type="hidden" id="editGroupId">
+                    <div class="form-group">
+                        <label for="editGroupName">Nama Kelompok</label>
+                        <input type="text" id="editGroupName" placeholder="Masukkan nama kelompok" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editGroupMembers">Anggota Kelompok</label>
+                        <select id="editGroupMembers" multiple required>
+                            <!-- Students will be loaded here -->
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="editGroupLeader">Ketua Kelompok</label>
+                        <select id="editGroupLeader">
+                            <option value="">Pilih Ketua Kelompok</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn-primary full-width">
+                        <i class="fas fa-save"></i>
+                        Simpan Perubahan
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <script>
+        // Data terpusat yang akan digunakan oleh semua pengguna
+        const CENTRAL_DATA = {
+            // Data siswa
+            students: [
+                { id: 1, name: 'Ahmad Rizki', nis: '2024001', email: 'ahmad1@email.com', phone: '081234567890', gender: 'L' },
+                { id: 2, name: 'Sari Dewi', nis: '2024002', email: 'sari2@email.com', phone: '081234567891', gender: 'P' },
+                { id: 3, name: 'Budi Santoso', nis: '2024003', email: 'budi3@email.com', phone: '081234567892', gender: 'L' },
+                { id: 4, name: 'Maya Sari', nis: '2024004', email: 'maya4@email.com', phone: '081234567893', gender: 'P' },
+                { id: 5, name: 'Rizki Pratama', nis: '2024005', email: 'rizki5@email.com', phone: '081234567894', gender: 'L' },
+                { id: 6, name: 'Dewi Lestari', nis: '2024006', email: 'dewi6@email.com', phone: '081234567895', gender: 'P' },
+                { id: 7, name: 'Andi Wijaya', nis: '2024007', email: 'andi7@email.com', phone: '081234567896', gender: 'L' },
+                { id: 8, name: 'Siti Nurhaliza', nis: '2024008', email: 'siti8@email.com', phone: '081234567897', gender: 'P' },
+                { id: 9, name: 'Eko Prasetya', nis: '2024009', email: 'eko9@email.com', phone: '081234567898', gender: 'L' },
+                { id: 10, name: 'Lina Kusuma', nis: '2024010', email: 'lina10@email.com', phone: '081234567899', gender: 'P' },
+                { id: 11, name: 'Fajar Nugroho', nis: '2024011', email: 'fajar11@email.com', phone: '081234567800', gender: 'L' },
+                { id: 12, name: 'Intan Permata', nis: '2024012', email: 'intan12@email.com', phone: '081234567801', gender: 'P' },
+                { id: 13, name: 'Guntur Prakasa', nis: '2024013', email: 'guntur13@email.com', phone: '081234567802', gender: 'L' },
+                { id: 14, name: 'Heni Susanti', nis: '2024014', email: 'heni14@email.com', phone: '081234567803', gender: 'P' },
+                { id: 15, name: 'Irfan Maulana', nis: '2024015', email: 'irfan15@email.com', phone: '081234567804', gender: 'L' },
+                { id: 16, name: 'Jihan Aulia', nis: '2024016', email: 'jihan16@email.com', phone: '081234567805', gender: 'P' },
+                { id: 17, name: 'Krisna Adi', nis: '2024017', email: 'krisna17@email.com', phone: '081234567806', gender: 'L' },
+                { id: 18, name: 'Lintang Sari', nis: '2024018', email: 'lintang18@email.com', phone: '081234567807', gender: 'P' },
+                { id: 19, name: 'Maulana Yusuf', nis: '2024019', email: 'maulana19@email.com', phone: '081234567808', gender: 'L' },
+                { id: 20, name: 'Nadia Putri', nis: '2024020', email: 'nadia20@email.com', phone: '081234567809', gender: 'P' },
+                { id: 21, name: 'Oka Pratama', nis: '2024021', email: 'oka21@email.com', phone: '081234567810', gender: 'L' },
+                { id: 22, name: 'Putri Lestari', nis: '2024022', email: 'putri22@email.com', phone: '081234567811', gender: 'P' },
+                { id: 23, name: 'Rama Kusuma', nis: '2024023', email: 'rama23@email.com', phone: '081234567812', gender: 'L' },
+                { id: 24, name: 'Siska Anggraini', nis: '2024024', email: 'siska24@email.com', phone: '081234567813', gender: 'P' },
+                { id: 25, name: 'Taufik Hidayat', nis: '2024025', email: 'taufik25@email.com', phone: '081234567814', gender: 'L' },
+                { id: 26, name: 'Umi Kalsum', nis: '2024026', email: 'umi26@email.com', phone: '081234567815', gender: 'P' },
+                { id: 27, name: 'Vicky Prasetya', nis: '2024027', email: 'vicky27@email.com', phone: '081234567816', gender: 'L' },
+                { id: 28, name: 'Wulan Sari', nis: '2024028', email: 'wulan28@email.com', phone: '081234567817', gender: 'P' },
+                { id: 29, name: 'Xavier Adi', nis: '2024029', email: 'xavier29@email.com', phone: '081234567818', gender: 'L' },
+                { id: 30, name: 'Yuni Astuti', nis: '2024030', email: 'yuni30@email.com', phone: '081234567819', gender: 'P' },
+                { id: 31, name: 'Zaki Prasetyo', nis: '2024031', email: 'zaki31@email.com', phone: '081234567820', gender: 'L' },
+                { id: 32, name: 'Anisa Khoirunnisa', nis: '2024032', email: 'anisa32@email.com', phone: '081234567821', gender: 'P' },
+                { id: 33, name: 'Bayu Setiawan', nis: '2024033', email: 'bayu33@email.com', phone: '081234567822', gender: 'L' },
+                { id: 34, name: 'Citra Dewi', nis: '2024034', email: 'citra34@email.com', phone: '081234567823', gender: 'P' },
+                { id: 35, name: 'Dian Prasetya', nis: '2024035', email: 'dian35@email.com', phone: '081234567824', gender: 'L' },
+                { id: 36, name: 'Eva Lestari', nis: '2024036', email: 'eva36@email.com', phone: '081234567825', gender: 'P' }
+            ],
+            
+            // Data guru
+            teachers: [
+                { 
+                    id: 1, 
+                    name: 'Bu Sari, S.Pd', 
+                    subject: 'Matematika', 
+                    qualification: 'S1 Pendidikan Matematika',
+                    email: 'sari@sekolah.sch.id',
+                    phone: '081234567800'
+                },
+                { 
+                    id: 2, 
+                    name: 'Pak Budi, M.Pd', 
+                    subject: 'Fisika', 
+                    qualification: 'S2 Pendidikan Fisika',
+                    email: 'budi@sekolah.sch.id',
+                    phone: '081234567801'
+                },
+                { 
+                    id: 3, 
+                    name: 'Bu Dewi, S.Pd', 
+                    subject: 'Kimia', 
+                    qualification: 'S1 Pendidikan Kimia',
+                    email: 'dewi@sekolah.sch.id',
+                    phone: '081234567802'
+                },
+                { 
+                    id: 4, 
+                    name: 'Pak Andi, S.Pd', 
+                    subject: 'Biologi', 
+                    qualification: 'S1 Pendidikan Biologi',
+                    email: 'andi@sekolah.sch.id',
+                    phone: '081234567803'
+                },
+                { 
+                    id: 5, 
+                    name: 'Bu Rini, M.Pd', 
+                    subject: 'Bahasa Indonesia', 
+                    qualification: 'S2 Pendidikan Bahasa Indonesia',
+                    email: 'rini@sekolah.sch.id',
+                    phone: '081234567804'
+                },
+                { 
+                    id: 6, 
+                    name: 'Bu Maya, S.Pd', 
+                    subject: 'Bahasa Inggris', 
+                    qualification: 'S1 Pendidikan Bahasa Inggris',
+                    email: 'maya@sekolah.sch.id',
+                    phone: '081234567805'
+                },
+                { 
+                    id: 7, 
+                    name: 'Pak Joko, S.Kom', 
+                    subject: 'TIK Lanjut', 
+                    qualification: 'S1 Teknik Informatika',
+                    email: 'joko@sekolah.sch.id',
+                    phone: '081234567806'
+                },
+                { 
+                    id: 8, 
+                    name: 'Bu Sinta, S.Sos', 
+                    subject: 'Sosiologi Lanjut', 
+                    qualification: 'S1 Sosiologi',
+                    email: 'sinta@sekolah.sch.id',
+                    phone: '081234567807'
+                },
+                { 
+                    id: 9, 
+                    name: 'Pak Rudi, S.E', 
+                    subject: 'Ekonomi Lanjut', 
+                    qualification: 'S1 Ekonomi',
+                    email: 'rudi@sekolah.sch.id',
+                    phone: '081234567808'
+                },
+                { 
+                    id: 10, 
+                    name: 'Bu Yuki, S.Pd', 
+                    subject: 'Bahasa Jepang Lanjut', 
+                    qualification: 'S1 Pendidikan Bahasa Jepang',
+                    email: 'yuki@sekolah.sch.id',
+                    phone: '081234567809'
+                }
+            ],
+            
+            // Data jadwal
+            schedule: {
+                'Senin': [
+                    { time: '07:00-08:30', subject: 'Matematika', teacher: 'Bu Sari, S.Pd', room: 'Ruang 201', teacherStatus: 'present' },
+                    { time: '08:30-10:00', subject: 'Fisika', teacher: 'Pak Budi, M.Pd', room: 'Lab Fisika', teacherStatus: 'present' },
+                    { time: '10:00-11:30', subject: 'Kimia', teacher: 'Bu Dewi, S.Pd', room: 'Lab Kimia', teacherStatus: 'present' },
+                    { time: '13:00-14:30', subject: 'TIK Lanjut', teacher: 'Pak Joko, S.Kom', room: 'Lab Komputer', teacherStatus: 'present' }
+                ],
+                'Selasa': [
+                    { time: '07:00-08:30', subject: 'Biologi', teacher: 'Pak Andi, S.Pd', room: 'Lab Biologi', teacherStatus: 'present' },
+                    { time: '08:30-10:00', subject: 'Bahasa Indonesia', teacher: 'Bu Rini, M.Pd', room: 'Ruang 201', teacherStatus: 'present' },
+                    { time: '10:00-11:30', subject: 'Sosiologi Lanjut', teacher: 'Bu Sinta, S.Sos', room: 'Ruang 202', teacherStatus: 'present' }
+                ],
+                'Rabu': [
+                    { time: '07:00-08:30', subject: 'Matematika', teacher: 'Bu Sari, S.Pd', room: 'Ruang 201', teacherStatus: 'present' },
+                    { time: '08:30-10:00', subject: 'Fisika', teacher: 'Pak Budi, M.Pd', room: 'Lab Fisika', teacherStatus: 'present' },
+                    { time: '10:00-11:30', subject: 'Bahasa Inggris', teacher: 'Bu Maya, S.Pd', room: 'Ruang 203', teacherStatus: 'present' }
+                ],
+                'Kamis': [
+                    { time: '07:00-08:30', subject: 'Kimia', teacher: 'Bu Dewi, S.Pd', room: 'Lab Kimia', teacherStatus: 'present' },
+                    { time: '08:30-10:00', subject: 'Biologi', teacher: 'Pak Andi, S.Pd', room: 'Lab Biologi', teacherStatus: 'present' },
+                    { time: '10:00-11:30', subject: 'Ekonomi Lanjut', teacher: 'Pak Rudi, S.E', room: 'Ruang 204', teacherStatus: 'present' }
+                ],
+                'Jumat': [
+                    { time: '07:00-08:30', subject: 'Bahasa Indonesia', teacher: 'Bu Rini, M.Pd', room: 'Ruang 201', teacherStatus: 'present' },
+                    { time: '08:30-10:00', subject: 'Bahasa Jepang Lanjut', teacher: 'Bu Yuki, S.Pd', room: 'Ruang 205', teacherStatus: 'present' }
+                ],
+                'Sabtu': [
+                    { time: '07:00-09:00', subject: 'Ekstrakurikuler', teacher: 'Various', room: 'Lapangan', teacherStatus: 'present' }
+                ]
+            },
+            
+            // Data absensi
+            attendance: {
+                records: []
+            },
+            
+            // Data tugas
+            assignments: {
+                assignments: [
+                    {
+                        id: 1,
+                        subject: 'Matematika',
+                        title: 'Tugas Trigonometri - Bab 5',
+                        deadline: '2024-10-12',
+                        status: 'urgent',
+                        description: 'Kerjakan soal nomor 1-10 halaman 125',
+                        type: 'pr'
+                    },
+                    {
+                        id: 2,
+                        subject: 'Fisika',
+                        title: 'Laporan Praktikum Hukum Newton',
+                        deadline: '2024-10-15',
+                        status: 'active',
+                        description: 'Buat laporan hasil praktikum kelompok',
+                        type: 'proyek'
+                    },
+                    {
+                        id: 3,
+                        subject: 'Kimia',
+                        title: 'Tabel Periodik Unsur',
+                        deadline: '2024-10-08',
+                        status: 'completed',
+                        description: 'Hafalkan 20 unsur pertama tabel periodik',
+                        type: 'ulangan'
+                    },
+                    {
+                        id: 4,
+                        subject: 'Bahasa Indonesia',
+                        title: 'Analisis Puisi Chairil Anwar',
+                        deadline: '2024-10-18',
+                        status: 'active',
+                        description: 'Analisis 3 puisi karya Chairil Anwar',
+                        type: 'pr'
+                    },
+                    {
+                        id: 5,
+                        subject: 'Biologi',
+                        title: 'Laporan Sistem Pencernaan',
+                        deadline: '2024-10-20',
+                        status: 'active',
+                        description: 'Buat laporan tentang sistem pencernaan manusia',
+                        type: 'proyek'
+                    }
+                ]
+            },
+            
+            // Data pengumuman
+            announcement: {
+                text: "Persiapan Ujian Tengah Semester akan dimulai minggu depan. Mari persiapkan dengan baik!"
+            },
+            
+            // Data kelompok
+            groups: {
+                groups: []
+            },
+            
+            // Data aktivitas
+            activities: [
+                {
+                    id: 1,
+                    type: 'attendance',
+                    title: 'Absensi pagi telah diinput',
+                    description: '28 siswa hadir',
+                    time: new Date().toISOString(),
+                    icon: 'clipboard-check'
+                },
+                {
+                    id: 2,
+                    type: 'assignment',
+                    title: 'Tugas Matematika dikumpulkan',
+                    description: '25 siswa mengumpulkan',
+                    time: new Date(Date.now() - 86400000).toISOString(),
+                    icon: 'tasks'
+                },
+                {
+                    id: 3,
+                    type: 'announcement',
+                    title: 'Pengumuman baru dari Wali Kelas',
+                    description: 'Persiapan UTS',
+                    time: new Date(Date.now() - 172800000).toISOString(),
+                    icon: 'comment'
+                },
+                {
+                    id: 4,
+                    type: 'assignment',
+                    title: 'Tugas Fisika ditambahkan',
+                    description: 'Deadline 3 hari lagi',
+                    time: new Date(Date.now() - 259200000).toISOString(),
+                    icon: 'tasks'
+                }
+            ],
+            
+            // Data tata letak kelas
+            classroom: {
+                layout: 'grid',
+                seats: []
+            },
+            
+            // Data jadwal piket
+            duty: {
+                schedule: [
+                    {
+                        id: 1,
+                        day: 'Senin',
+                        students: [1, 2, 3],
+                        tasks: 'Menyapu lantai, membersihkan papan tulis'
+                    },
+                    {
+                        id: 2,
+                        day: 'Selasa',
+                        students: [4, 5, 6],
+                        tasks: 'Mengepel lantai, merapikan buku'
+                    },
+                    {
+                        id: 3,
+                        day: 'Rabu',
+                        students: [7, 8, 9],
+                        tasks: 'Membersihkan jendela, menyiram tanaman'
+                    },
+                    {
+                        id: 4,
+                        day: 'Kamis',
+                        students: [10, 11, 12],
+                        tasks: 'Menyapu halaman, merapikan meja guru'
+                    },
+                    {
+                        id: 5,
+                        day: 'Jumat',
+                        students: [13, 14, 15],
+                        tasks: 'Membersihkan rak buku, menata kursi'
+                    }
+                ]
+            },
+            
+            // Data struktur kelas
+            structure: {
+                motto: "Bersatu dalam Perbedaan, Berprestasi dalam Kebersamaan",
+                members: [
+                    { id: 1, name: 'Bu Sari, S.Pd', role: 'Wali Kelas', contact: 'sari@sekolah.sch.id' },
+                    { id: 2, name: 'Ahmad Rizki', role: 'Ketua Kelas', contact: 'ahmad1@email.com' },
+                    { id: 3, name: 'Sari Dewi', role: 'Wakil Ketua', contact: 'sari2@email.com' },
+                    { id: 4, name: 'Budi Santoso', role: 'Sekretaris 1', contact: 'budi3@email.com' },
+                    { id: 5, name: 'Maya Sari', role: 'Sekretaris 2', contact: 'maya4@email.com' },
+                    { id: 6, name: 'Rizki Pratama', role: 'Bendahara 1', contact: 'rizki5@email.com' },
+                    { id: 7, name: 'Dewi Lestari', role: 'Bendahara 2', contact: 'dewi6@email.com' }
+                ],
+                gallery: [
+                    { id: 1, title: 'Foto Kelas' },
+                    { id: 2, title: 'Kegiatan Belajar' },
+                    { id: 3, title: 'Ekstrakurikuler' },
+                    { id: 4, title: 'Perlombaan' },
+                    { id: 5, title: 'Karya Siswa' },
+                    { id: 6, title: 'Kegiatan Sosial' }
+                ]
+            },
+            
+            // Data pencarian halaman
+            searchPages: [
+                { name: 'Halaman Utama', tab: 'home', icon: 'home', keywords: ['beranda', 'utama', 'dashboard'] },
+                { name: 'Absensi Harian', tab: 'attendance', icon: 'clipboard-check', keywords: ['absensi', 'kehadiran', 'hadir', 'absen'] },
+                { name: 'Absensi Mata Pelajaran', tab: 'subject-attendance', icon: 'book', keywords: ['absensi mapel', 'mata pelajaran', 'mapel'] },
+                { name: 'Pembagian Kelompok', tab: 'group-spinner', icon: 'random', keywords: ['kelompok', 'pembagian', 'acak'] },
+                { name: 'Tata Letak Kelas', tab: 'classroom', icon: 'chair', keywords: ['tata letak', 'kelas', 'tempat duduk'] },
+                { name: 'Jadwal Piket', tab: 'duty', icon: 'broom', keywords: ['piket', 'kebersihan', 'tugas piket'] },
+                { name: 'Jadwal Pelajaran', tab: 'schedule', icon: 'calendar-alt', keywords: ['jadwal', 'pelajaran', 'mata pelajaran'] },
+                { name: 'Data Siswa', tab: 'students', icon: 'user-graduate', keywords: ['siswa', 'data siswa', 'murid'] },
+                { name: 'Data Guru', tab: 'teachers', icon: 'chalkboard-teacher', keywords: ['guru', 'pengajar', 'data guru'] },
+                { name: 'Tugas', tab: 'assignments', icon: 'tasks', keywords: ['tugas', 'pekerjaan rumah', 'pr', 'ulangan'] }
+            ]
+        };
+
+        // Inisialisasi data terpusat
+        function initializeCentralData() {
+            // Inisialisasi data tata letak kelas jika belum ada
+            if (CENTRAL_DATA.classroom.seats.length === 0) {
+                for (let i = 1; i <= 36; i++) {
+                    CENTRAL_DATA.classroom.seats.push({
+                        deskNumber: i,
+                        studentId: null,
+                        studentName: null
+                    });
+                }
+            }
+            
+            // Simpan ke localStorage untuk simulasi data terpusat
+            localStorage.setItem('centralData', JSON.stringify(CENTRAL_DATA));
+        }
+
+        // Ambil data terpusat
+        function getCentralData() {
+            const savedData = localStorage.getItem('centralData');
+            return savedData ? JSON.parse(savedData) : CENTRAL_DATA;
+        }
+
+        // Simpan data terpusat
+        function saveCentralData(data) {
+            localStorage.setItem('centralData', JSON.stringify(data));
+        }
+
         class ClassWebsite {
             constructor() {
                 this.currentClass = 'XI-7 VALLORIX';
-                this.students = this.loadStudents();
-                this.teachers = this.loadTeachers();
-                this.schedule = this.loadSchedule();
-                this.attendance = this.loadAttendance();
-                this.assignments = this.loadAssignments();
-                this.announcement = this.loadAnnouncement();
-                this.groups = this.loadGroups();
-                this.activities = this.loadActivities();
-                this.classroom = this.loadClassroom();
-                this.duty = this.loadDuty();
-                this.structure = this.loadStructure();
-                this.searchPages = this.loadSearchPages();
+                this.data = getCentralData();
                 this.init();
             }
 
@@ -3808,6 +4249,9 @@
                 
                 // Initialize theme
                 this.initTheme();
+                
+                // Initialize navigation scroll
+                this.initNavScroll();
             }
 
             // Initialize theme
@@ -3829,6 +4273,46 @@
                 });
             }
 
+            // Initialize navigation scroll
+            initNavScroll() {
+                const navContainer = document.getElementById('navContainer');
+                const navScrollLeft = document.getElementById('navScrollLeft');
+                const navScrollRight = document.getElementById('navScrollRight');
+                
+                // Check if scroll is needed
+                const checkScrollButtons = () => {
+                    const scrollLeft = navContainer.scrollLeft;
+                    const maxScrollLeft = navContainer.scrollWidth - navContainer.clientWidth;
+                    
+                    if (scrollLeft <= 0) {
+                        navScrollLeft.classList.add('hidden');
+                    } else {
+                        navScrollLeft.classList.remove('hidden');
+                    }
+                    
+                    if (scrollLeft >= maxScrollLeft) {
+                        navScrollRight.classList.add('hidden');
+                    } else {
+                        navScrollRight.classList.remove('hidden');
+                    }
+                };
+                
+                // Initial check
+                checkScrollButtons();
+                
+                // Add event listeners
+                navScrollLeft.addEventListener('click', () => {
+                    navContainer.scrollBy({ left: -200, behavior: 'smooth' });
+                });
+                
+                navScrollRight.addEventListener('click', () => {
+                    navContainer.scrollBy({ left: 200, behavior: 'smooth' });
+                });
+                
+                navContainer.addEventListener('scroll', checkScrollButtons);
+                window.addEventListener('resize', checkScrollButtons);
+            }
+
             // Toggle theme
             toggleTheme() {
                 const themeToggle = document.getElementById('themeToggle');
@@ -3842,22 +4326,6 @@
                     themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
                     localStorage.setItem('theme', 'dark');
                 }
-            }
-
-            // Load search pages data
-            loadSearchPages() {
-                return [
-                    { name: 'Halaman Utama', tab: 'home', icon: 'home', keywords: ['beranda', 'utama', 'dashboard'] },
-                    { name: 'Absensi Harian', tab: 'attendance', icon: 'clipboard-check', keywords: ['absensi', 'kehadiran', 'hadir', 'absen'] },
-                    { name: 'Absensi Mata Pelajaran', tab: 'subject-attendance', icon: 'book', keywords: ['absensi mapel', 'mata pelajaran', 'mapel'] },
-                    { name: 'Pembagian Kelompok', tab: 'group-spinner', icon: 'random', keywords: ['kelompok', 'pembagian', 'acak'] },
-                    { name: 'Tata Letak Kelas', tab: 'classroom', icon: 'chair', keywords: ['tata letak', 'kelas', 'tempat duduk'] },
-                    { name: 'Jadwal Piket', tab: 'duty', icon: 'broom', keywords: ['piket', 'kebersihan', 'tugas piket'] },
-                    { name: 'Jadwal Pelajaran', tab: 'schedule', icon: 'calendar-alt', keywords: ['jadwal', 'pelajaran', 'mata pelajaran'] },
-                    { name: 'Data Siswa', tab: 'students', icon: 'user-graduate', keywords: ['siswa', 'data siswa', 'murid'] },
-                    { name: 'Data Guru', tab: 'teachers', icon: 'chalkboard-teacher', keywords: ['guru', 'pengajar', 'data guru'] },
-                    { name: 'Tugas', tab: 'assignments', icon: 'tasks', keywords: ['tugas', 'pekerjaan rumah', 'pr', 'ulangan'] }
-                ];
             }
 
             bindEvents() {
@@ -3897,6 +4365,12 @@
                 document.getElementById('dutyForm').addEventListener('submit', (e) => {
                     e.preventDefault();
                     this.submitDuty();
+                });
+
+                // Group edit form
+                document.getElementById('groupEditForm').addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    this.submitGroupEdit();
                 });
 
                 // Date change for attendance
@@ -3952,7 +4426,7 @@
                 }
                 
                 const lowerQuery = query.toLowerCase();
-                const matchedPages = this.searchPages.filter(page => 
+                const matchedPages = this.data.searchPages.filter(page => 
                     page.name.toLowerCase().includes(lowerQuery) || 
                     page.keywords.some(keyword => keyword.includes(lowerQuery))
                 );
@@ -3975,461 +4449,6 @@
                     `;
                     suggestionsContainer.classList.add('active');
                 }
-            }
-
-            loadStudents() {
-                return [
-                    { id: 1, name: 'Ahmad Rizki', nis: '2024001', email: 'ahmad1@email.com', phone: '081234567890', gender: 'L' },
-                    { id: 2, name: 'Sari Dewi', nis: '2024002', email: 'sari2@email.com', phone: '081234567891', gender: 'P' },
-                    { id: 3, name: 'Budi Santoso', nis: '2024003', email: 'budi3@email.com', phone: '081234567892', gender: 'L' },
-                    { id: 4, name: 'Maya Sari', nis: '2024004', email: 'maya4@email.com', phone: '081234567893', gender: 'P' },
-                    { id: 5, name: 'Rizki Pratama', nis: '2024005', email: 'rizki5@email.com', phone: '081234567894', gender: 'L' },
-                    { id: 6, name: 'Dewi Lestari', nis: '2024006', email: 'dewi6@email.com', phone: '081234567895', gender: 'P' },
-                    { id: 7, name: 'Andi Wijaya', nis: '2024007', email: 'andi7@email.com', phone: '081234567896', gender: 'L' },
-                    { id: 8, name: 'Siti Nurhaliza', nis: '2024008', email: 'siti8@email.com', phone: '081234567897', gender: 'P' },
-                    { id: 9, name: 'Eko Prasetya', nis: '2024009', email: 'eko9@email.com', phone: '081234567898', gender: 'L' },
-                    { id: 10, name: 'Lina Kusuma', nis: '2024010', email: 'lina10@email.com', phone: '081234567899', gender: 'P' },
-                    { id: 11, name: 'Fajar Nugroho', nis: '2024011', email: 'fajar11@email.com', phone: '081234567800', gender: 'L' },
-                    { id: 12, name: 'Intan Permata', nis: '2024012', email: 'intan12@email.com', phone: '081234567801', gender: 'P' },
-                    { id: 13, name: 'Guntur Prakasa', nis: '2024013', email: 'guntur13@email.com', phone: '081234567802', gender: 'L' },
-                    { id: 14, name: 'Heni Susanti', nis: '2024014', email: 'heni14@email.com', phone: '081234567803', gender: 'P' },
-                    { id: 15, name: 'Irfan Maulana', nis: '2024015', email: 'irfan15@email.com', phone: '081234567804', gender: 'L' },
-                    { id: 16, name: 'Jihan Aulia', nis: '2024016', email: 'jihan16@email.com', phone: '081234567805', gender: 'P' },
-                    { id: 17, name: 'Krisna Adi', nis: '2024017', email: 'krisna17@email.com', phone: '081234567806', gender: 'L' },
-                    { id: 18, name: 'Lintang Sari', nis: '2024018', email: 'lintang18@email.com', phone: '081234567807', gender: 'P' },
-                    { id: 19, name: 'Maulana Yusuf', nis: '2024019', email: 'maulana19@email.com', phone: '081234567808', gender: 'L' },
-                    { id: 20, name: 'Nadia Putri', nis: '2024020', email: 'nadia20@email.com', phone: '081234567809', gender: 'P' },
-                    { id: 21, name: 'Oka Pratama', nis: '2024021', email: 'oka21@email.com', phone: '081234567810', gender: 'L' },
-                    { id: 22, name: 'Putri Lestari', nis: '2024022', email: 'putri22@email.com', phone: '081234567811', gender: 'P' },
-                    { id: 23, name: 'Rama Kusuma', nis: '2024023', email: 'rama23@email.com', phone: '081234567812', gender: 'L' },
-                    { id: 24, name: 'Siska Anggraini', nis: '2024024', email: 'siska24@email.com', phone: '081234567813', gender: 'P' },
-                    { id: 25, name: 'Taufik Hidayat', nis: '2024025', email: 'taufik25@email.com', phone: '081234567814', gender: 'L' },
-                    { id: 26, name: 'Umi Kalsum', nis: '2024026', email: 'umi26@email.com', phone: '081234567815', gender: 'P' },
-                    { id: 27, name: 'Vicky Prasetya', nis: '2024027', email: 'vicky27@email.com', phone: '081234567816', gender: 'L' },
-                    { id: 28, name: 'Wulan Sari', nis: '2024028', email: 'wulan28@email.com', phone: '081234567817', gender: 'P' },
-                    { id: 29, name: 'Xavier Adi', nis: '2024029', email: 'xavier29@email.com', phone: '081234567818', gender: 'L' },
-                    { id: 30, name: 'Yuni Astuti', nis: '2024030', email: 'yuni30@email.com', phone: '081234567819', gender: 'P' },
-                    { id: 31, name: 'Zaki Prasetyo', nis: '2024031', email: 'zaki31@email.com', phone: '081234567820', gender: 'L' },
-                    { id: 32, name: 'Anisa Khoirunnisa', nis: '2024032', email: 'anisa32@email.com', phone: '081234567821', gender: 'P' },
-                    { id: 33, name: 'Bayu Setiawan', nis: '2024033', email: 'bayu33@email.com', phone: '081234567822', gender: 'L' },
-                    { id: 34, name: 'Citra Dewi', nis: '2024034', email: 'citra34@email.com', phone: '081234567823', gender: 'P' },
-                    { id: 35, name: 'Dian Prasetya', nis: '2024035', email: 'dian35@email.com', phone: '081234567824', gender: 'L' },
-                    { id: 36, name: 'Eva Lestari', nis: '2024036', email: 'eva36@email.com', phone: '081234567825', gender: 'P' }
-                ];
-            }
-
-            loadTeachers() {
-                return [
-                    { 
-                        id: 1, 
-                        name: 'Bu Sari, S.Pd', 
-                        subject: 'Matematika', 
-                        qualification: 'S1 Pendidikan Matematika',
-                        email: 'sari@sekolah.sch.id',
-                        phone: '081234567800'
-                    },
-                    { 
-                        id: 2, 
-                        name: 'Pak Budi, M.Pd', 
-                        subject: 'Fisika', 
-                        qualification: 'S2 Pendidikan Fisika',
-                        email: 'budi@sekolah.sch.id',
-                        phone: '081234567801'
-                    },
-                    { 
-                        id: 3, 
-                        name: 'Bu Dewi, S.Pd', 
-                        subject: 'Kimia', 
-                        qualification: 'S1 Pendidikan Kimia',
-                        email: 'dewi@sekolah.sch.id',
-                        phone: '081234567802'
-                    },
-                    { 
-                        id: 4, 
-                        name: 'Pak Andi, S.Pd', 
-                        subject: 'Biologi', 
-                        qualification: 'S1 Pendidikan Biologi',
-                        email: 'andi@sekolah.sch.id',
-                        phone: '081234567803'
-                    },
-                    { 
-                        id: 5, 
-                        name: 'Bu Rini, M.Pd', 
-                        subject: 'Bahasa Indonesia', 
-                        qualification: 'S2 Pendidikan Bahasa Indonesia',
-                        email: 'rini@sekolah.sch.id',
-                        phone: '081234567804'
-                    },
-                    { 
-                        id: 6, 
-                        name: 'Bu Maya, S.Pd', 
-                        subject: 'Bahasa Inggris', 
-                        qualification: 'S1 Pendidikan Bahasa Inggris',
-                        email: 'maya@sekolah.sch.id',
-                        phone: '081234567805'
-                    },
-                    { 
-                        id: 7, 
-                        name: 'Pak Joko, S.Kom', 
-                        subject: 'TIK Lanjut', 
-                        qualification: 'S1 Teknik Informatika',
-                        email: 'joko@sekolah.sch.id',
-                        phone: '081234567806'
-                    },
-                    { 
-                        id: 8, 
-                        name: 'Bu Sinta, S.Sos', 
-                        subject: 'Sosiologi Lanjut', 
-                        qualification: 'S1 Sosiologi',
-                        email: 'sinta@sekolah.sch.id',
-                        phone: '081234567807'
-                    },
-                    { 
-                        id: 9, 
-                        name: 'Pak Rudi, S.E', 
-                        subject: 'Ekonomi Lanjut', 
-                        qualification: 'S1 Ekonomi',
-                        email: 'rudi@sekolah.sch.id',
-                        phone: '081234567808'
-                    },
-                    { 
-                        id: 10, 
-                        name: 'Bu Yuki, S.Pd', 
-                        subject: 'Bahasa Jepang Lanjut', 
-                        qualification: 'S1 Pendidikan Bahasa Jepang',
-                        email: 'yuki@sekolah.sch.id',
-                        phone: '081234567809'
-                    }
-                ];
-            }
-
-            loadSchedule() {
-                const saved = localStorage.getItem('scheduleData');
-                if (saved) {
-                    return JSON.parse(saved);
-                } else {
-                    const defaultSchedule = {
-                        'Senin': [
-                            { time: '07:00-08:30', subject: 'Matematika', teacher: 'Bu Sari, S.Pd', room: 'Ruang 201', teacherStatus: 'present' },
-                            { time: '08:30-10:00', subject: 'Fisika', teacher: 'Pak Budi, M.Pd', room: 'Lab Fisika', teacherStatus: 'present' },
-                            { time: '10:00-11:30', subject: 'Kimia', teacher: 'Bu Dewi, S.Pd', room: 'Lab Kimia', teacherStatus: 'present' },
-                            { time: '13:00-14:30', subject: 'TIK Lanjut', teacher: 'Pak Joko, S.Kom', room: 'Lab Komputer', teacherStatus: 'present' }
-                        ],
-                        'Selasa': [
-                            { time: '07:00-08:30', subject: 'Biologi', teacher: 'Pak Andi, S.Pd', room: 'Lab Biologi', teacherStatus: 'present' },
-                            { time: '08:30-10:00', subject: 'Bahasa Indonesia', teacher: 'Bu Rini, M.Pd', room: 'Ruang 201', teacherStatus: 'present' },
-                            { time: '10:00-11:30', subject: 'Sosiologi Lanjut', teacher: 'Bu Sinta, S.Sos', room: 'Ruang 202', teacherStatus: 'present' }
-                        ],
-                        'Rabu': [
-                            { time: '07:00-08:30', subject: 'Matematika', teacher: 'Bu Sari, S.Pd', room: 'Ruang 201', teacherStatus: 'present' },
-                            { time: '08:30-10:00', subject: 'Fisika', teacher: 'Pak Budi, M.Pd', room: 'Lab Fisika', teacherStatus: 'present' },
-                            { time: '10:00-11:30', subject: 'Bahasa Inggris', teacher: 'Bu Maya, S.Pd', room: 'Ruang 203', teacherStatus: 'present' }
-                        ],
-                        'Kamis': [
-                            { time: '07:00-08:30', subject: 'Kimia', teacher: 'Bu Dewi, S.Pd', room: 'Lab Kimia', teacherStatus: 'present' },
-                            { time: '08:30-10:00', subject: 'Biologi', teacher: 'Pak Andi, S.Pd', room: 'Lab Biologi', teacherStatus: 'present' },
-                            { time: '10:00-11:30', subject: 'Ekonomi Lanjut', teacher: 'Pak Rudi, S.E', room: 'Ruang 204', teacherStatus: 'present' }
-                        ],
-                        'Jumat': [
-                            { time: '07:00-08:30', subject: 'Bahasa Indonesia', teacher: 'Bu Rini, M.Pd', room: 'Ruang 201', teacherStatus: 'present' },
-                            { time: '08:30-10:00', subject: 'Bahasa Jepang Lanjut', teacher: 'Bu Yuki, S.Pd', room: 'Ruang 205', teacherStatus: 'present' }
-                        ],
-                        'Sabtu': [
-                            { time: '07:00-09:00', subject: 'Ekstrakurikuler', teacher: 'Various', room: 'Lapangan', teacherStatus: 'present' }
-                        ]
-                    };
-                    localStorage.setItem('scheduleData', JSON.stringify(defaultSchedule));
-                    return defaultSchedule;
-                }
-            }
-
-            loadAttendance() {
-                const saved = localStorage.getItem('attendanceData');
-                if (saved) {
-                    return JSON.parse(saved);
-                } else {
-                    // Create sample data for demonstration
-                    const sampleData = {
-                        records: [
-                            // Sample records for demonstration
-                            {
-                                id: 1,
-                                date: new Date().toISOString().split('T')[0],
-                                type: 'daily',
-                                studentId: 1,
-                                studentName: 'Ahmad Rizki',
-                                nis: '2024001',
-                                status: 'present',
-                                time: '07:15',
-                                timestamp: new Date().toISOString()
-                            },
-                            {
-                                id: 2,
-                                date: new Date().toISOString().split('T')[0],
-                                type: 'daily',
-                                studentId: 2,
-                                studentName: 'Sari Dewi',
-                                nis: '2024002',
-                                status: 'absent',
-                                time: '07:15',
-                                timestamp: new Date().toISOString()
-                            },
-                            {
-                                id: 3,
-                                date: new Date().toISOString().split('T')[0],
-                                type: 'subject',
-                                subject: 'matematika',
-                                studentId: 3,
-                                studentName: 'Budi Santoso',
-                                nis: '2024003',
-                                status: 'sick',
-                                time: '08:45',
-                                timestamp: new Date().toISOString()
-                            },
-                            {
-                                id: 4,
-                                date: new Date().toISOString().split('T')[0],
-                                type: 'subject',
-                                subject: 'kimia',
-                                studentId: 4,
-                                studentName: 'Maya Sari',
-                                nis: '2024004',
-                                status: 'permission',
-                                time: '10:15',
-                                timestamp: new Date().toISOString()
-                            },
-                            // Add more sample records for different dates
-                            {
-                                id: 5,
-                                date: new Date(Date.now() - 86400000).toISOString().split('T')[0], // Yesterday
-                                type: 'daily',
-                                studentId: 2,
-                                studentName: 'Sari Dewi',
-                                nis: '2024002',
-                                status: 'absent',
-                                time: '07:15',
-                                timestamp: new Date(Date.now() - 86400000).toISOString()
-                            },
-                            {
-                                id: 6,
-                                date: new Date(Date.now() - 86400000).toISOString().split('T')[0], // Yesterday
-                                type: 'subject',
-                                subject: 'fisika',
-                                studentId: 3,
-                                studentName: 'Budi Santoso',
-                                nis: '2024003',
-                                status: 'absent',
-                                time: '08:45',
-                                timestamp: new Date(Date.now() - 86400000).toISOString()
-                            }
-                        ]
-                    };
-                    localStorage.setItem('attendanceData', JSON.stringify(sampleData));
-                    return sampleData;
-                }
-            }
-
-            loadAssignments() {
-                const saved = localStorage.getItem('assignmentData');
-                return saved ? JSON.parse(saved) : { assignments: [] };
-            }
-
-            loadAnnouncement() {
-                const saved = localStorage.getItem('announcementData');
-                return saved ? JSON.parse(saved) : { text: "Persiapan Ujian Tengah Semester akan dimulai minggu depan. Mari persiapkan dengan baik!" };
-            }
-
-            loadGroups() {
-                const saved = localStorage.getItem('groupData');
-                return saved ? JSON.parse(saved) : { groups: [] };
-            }
-
-            loadActivities() {
-                const saved = localStorage.getItem('activityData');
-                if (saved) {
-                    return JSON.parse(saved);
-                } else {
-                    // Create sample activities
-                    const sampleActivities = [
-                        {
-                            id: 1,
-                            type: 'attendance',
-                            title: 'Absensi pagi telah diinput',
-                            description: '28 siswa hadir',
-                            time: new Date().toISOString(),
-                            icon: 'clipboard-check'
-                        },
-                        {
-                            id: 2,
-                            type: 'assignment',
-                            title: 'Tugas Matematika dikumpulkan',
-                            description: '25 siswa mengumpulkan',
-                            time: new Date(Date.now() - 86400000).toISOString(),
-                            icon: 'tasks'
-                        },
-                        {
-                            id: 3,
-                            type: 'announcement',
-                            title: 'Pengumuman baru dari Wali Kelas',
-                            description: 'Persiapan UTS',
-                            time: new Date(Date.now() - 172800000).toISOString(),
-                            icon: 'comment'
-                        },
-                        {
-                            id: 4,
-                            type: 'assignment',
-                            title: 'Tugas Fisika ditambahkan',
-                            description: 'Deadline 3 hari lagi',
-                            time: new Date(Date.now() - 259200000).toISOString(),
-                            icon: 'tasks'
-                        }
-                    ];
-                    localStorage.setItem('activityData', JSON.stringify(sampleActivities));
-                    return sampleActivities;
-                }
-            }
-
-            // Load classroom data
-            loadClassroom() {
-                const saved = localStorage.getItem('classroomData');
-                if (saved) {
-                    return JSON.parse(saved);
-                } else {
-                    // Create default classroom layout
-                    const defaultClassroom = {
-                        layout: 'grid',
-                        seats: []
-                    };
-                    
-                    // Initialize with empty seats
-                    for (let i = 1; i <= 36; i++) {
-                        defaultClassroom.seats.push({
-                            deskNumber: i,
-                            studentId: null,
-                            studentName: null
-                        });
-                    }
-                    
-                    localStorage.setItem('classroomData', JSON.stringify(defaultClassroom));
-                    return defaultClassroom;
-                }
-            }
-
-            // Load duty schedule
-            loadDuty() {
-                const saved = localStorage.getItem('dutyData');
-                if (saved) {
-                    return JSON.parse(saved);
-                } else {
-                    // Create sample duty schedule
-                    const sampleDuty = {
-                        schedule: [
-                            {
-                                id: 1,
-                                day: 'Senin',
-                                students: [1, 2, 3],
-                                tasks: 'Menyapu lantai, membersihkan papan tulis'
-                            },
-                            {
-                                id: 2,
-                                day: 'Selasa',
-                                students: [4, 5, 6],
-                                tasks: 'Mengepel lantai, merapikan buku'
-                            },
-                            {
-                                id: 3,
-                                day: 'Rabu',
-                                students: [7, 8, 9],
-                                tasks: 'Membersihkan jendela, menyiram tanaman'
-                            },
-                            {
-                                id: 4,
-                                day: 'Kamis',
-                                students: [10, 11, 12],
-                                tasks: 'Menyapu halaman, merapikan meja guru'
-                            },
-                            {
-                                id: 5,
-                                day: 'Jumat',
-                                students: [13, 14, 15],
-                                tasks: 'Membersihkan rak buku, menata kursi'
-                            }
-                        ]
-                    };
-                    localStorage.setItem('dutyData', JSON.stringify(sampleDuty));
-                    return sampleDuty;
-                }
-            }
-
-            // Load class structure
-            loadStructure() {
-                const saved = localStorage.getItem('structureData');
-                if (saved) {
-                    return JSON.parse(saved);
-                } else {
-                    // Create sample class structure
-                    const sampleStructure = {
-                        motto: "Bersatu dalam Perbedaan, Berprestasi dalam Kebersamaan",
-                        members: [
-                            { id: 1, name: 'Bu Sari, S.Pd', role: 'Wali Kelas', contact: 'sari@sekolah.sch.id' },
-                            { id: 2, name: 'Ahmad Rizki', role: 'Ketua Kelas', contact: 'ahmad1@email.com' },
-                            { id: 3, name: 'Sari Dewi', role: 'Wakil Ketua', contact: 'sari2@email.com' },
-                            { id: 4, name: 'Budi Santoso', role: 'Sekretaris 1', contact: 'budi3@email.com' },
-                            { id: 5, name: 'Maya Sari', role: 'Sekretaris 2', contact: 'maya4@email.com' },
-                            { id: 6, name: 'Rizki Pratama', role: 'Bendahara 1', contact: 'rizki5@email.com' },
-                            { id: 7, name: 'Dewi Lestari', role: 'Bendahara 2', contact: 'dewi6@email.com' }
-                        ],
-                        gallery: [
-                            { id: 1, title: 'Foto Kelas' },
-                            { id: 2, title: 'Kegiatan Belajar' },
-                            { id: 3, title: 'Ekstrakurikuler' },
-                            { id: 4, title: 'Perlombaan' },
-                            { id: 5, title: 'Karya Siswa' },
-                            { id: 6, title: 'Kegiatan Sosial' }
-                        ]
-                    };
-                    localStorage.setItem('structureData', JSON.stringify(sampleStructure));
-                    return sampleStructure;
-                }
-            }
-
-            saveSchedule() {
-                localStorage.setItem('scheduleData', JSON.stringify(this.schedule));
-            }
-
-            saveAttendance() {
-                localStorage.setItem('attendanceData', JSON.stringify(this.attendance));
-            }
-
-            saveAssignments() {
-                localStorage.setItem('assignmentData', JSON.stringify(this.assignments));
-            }
-
-            saveAnnouncementData() {
-                localStorage.setItem('announcementData', JSON.stringify(this.announcement));
-            }
-
-            saveGroups() {
-                localStorage.setItem('groupData', JSON.stringify(this.groups));
-            }
-
-            saveActivities() {
-                localStorage.setItem('activityData', JSON.stringify(this.activities));
-            }
-
-            // Save classroom data
-            saveClassroom() {
-                localStorage.setItem('classroomData', JSON.stringify(this.classroom));
-            }
-
-            // Save duty schedule
-            saveDuty() {
-                localStorage.setItem('dutyData', JSON.stringify(this.duty));
-            }
-
-            // Save class structure
-            saveStructure() {
-                localStorage.setItem('structureData', JSON.stringify(this.structure));
             }
 
             switchTab(tabName) {
@@ -4466,7 +4485,7 @@
             loadHomePage() {
                 // Update stats based on today's attendance
                 const today = new Date().toISOString().split('T')[0];
-                const todayAttendance = this.attendance.records.filter(record => 
+                const todayAttendance = this.data.attendance.records.filter(record => 
                     record.date === today && record.type === 'daily'
                 );
                 
@@ -4476,7 +4495,7 @@
                 let absentCount = 0;
                 
                 // Reset counts
-                this.students.forEach(student => {
+                this.data.students.forEach(student => {
                     const record = todayAttendance.find(r => r.studentId == student.id);
                     if (record) {
                         switch(record.status) {
@@ -4518,8 +4537,8 @@
             loadClassStructure() {
                 const structureGrid = document.getElementById('structureGrid');
                 
-                if (this.structure.members.length > 0) {
-                    structureGrid.innerHTML = this.structure.members.map(member => `
+                if (this.data.structure.members.length > 0) {
+                    structureGrid.innerHTML = this.data.structure.members.map(member => `
                         <div class="structure-card">
                             <div class="structure-avatar">
                                 ${member.name.split(' ').map(n => n[0]).join('')}
@@ -4542,8 +4561,8 @@
             loadClassGallery() {
                 const galleryGrid = document.getElementById('galleryGrid');
                 
-                if (this.structure.gallery.length > 0) {
-                    galleryGrid.innerHTML = this.structure.gallery.map(item => `
+                if (this.data.structure.gallery.length > 0) {
+                    galleryGrid.innerHTML = this.data.structure.gallery.map(item => `
                         <div class="gallery-item">
                             <i class="fas fa-image"></i>
                             <div class="gallery-item-title">${item.title}</div>
@@ -4566,7 +4585,7 @@
                 const todayName = dayNames[today.getDay()];
                 
                 // Get today's schedule
-                const todayLessons = this.schedule[todayName] || [];
+                const todayLessons = this.data.schedule[todayName] || [];
                 
                 if (todayLessons.length > 0) {
                     todaySchedule.innerHTML = todayLessons.map((lesson, index) => {
@@ -4624,7 +4643,7 @@
                 const recentActivityList = document.getElementById('recentActivityList');
                 
                 // Sort activities by time (newest first) and take the 3 most recent
-                const recentActivities = [...this.activities]
+                const recentActivities = [...this.data.activities]
                     .sort((a, b) => new Date(b.time) - new Date(a.time))
                     .slice(0, 3);
                 
@@ -4674,7 +4693,7 @@
                 const today = new Date();
                 
                 // Filter assignments that are active or urgent and not completed
-                const upcomingAssignments = this.assignments.assignments
+                const upcomingAssignments = this.data.assignments.assignments
                     .filter(assignment => {
                         const deadline = new Date(assignment.deadline);
                         return (assignment.status === 'active' || assignment.status === 'urgent') && deadline >= today;
@@ -4711,11 +4730,11 @@
                 const todayName = dayNames[today.getDay()];
                 
                 // Get today's duty
-                const todayDuty = this.duty.schedule.find(duty => duty.day === todayName);
+                const todayDuty = this.data.duty.schedule.find(duty => duty.day === todayName);
                 
                 if (todayDuty) {
                     const dutyStudents = todayDuty.students.map(studentId => {
-                        const student = this.students.find(s => s.id === studentId);
+                        const student = this.data.students.find(s => s.id === studentId);
                         return student ? student.name : 'Tidak diketahui';
                     }).join(', ');
                     
@@ -4766,7 +4785,7 @@
                 };
                 
                 const today = new Date().toISOString().split('T')[0];
-                const studentsWithStatus = this.attendance.records
+                const studentsWithStatus = this.data.attendance.records
                     .filter(record => record.date === today && record.type === 'daily' && record.status === status)
                     .map(record => record.studentName);
                 
@@ -4785,7 +4804,7 @@
 
             loadAttendanceData(date) {
                 const tableBody = document.getElementById('attendanceTableBody');
-                const dayRecords = this.attendance.records.filter(record => 
+                const dayRecords = this.data.attendance.records.filter(record => 
                     record.date === date && record.type === 'daily'
                 );
 
@@ -4796,7 +4815,7 @@
                 let absentCount = 0;
                 
                 // Reset counts
-                this.students.forEach(student => {
+                this.data.students.forEach(student => {
                     const record = dayRecords.find(r => r.studentId == student.id);
                     if (record) {
                         switch(record.status) {
@@ -4810,7 +4829,7 @@
                     }
                 });
 
-                const totalStudents = this.students.length;
+                const totalStudents = this.data.students.length;
 
                 // Update ringkasan
                 document.getElementById('totalStudentsSummary').textContent = totalStudents;
@@ -4818,7 +4837,7 @@
                 document.getElementById('absentCountSummary').textContent = sickCount + permissionCount + absentCount;
 
                 // Bangun HTML berdasarkan daftar semua siswa
-                const tableRows = this.students.map((student, index) => {
+                const tableRows = this.data.students.map((student, index) => {
                     // Cari record absensi untuk siswa ini pada tanggal ini
                     const record = dayRecords.find(r => r.studentId == student.id);
 
@@ -4870,7 +4889,7 @@
                 const subjectAttendanceTableBody = document.getElementById('subjectAttendanceTableBody');
                 
                 // Get subject attendance records for the selected date
-                const subjectRecords = this.attendance.records.filter(record => 
+                const subjectRecords = this.data.attendance.records.filter(record => 
                     record.date === date && record.type === 'subject'
                 );
                 
@@ -4887,7 +4906,7 @@
                 const subjectStats = {};
                 Object.keys(subjectGroups).forEach(subject => {
                     const records = subjectGroups[subject];
-                    const totalStudents = this.students.length;
+                    const totalStudents = this.data.students.length;
                     
                     subjectStats[subject] = {
                         present: records.filter(r => r.status === 'present').length,
@@ -4985,7 +5004,7 @@
 
             // Get teacher by subject
             getTeacherBySubject(subject) {
-                return this.teachers.find(teacher => 
+                return this.data.teachers.find(teacher => 
                     teacher.subject.toLowerCase().includes(subject.toLowerCase()) ||
                     subject.toLowerCase().includes(teacher.subject.toLowerCase())
                 );
@@ -4993,7 +5012,7 @@
 
             // Show subject attendance details
             showSubjectAttendanceDetails(subject, date) {
-                const subjectRecords = this.attendance.records.filter(record => 
+                const subjectRecords = this.data.attendance.records.filter(record => 
                     record.date === date && record.type === 'subject' && record.subject === subject
                 );
                 
@@ -5001,7 +5020,7 @@
                 const sickStudents = subjectRecords.filter(r => r.status === 'sick').map(r => r.studentName);
                 const permissionStudents = subjectRecords.filter(r => r.status === 'permission').map(r => r.studentName);
                 
-                const absentStudents = this.students
+                const absentStudents = this.data.students
                     .filter(student => !subjectRecords.find(r => r.studentId === student.id))
                     .map(student => student.name);
                 
@@ -5034,8 +5053,8 @@
             // Load group spinner tab
             loadGroupSpinnerTab() {
                 // Display saved groups if available
-                if (this.groups.groups && this.groups.groups.length > 0) {
-                    this.displayGroups(this.groups.groups);
+                if (this.data.groups.groups && this.data.groups.groups.length > 0) {
+                    this.displayGroups(this.data.groups.groups);
                 }
             }
 
@@ -5050,12 +5069,12 @@
                 spinner.style.display = 'flex';
                 
                 // Get students to include in groups
-                let studentsToInclude = [...this.students];
+                let studentsToInclude = [...this.data.students];
                 
                 // Exclude absent students if selected
                 if (includeAbsent === 'exclude') {
                     const today = new Date().toISOString().split('T')[0];
-                    const todayAttendance = this.attendance.records.filter(record => record.date === today && record.type === 'daily');
+                    const todayAttendance = this.data.attendance.records.filter(record => record.date === today && record.type === 'daily');
                     
                     studentsToInclude = studentsToInclude.filter(student => {
                         const record = todayAttendance.find(r => r.studentId == student.id);
@@ -5085,8 +5104,8 @@
                     this.displayGroups(groups);
                     
                     // Save groups
-                    this.groups.groups = groups;
-                    this.saveGroups();
+                    this.data.groups.groups = groups;
+                    saveCentralData(this.data);
                     
                     this.showToast('Kelompok berhasil dibuat!');
                 }, 1500);
@@ -5110,8 +5129,10 @@
                     startIndex += groupSize;
                     
                     groups.push({
+                        id: Date.now() + i,
                         name: `Kelompok ${i + 1}`,
-                        members: groupMembers
+                        members: groupMembers,
+                        leader: null
                     });
                 }
                 
@@ -5129,8 +5150,10 @@
                 const shuffledFemale = [...femaleStudents].sort(() => 0.5 - Math.random());
                 
                 const groups = Array.from({ length: groupCount }, (_, i) => ({
+                    id: Date.now() + i,
                     name: `Kelompok ${i + 1}`,
-                    members: []
+                    members: [],
+                    leader: null
                 }));
                 
                 // Distribute male students
@@ -5154,7 +5177,7 @@
                 oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
                 
                 const studentAttendanceCount = {};
-                this.attendance.records.forEach(record => {
+                this.data.attendance.records.forEach(record => {
                     const recordDate = new Date(record.date);
                     if (recordDate >= oneWeekAgo && record.status === 'present') {
                         if (!studentAttendanceCount[record.studentId]) {
@@ -5172,16 +5195,16 @@
                 });
                 
                 const groups = Array.from({ length: groupCount }, (_, i) => ({
+                    id: Date.now() + i,
                     name: `Kelompok ${i + 1}`,
-                    members: []
+                    members: [],
+                    leader: null
                 }));
                 
                 // Assign leaders
                 sortedStudents.slice(0, groupCount).forEach((student, index) => {
-                    groups[index].members.push({
-                        ...student,
-                        isLeader: true
-                    });
+                    groups[index].members.push(student);
+                    groups[index].leader = student.id;
                 });
                 
                 // Distribute remaining students
@@ -5216,13 +5239,21 @@
                                             <div>${member.name}</div>
                                             <div style="font-size: 0.7rem; color: var(--text-light);">${member.nis}</div>
                                         </div>
-                                        ${member.isLeader ? `
+                                        ${group.leader === member.id ? `
                                             <div style="margin-left: auto;">
                                                 <span class="status-badge status-present" style="font-size: 0.6rem;">Ketua</span>
                                             </div>
                                         ` : ''}
                                     </div>
                                 `).join('')}
+                            </div>
+                            <div class="group-actions">
+                                <button class="btn-small" onclick="app.editGroup(${group.id})">
+                                    <i class="fas fa-edit"></i> Edit
+                                </button>
+                                <button class="btn-small" onclick="app.deleteGroup(${group.id})">
+                                    <i class="fas fa-trash"></i> Hapus
+                                </button>
                             </div>
                         </div>
                     `).join('');
@@ -5236,6 +5267,73 @@
                 }
             }
 
+            // Edit group
+            editGroup(groupId) {
+                const modal = document.getElementById('groupEditModal');
+                const title = document.getElementById('groupEditModalTitle');
+                const form = document.getElementById('groupEditForm');
+                
+                title.textContent = 'Edit Kelompok';
+                
+                const group = this.data.groups.groups.find(g => g.id === groupId);
+                if (group) {
+                    document.getElementById('editGroupId').value = group.id;
+                    document.getElementById('editGroupName').value = group.name;
+                    
+                    // Populate students dropdown
+                    const editGroupMembers = document.getElementById('editGroupMembers');
+                    editGroupMembers.innerHTML = this.data.students.map(student => 
+                        `<option value="${student.id}" ${group.members.some(m => m.id === student.id) ? 'selected' : ''}>${student.name}</option>`
+                    ).join('');
+                    
+                    // Populate leader dropdown
+                    const editGroupLeader = document.getElementById('editGroupLeader');
+                    editGroupLeader.innerHTML = '<option value="">Pilih Ketua Kelompok</option>' + 
+                        group.members.map(member => 
+                            `<option value="${member.id}" ${group.leader === member.id ? 'selected' : ''}>${member.name}</option>`
+                        ).join('');
+                }
+                
+                modal.style.display = 'block';
+            }
+
+            // Submit group edit
+            submitGroupEdit() {
+                const groupId = parseInt(document.getElementById('editGroupId').value);
+                const groupName = document.getElementById('editGroupName').value;
+                const groupMembers = Array.from(document.getElementById('editGroupMembers').selectedOptions).map(option => parseInt(option.value));
+                const groupLeader = document.getElementById('editGroupLeader').value ? parseInt(document.getElementById('editGroupLeader').value) : null;
+                
+                // Find the group
+                const groupIndex = this.data.groups.groups.findIndex(g => g.id === groupId);
+                if (groupIndex !== -1) {
+                    // Get the actual student objects
+                    const members = this.data.students.filter(student => groupMembers.includes(student.id));
+                    
+                    this.data.groups.groups[groupIndex] = {
+                        ...this.data.groups.groups[groupIndex],
+                        name: groupName,
+                        members: members,
+                        leader: groupLeader
+                    };
+                    
+                    saveCentralData(this.data);
+                    this.closeModal('groupEditModal');
+                    this.displayGroups(this.data.groups.groups);
+                    this.showToast('Kelompok berhasil diperbarui!');
+                }
+            }
+
+            // Delete group
+            deleteGroup(groupId) {
+                if (confirm('Apakah Anda yakin ingin menghapus kelompok ini?')) {
+                    this.data.groups.groups = this.data.groups.groups.filter(g => g.id !== groupId);
+                    saveCentralData(this.data);
+                    this.displayGroups(this.data.groups.groups);
+                    this.showToast('Kelompok berhasil dihapus!');
+                }
+            }
+
             // Regenerate groups
             regenerateGroups() {
                 this.generateGroups();
@@ -5243,7 +5341,7 @@
 
             // Export groups
             exportGroups() {
-                if (!this.groups.groups || this.groups.groups.length === 0) {
+                if (!this.data.groups.groups || this.data.groups.groups.length === 0) {
                     this.showToast('Tidak ada kelompok untuk diekspor!', 'error');
                     return;
                 }
@@ -5252,12 +5350,12 @@
                 csvContent += "PEMBAGIAN KELOMPOK SISWA\n";
                 csvContent += `Tanggal: ${new Date().toLocaleDateString('id-ID')}\n\n`;
                 
-                this.groups.groups.forEach(group => {
+                this.data.groups.groups.forEach(group => {
                     csvContent += `${group.name}\n`;
                     csvContent += "No,Nama Siswa,NIS,Peran\n";
                     
                     group.members.forEach((member, index) => {
-                        const role = member.isLeader ? 'Ketua Kelompok' : 'Anggota';
+                        const role = group.leader === member.id ? 'Ketua Kelompok' : 'Anggota';
                         csvContent += `${index + 1},${member.name},${member.nis},${role}\n`;
                     });
                     
@@ -5275,6 +5373,17 @@
                 this.showToast('Kelompok berhasil diekspor!');
             }
 
+            // Save groups
+            saveGroups() {
+                if (!this.data.groups.groups || this.data.groups.groups.length === 0) {
+                    this.showToast('Tidak ada kelompok untuk disimpan!', 'error');
+                    return;
+                }
+                
+                saveCentralData(this.data);
+                this.showToast('Kelompok berhasil disimpan!');
+            }
+
             // Load classroom tab
             loadClassroomTab() {
                 this.displayClassroom();
@@ -5286,16 +5395,16 @@
                 const layoutType = document.getElementById('layoutType').value;
                 
                 // Update classroom layout type
-                this.classroom.layout = layoutType;
-                this.saveClassroom();
+                this.data.classroom.layout = layoutType;
+                saveCentralData(this.data);
                 
                 let gridHTML = '';
                 
                 if (layoutType === 'grid') {
                     // 6x6 grid layout
                     for (let i = 1; i <= 36; i++) {
-                        const seat = this.classroom.seats.find(s => s.deskNumber === i);
-                        const student = seat && seat.studentId ? this.students.find(s => s.id === seat.studentId) : null;
+                        const seat = this.data.classroom.seats.find(s => s.deskNumber === i);
+                        const student = seat && seat.studentId ? this.data.students.find(s => s.id === seat.studentId) : null;
                         
                         gridHTML += `
                             <div class="classroom-desk ${student ? '' : 'empty'}" onclick="app.selectStudentForSeat(${i})">
@@ -5311,8 +5420,8 @@
                 } else if (layoutType === 'u-shape') {
                     // U-shape layout (simplified)
                     for (let i = 1; i <= 30; i++) {
-                        const seat = this.classroom.seats.find(s => s.deskNumber === i);
-                        const student = seat && seat.studentId ? this.students.find(s => s.id === seat.studentId) : null;
+                        const seat = this.data.classroom.seats.find(s => s.deskNumber === i);
+                        const student = seat && seat.studentId ? this.data.students.find(s => s.id === seat.studentId) : null;
                         
                         gridHTML += `
                             <div class="classroom-desk ${student ? '' : 'empty'}" onclick="app.selectStudentForSeat(${i})">
@@ -5338,8 +5447,8 @@
                     for (let group = 1; group <= 4; group++) {
                         for (let i = 1; i <= 9; i++) {
                             const deskNumber = (group - 1) * 9 + i;
-                            const seat = this.classroom.seats.find(s => s.deskNumber === deskNumber);
-                            const student = seat && seat.studentId ? this.students.find(s => s.id === seat.studentId) : null;
+                            const seat = this.data.classroom.seats.find(s => s.deskNumber === deskNumber);
+                            const student = seat && seat.studentId ? this.data.students.find(s => s.id === seat.studentId) : null;
                             
                             gridHTML += `
                                 <div class="classroom-desk ${student ? '' : 'empty'}" onclick="app.selectStudentForSeat(${deskNumber})">
@@ -5360,9 +5469,9 @@
 
             // Select student for seat
             selectStudentForSeat(deskNumber) {
-                const availableStudents = this.students.filter(student => {
+                const availableStudents = this.data.students.filter(student => {
                     // Check if student is already assigned to a seat
-                    const assignedSeat = this.classroom.seats.find(seat => seat.studentId === student.id);
+                    const assignedSeat = this.data.classroom.seats.find(seat => seat.studentId === student.id);
                     return !assignedSeat || assignedSeat.deskNumber === deskNumber;
                 });
                 
@@ -5378,20 +5487,20 @@
                     const student = availableStudents.find(s => s.name === studentId);
                     if (student) {
                         // Remove student from previous seat if any
-                        const previousSeat = this.classroom.seats.find(seat => seat.studentId === student.id);
+                        const previousSeat = this.data.classroom.seats.find(seat => seat.studentId === student.id);
                         if (previousSeat) {
                             previousSeat.studentId = null;
                             previousSeat.studentName = null;
                         }
                         
                         // Assign student to new seat
-                        const seat = this.classroom.seats.find(s => s.deskNumber === deskNumber);
+                        const seat = this.data.classroom.seats.find(s => s.deskNumber === deskNumber);
                         if (seat) {
                             seat.studentId = student.id;
                             seat.studentName = student.name;
                         }
                         
-                        this.saveClassroom();
+                        saveCentralData(this.data);
                         this.displayClassroom();
                         this.showToast(`Siswa ${student.name} ditempatkan di kursi ${deskNumber}`);
                     }
@@ -5402,23 +5511,23 @@
             randomizeSeats() {
                 if (confirm('Apakah Anda yakin ingin mengacak tempat duduk?')) {
                     // Reset all seats
-                    this.classroom.seats.forEach(seat => {
+                    this.data.classroom.seats.forEach(seat => {
                         seat.studentId = null;
                         seat.studentName = null;
                     });
                     
                     // Shuffle students
-                    const shuffledStudents = [...this.students].sort(() => 0.5 - Math.random());
+                    const shuffledStudents = [...this.data.students].sort(() => 0.5 - Math.random());
                     
                     // Assign students to seats
                     shuffledStudents.forEach((student, index) => {
-                        if (index < this.classroom.seats.length) {
-                            this.classroom.seats[index].studentId = student.id;
-                            this.classroom.seats[index].studentName = student.name;
+                        if (index < this.data.classroom.seats.length) {
+                            this.data.classroom.seats[index].studentId = student.id;
+                            this.data.classroom.seats[index].studentName = student.name;
                         }
                     });
                     
-                    this.saveClassroom();
+                    saveCentralData(this.data);
                     this.displayClassroom();
                     this.showToast('Tempat duduk berhasil diacak!');
                 }
@@ -5427,12 +5536,12 @@
             // Reset seats
             resetSeats() {
                 if (confirm('Apakah Anda yakin ingin mereset semua tempat duduk?')) {
-                    this.classroom.seats.forEach(seat => {
+                    this.data.classroom.seats.forEach(seat => {
                         seat.studentId = null;
                         seat.studentName = null;
                     });
                     
-                    this.saveClassroom();
+                    saveCentralData(this.data);
                     this.displayClassroom();
                     this.showToast('Tempat duduk berhasil direset!');
                 }
@@ -5453,10 +5562,10 @@
                 const dutyTableBody = document.getElementById('dutyTableBody');
                 const weekValue = document.getElementById('dutyWeek').value;
                 
-                if (this.duty.schedule.length > 0) {
-                    dutyTableBody.innerHTML = this.duty.schedule.map(duty => {
+                if (this.data.duty.schedule.length > 0) {
+                    dutyTableBody.innerHTML = this.data.duty.schedule.map(duty => {
                         const dutyStudents = duty.students.map(studentId => {
-                            const student = this.students.find(s => s.id === studentId);
+                            const student = this.data.students.find(s => s.id === studentId);
                             return student ? student.name : 'Tidak diketahui';
                         }).join(', ');
                         
@@ -5500,14 +5609,14 @@
                 
                 // Populate students dropdown
                 const dutyStudentsSelect = document.getElementById('dutyStudents');
-                dutyStudentsSelect.innerHTML = this.students.map(student => 
+                dutyStudentsSelect.innerHTML = this.data.students.map(student => 
                     `<option value="${student.id}">${student.name}</option>`
                 ).join('');
                 
                 if (dutyId) {
                     // Edit mode
                     title.textContent = 'Edit Jadwal Piket';
-                    const duty = this.duty.schedule.find(d => d.id === dutyId);
+                    const duty = this.data.duty.schedule.find(d => d.id === dutyId);
                     if (duty) {
                         document.getElementById('dutyId').value = duty.id;
                         document.getElementById('dutyDay').value = duty.day;
@@ -5537,8 +5646,8 @@
             // Delete duty
             deleteDuty(dutyId) {
                 if (confirm('Apakah Anda yakin ingin menghapus jadwal piket ini?')) {
-                    this.duty.schedule = this.duty.schedule.filter(d => d.id !== dutyId);
-                    this.saveDuty();
+                    this.data.duty.schedule = this.data.duty.schedule.filter(d => d.id !== dutyId);
+                    saveCentralData(this.data);
                     this.loadDutySchedule();
                     this.loadTodayDuty();
                     this.showToast('Jadwal piket berhasil dihapus!');
@@ -5554,9 +5663,9 @@
                 
                 if (id) {
                     // Edit existing duty
-                    const dutyIndex = this.duty.schedule.findIndex(d => d.id == id);
+                    const dutyIndex = this.data.duty.schedule.findIndex(d => d.id == id);
                     if (dutyIndex !== -1) {
-                        this.duty.schedule[dutyIndex] = {
+                        this.data.duty.schedule[dutyIndex] = {
                             id: parseInt(id),
                             day,
                             students,
@@ -5572,10 +5681,10 @@
                         tasks
                     };
                     
-                    this.duty.schedule.push(newDuty);
+                    this.data.duty.schedule.push(newDuty);
                 }
                 
-                this.saveDuty();
+                saveCentralData(this.data);
                 this.closeModal('dutyModal');
                 this.loadDutySchedule();
                 this.loadTodayDuty();
@@ -5586,7 +5695,7 @@
             generateDutySchedule() {
                 if (confirm('Apakah Anda yakin ingin membuat jadwal piket otomatis?')) {
                     // Clear existing schedule
-                    this.duty.schedule = [];
+                    this.data.duty.schedule = [];
                     
                     const days = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat'];
                     const tasks = [
@@ -5598,14 +5707,14 @@
                     ];
                     
                     // Shuffle students
-                    const shuffledStudents = [...this.students].sort(() => 0.5 - Math.random());
+                    const shuffledStudents = [...this.data.students].sort(() => 0.5 - Math.random());
                     
                     // Assign 3 students per day
                     days.forEach((day, index) => {
                         const startIndex = index * 3;
                         const dayStudents = shuffledStudents.slice(startIndex, startIndex + 3).map(s => s.id);
                         
-                        this.duty.schedule.push({
+                        this.data.duty.schedule.push({
                             id: Date.now() + index,
                             day,
                             students: dayStudents,
@@ -5613,7 +5722,7 @@
                         });
                     });
                     
-                    this.saveDuty();
+                    saveCentralData(this.data);
                     this.loadDutySchedule();
                     this.loadTodayDuty();
                     this.showToast('Jadwal piket otomatis berhasil dibuat!');
@@ -5629,7 +5738,7 @@
                 times.forEach(time => {
                     scheduleHTML += `<div class="schedule-cell time">${time}</div>`;
                     days.forEach(day => {
-                        const lessons = this.schedule[day]?.filter(lesson => lesson.time === time) || [];
+                        const lessons = this.data.schedule[day]?.filter(lesson => lesson.time === time) || [];
                         scheduleHTML += `
                             <div class="schedule-cell">
                                 ${lessons.map((lesson, index) => `
@@ -5681,7 +5790,7 @@
                 
                 title.textContent = 'Edit Jadwal Pelajaran';
                 
-                const lesson = this.schedule[day][index];
+                const lesson = this.data.schedule[day][index];
                 
                 document.getElementById('scheduleId').value = `${day}-${index}`;
                 document.getElementById('scheduleDay').value = day;
@@ -5702,7 +5811,7 @@
                 
                 title.textContent = 'Edit Jadwal Hari Ini';
                 
-                const lesson = this.schedule[day][index];
+                const lesson = this.data.schedule[day][index];
                 
                 document.getElementById('scheduleId').value = `${day}-${index}`;
                 document.getElementById('scheduleDay').value = day;
@@ -5728,14 +5837,14 @@
                 if (id) {
                     // Edit existing schedule
                     const [scheduleDay, scheduleIndex] = id.split('-');
-                    if (this.schedule[scheduleDay] && this.schedule[scheduleDay][scheduleIndex]) {
+                    if (this.data.schedule[scheduleDay] && this.data.schedule[scheduleDay][scheduleIndex]) {
                         // If day changed, remove from old day and add to new day
                         if (scheduleDay !== day) {
-                            this.schedule[scheduleDay].splice(scheduleIndex, 1);
-                            if (!this.schedule[day]) {
-                                this.schedule[day] = [];
+                            this.data.schedule[scheduleDay].splice(scheduleIndex, 1);
+                            if (!this.data.schedule[day]) {
+                                this.data.schedule[day] = [];
                             }
-                            this.schedule[day].push({
+                            this.data.schedule[day].push({
                                 time,
                                 subject,
                                 teacher,
@@ -5744,7 +5853,7 @@
                             });
                         } else {
                             // Update in same day
-                            this.schedule[day][scheduleIndex] = {
+                            this.data.schedule[day][scheduleIndex] = {
                                 time,
                                 subject,
                                 teacher,
@@ -5755,10 +5864,10 @@
                     }
                 } else {
                     // Add new schedule
-                    if (!this.schedule[day]) {
-                        this.schedule[day] = [];
+                    if (!this.data.schedule[day]) {
+                        this.data.schedule[day] = [];
                     }
-                    this.schedule[day].push({
+                    this.data.schedule[day].push({
                         time,
                         subject,
                         teacher,
@@ -5768,15 +5877,15 @@
                 }
                 
                 // Sort schedule by time
-                Object.keys(this.schedule).forEach(day => {
-                    this.schedule[day].sort((a, b) => {
+                Object.keys(this.data.schedule).forEach(day => {
+                    this.data.schedule[day].sort((a, b) => {
                         const aTime = a.time.split('-')[0];
                         const bTime = b.time.split('-')[0];
                         return aTime.localeCompare(bTime);
                     });
                 });
                 
-                this.saveSchedule();
+                saveCentralData(this.data);
                 this.closeModal('scheduleModal');
                 this.loadScheduleTab();
                 this.loadTodaySchedule();
@@ -5785,7 +5894,7 @@
 
             loadStudentsTab() {
                 const studentsGrid = document.getElementById('studentsGrid');
-                studentsGrid.innerHTML = this.students.map(student => `
+                studentsGrid.innerHTML = this.data.students.map(student => `
                     <div class="student-card" onclick="app.showStudentDetails(${student.id})">
                         <div class="student-avatar-large">
                             ${student.name.split(' ').map(n => n[0]).join('')}
@@ -5801,7 +5910,7 @@
             }
 
             showStudentDetails(studentId) {
-                const student = this.students.find(s => s.id === studentId);
+                const student = this.data.students.find(s => s.id === studentId);
                 if (student) {
                     alert(`Detail Siswa:\n\nNama: ${student.name}\nNIS: ${student.nis}\nEmail: ${student.email}\nTelepon: ${student.phone}`);
                 }
@@ -5809,7 +5918,7 @@
 
             loadTeachersTab() {
                 const teachersGrid = document.getElementById('teachersGrid');
-                teachersGrid.innerHTML = this.teachers.map(teacher => `
+                teachersGrid.innerHTML = this.data.teachers.map(teacher => `
                     <div class="teacher-card" onclick="app.showTeacherDetails(${teacher.id})">
                         <div class="teacher-avatar">
                             ${teacher.name.split(' ').map(n => n[0]).join('')}
@@ -5828,7 +5937,7 @@
             }
 
             showTeacherDetails(teacherId) {
-                const teacher = this.teachers.find(t => t.id === teacherId);
+                const teacher = this.data.teachers.find(t => t.id === teacherId);
                 if (teacher) {
                     alert(`Detail Guru:\n\nNama: ${teacher.name}\nMata Pelajaran: ${teacher.subject}\nKualifikasi: ${teacher.qualification}\nEmail: ${teacher.email}\nTelepon: ${teacher.phone}`);
                 }
@@ -5836,60 +5945,8 @@
 
             loadAssignmentsTab() {
                 const assignmentsList = document.getElementById('assignmentsList');
-                const assignments = this.assignments.assignments.length > 0 ? 
-                    this.assignments.assignments : 
-                    [
-                        {
-                            id: 1,
-                            subject: 'Matematika',
-                            title: 'Tugas Trigonometri - Bab 5',
-                            deadline: '2024-10-12',
-                            status: 'urgent',
-                            description: 'Kerjakan soal nomor 1-10 halaman 125',
-                            type: 'pr'
-                        },
-                        {
-                            id: 2,
-                            subject: 'Fisika',
-                            title: 'Laporan Praktikum Hukum Newton',
-                            deadline: '2024-10-15',
-                            status: 'active',
-                            description: 'Buat laporan hasil praktikum kelompok',
-                            type: 'proyek'
-                        },
-                        {
-                            id: 3,
-                            subject: 'Kimia',
-                            title: 'Tabel Periodik Unsur',
-                            deadline: '2024-10-08',
-                            status: 'completed',
-                            description: 'Hafalkan 20 unsur pertama tabel periodik',
-                            type: 'ulangan'
-                        },
-                        {
-                            id: 4,
-                            subject: 'Bahasa Indonesia',
-                            title: 'Analisis Puisi Chairil Anwar',
-                            deadline: '2024-10-18',
-                            status: 'active',
-                            description: 'Analisis 3 puisi karya Chairil Anwar',
-                            type: 'pr'
-                        },
-                        {
-                            id: 5,
-                            subject: 'Biologi',
-                            title: 'Laporan Sistem Pencernaan',
-                            deadline: '2024-10-20',
-                            status: 'active',
-                            description: 'Buat laporan tentang sistem pencernaan manusia',
-                            type: 'proyek'
-                        }
-                    ];
                 
-                this.assignments.assignments = assignments;
-                this.saveAssignments();
-                
-                assignmentsList.innerHTML = assignments.map(assignment => `
+                assignmentsList.innerHTML = this.data.assignments.assignments.map(assignment => `
                     <div class="assignment-item-detailed ${assignment.status}">
                         <div class="assignment-header">
                             <div class="assignment-subject">${assignment.subject}</div>
@@ -5929,7 +5986,7 @@
                 if (assignmentId) {
                     // Edit mode
                     title.textContent = 'Edit Tugas';
-                    const assignment = this.assignments.assignments.find(a => a.id === assignmentId);
+                    const assignment = this.data.assignments.assignments.find(a => a.id === assignmentId);
                     if (assignment) {
                         document.getElementById('assignmentId').value = assignment.id;
                         document.getElementById('assignmentSubject').value = assignment.subject;
@@ -5958,8 +6015,8 @@
 
             deleteAssignment(assignmentId) {
                 if (confirm('Apakah Anda yakin ingin menghapus tugas ini?')) {
-                    this.assignments.assignments = this.assignments.assignments.filter(a => a.id !== assignmentId);
-                    this.saveAssignments();
+                    this.data.assignments.assignments = this.data.assignments.assignments.filter(a => a.id !== assignmentId);
+                    saveCentralData(this.data);
                     this.loadAssignmentsTab();
                     this.loadUpcomingAssignments(); // Update dashboard assignments
                     this.showToast('Tugas berhasil dihapus!');
@@ -6008,13 +6065,13 @@
                 const container = document.getElementById('attendanceStudentsList');
 
                 // Ambil data absensi sebelumnya untuk tanggal dan mata pelajaran ini
-                const previousAttendance = this.attendance.records.filter(record => 
+                const previousAttendance = this.data.attendance.records.filter(record => 
                     record.date === modalDate && 
                     record.type === attendanceType &&
                     (attendanceType === 'daily' || record.subject === modalSubject)
                 );
 
-                container.innerHTML = this.students.map(student => {
+                container.innerHTML = this.data.students.map(student => {
                     // Cek apakah ada data absensi sebelumnya untuk siswa ini
                     const previousRecord = previousAttendance.find(record => record.studentId == student.id);
                     const previousStatus = previousRecord ? previousRecord.status : null;
@@ -6069,7 +6126,7 @@
                 }
 
                 // Hapus data absensi sebelumnya untuk tanggal dan mata pelajaran yang sama
-                this.attendance.records = this.attendance.records.filter(record => 
+                this.data.attendance.records = this.data.attendance.records.filter(record => 
                     !(record.date === date && 
                       record.type === attendanceType &&
                       (attendanceType === 'daily' || record.subject === subject))
@@ -6079,7 +6136,7 @@
                 studentItems.forEach(item => {
                     const studentId = item.dataset.studentId;
                     const selectedStatus = item.dataset.selectedStatus || 'absent'; // Default ke absent jika tidak dipilih
-                    const student = this.students.find(s => s.id == studentId);
+                    const student = this.data.students.find(s => s.id == studentId);
 
                     // Tambahkan record baru
                     const newRecord = {
@@ -6099,7 +6156,7 @@
                         newRecord.subject = subject;
                     }
 
-                    this.attendance.records.push(newRecord);
+                    this.data.attendance.records.push(newRecord);
                 });
 
                 // Add activity
@@ -6109,7 +6166,7 @@
                     this.addActivity('attendance', 'Absensi mata pelajaran diinput', `${this.getSubjectDisplayName(subject)} - ${date}`);
                 }
 
-                this.saveAttendance();
+                saveCentralData(this.data);
                 this.closeModal('attendanceModal');
                 
                 // Update data berdasarkan jenis absensi
@@ -6133,8 +6190,8 @@
                     icon: this.getActivityIcon(type)
                 };
                 
-                this.activities.unshift(newActivity);
-                this.saveActivities();
+                this.data.activities.unshift(newActivity);
+                saveCentralData(this.data);
             }
 
             getActivityIcon(type) {
@@ -6158,9 +6215,9 @@
                 
                 if (id) {
                     // Edit existing assignment
-                    const assignmentIndex = this.assignments.assignments.findIndex(a => a.id == id);
+                    const assignmentIndex = this.data.assignments.assignments.findIndex(a => a.id == id);
                     if (assignmentIndex !== -1) {
-                        this.assignments.assignments[assignmentIndex] = {
+                        this.data.assignments.assignments[assignmentIndex] = {
                             id: parseInt(id),
                             subject,
                             title,
@@ -6184,17 +6241,17 @@
                         created: new Date().toISOString()
                     };
 
-                    if (!this.assignments.assignments) {
-                        this.assignments.assignments = [];
+                    if (!this.data.assignments.assignments) {
+                        this.data.assignments.assignments = [];
                     }
                     
-                    this.assignments.assignments.push(newAssignment);
+                    this.data.assignments.assignments.push(newAssignment);
                     
                     // Add activity
                     this.addActivity('assignment', 'Tugas baru ditambahkan', `${subject} - ${title}`);
                 }
                 
-                this.saveAssignments();
+                saveCentralData(this.data);
                 this.closeModal('assignmentModal');
                 this.loadAssignmentsTab();
                 this.loadUpcomingAssignments(); // Update dashboard assignments
@@ -6202,7 +6259,7 @@
             }
 
             filterStudents(query) {
-                const filteredStudents = this.students.filter(student => 
+                const filteredStudents = this.data.students.filter(student => 
                     student.name.toLowerCase().includes(query.toLowerCase()) ||
                     student.nis.includes(query)
                 );
@@ -6224,7 +6281,7 @@
 
             filterAssignments(filter) {
                 const assignmentsList = document.getElementById('assignmentsList');
-                let filteredAssignments = this.assignments.assignments;
+                let filteredAssignments = this.data.assignments.assignments;
                 
                 if (filter !== 'all') {
                     filteredAssignments = filteredAssignments.filter(a => a.status === filter);
@@ -6264,14 +6321,14 @@
 
             editAnnouncement() {
                 const modal = document.getElementById('announcementModal');
-                document.getElementById('announcementTextInput').value = this.announcement.text;
+                document.getElementById('announcementTextInput').value = this.data.announcement.text;
                 modal.style.display = 'block';
             }
 
             saveAnnouncement() {
                 const newText = document.getElementById('announcementTextInput').value;
-                this.announcement.text = newText;
-                this.saveAnnouncementData();
+                this.data.announcement.text = newText;
+                saveCentralData(this.data);
                 this.updateAnnouncement();
                 this.closeModal('announcementModal');
                 this.showToast('Pengumuman berhasil diperbarui!');
@@ -6283,7 +6340,7 @@
                     // Add animation
                     announcementEl.style.opacity = '0';
                     setTimeout(() => {
-                        announcementEl.textContent = this.announcement.text;
+                        announcementEl.textContent = this.data.announcement.text;
                         announcementEl.style.opacity = '1';
                     }, 300);
                 }
@@ -6291,14 +6348,14 @@
 
             exportAttendance() {
                 const date = document.getElementById('attendanceDate').value;
-                const dayRecords = this.attendance.records.filter(record => 
+                const dayRecords = this.data.attendance.records.filter(record => 
                     record.date === date && record.type === 'daily'
                 );
                 
                 let csvContent = "data:text/csv;charset=utf-8,";
                 csvContent += "No,Nama Siswa,NIS,Status,Waktu,Keterangan\n";
                 
-                this.students.forEach((student, index) => {
+                this.data.students.forEach((student, index) => {
                     const record = dayRecords.find(r => r.studentId == student.id);
                     const status = record ? this.getStatusText(record.status) : 'Belum diisi';
                     const time = record ? record.time : '-';
@@ -6400,6 +6457,9 @@
 
         // Initialize the application
         const app = new ClassWebsite();
+
+        // Initialize central data
+        initializeCentralData();
 
         // Loading screen animation
         window.addEventListener('load', function() {
